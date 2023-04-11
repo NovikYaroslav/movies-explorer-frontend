@@ -1,2 +1,3 @@
 # movies-explorer-frontend
-frontend for movies-explorer yandex practicum diploma project
+
+This is frontend part for my yandex practicum diploma project

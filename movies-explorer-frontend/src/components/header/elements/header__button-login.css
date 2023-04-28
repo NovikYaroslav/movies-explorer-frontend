@@ -1,0 +1,14 @@
+.header__button-login {
+  height: 32px;
+  width: 76px;
+  margin: 0;
+  border: none;
+  border-radius: 3px;
+  outline: none;
+  background-color: #3ddc84;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+}

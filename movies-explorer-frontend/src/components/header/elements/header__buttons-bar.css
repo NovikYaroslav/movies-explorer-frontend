@@ -1,0 +1,5 @@
+.header__buttons-bar {
+  display: flex;
+  margin: 21px 70px 21px 0;
+  align-items: center;
+}

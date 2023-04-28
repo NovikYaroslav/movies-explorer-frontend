@@ -1,0 +1,14 @@
+.header__button-account {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 17px;
+  margin: 0;
+  padding: 0;
+  height: 30px;
+  width: 100px;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  background-color: transparent;
+}

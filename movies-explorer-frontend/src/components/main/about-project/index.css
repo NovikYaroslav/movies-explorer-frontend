@@ -1,0 +1,13 @@
+.about-project {
+  display: flex;
+  flex-direction: column;
+  padding: 110px 70px 110px 70px;
+  background: #202020;
+}
+
+@import url(./elements/about-project__text-block.css);
+@import url(./elements/about-project__title.css);
+@import url(./elements/about-project__text-block-element.css);
+@import url(./elements/about-project__schedule.css);
+@import url(./elements/about-project__text-title.css);
+@import url(./elements/about-project__text.css);

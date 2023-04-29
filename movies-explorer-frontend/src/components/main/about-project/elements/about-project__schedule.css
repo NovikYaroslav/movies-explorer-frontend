@@ -1,0 +1,37 @@
+.about-project__schedule {
+  display: grid;
+  grid-template-columns: 228px 1fr;
+  grid-template-rows: 36px 36px;
+  row-gap: 14px;
+  /* text-align: center; */
+  margin: 110px 0 0 0;
+  list-style: none;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+}
+
+.about-project__schedule :nth-child(1) {
+  text-align: center;
+  padding: 9px 0 9px 0;
+  font-weight: 400;
+  color: #000000;
+  background-color: #3ddc84;
+}
+.about-project__schedule :nth-child(2) {
+  padding: 9px 0 9px 426px;
+  font-weight: 400;
+  color: #ffffff;
+  background-color: #303030;
+}
+.about-project__schedule :nth-child(3) {
+  text-align: center;
+  padding: 9px 0 9px 0;
+  color: #8b8b8b;
+}
+.about-project__schedule :nth-child(4) {
+  padding: 9px 0 9px 426px;
+  color: #8b8b8b;
+}

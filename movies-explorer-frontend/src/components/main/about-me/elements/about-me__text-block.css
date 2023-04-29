@@ -1,0 +1,7 @@
+.about-me__text-block {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  color: #ffffff;
+  column-gap: 40px;
+}

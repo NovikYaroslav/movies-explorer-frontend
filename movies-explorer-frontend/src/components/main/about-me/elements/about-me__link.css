@@ -1,0 +1,11 @@
+.about-me__link {
+  width: 46px;
+  text-decoration: none;
+  color: #ffffff;
+  margin: 0;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+}

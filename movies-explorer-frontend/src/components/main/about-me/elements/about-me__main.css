@@ -1,0 +1,6 @@
+.about-me__main {
+  margin: 0;
+  padding: 75px 0 0 0;
+  display: flex;
+  justify-content: space-between;
+}

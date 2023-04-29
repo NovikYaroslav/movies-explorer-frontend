@@ -1,0 +1,6 @@
+.about-project__text-block {
+  display: flex;
+  /* justify-content: space-between; */
+  color: #ffffff;
+  column-gap: 40px;
+}

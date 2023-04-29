@@ -1,0 +1,8 @@
+.techs__list {
+  display: flex;
+  list-style: none;
+  height: 60px;
+  padding: 0;
+  column-gap: 10px;
+  padding-top: 100px;
+}

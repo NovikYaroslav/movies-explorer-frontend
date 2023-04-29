@@ -1,0 +1,12 @@
+.techs__text {
+  max-width: 460px;
+  max-height: 40px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  padding-top: 26px;
+}

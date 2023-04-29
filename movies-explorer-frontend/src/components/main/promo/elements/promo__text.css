@@ -1,0 +1,13 @@
+.promo__text {
+  margin: 0;
+  padding-top: 36px;
+  max-width: 310px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #ffffff;
+  mix-blend-mode: normal;
+  opacity: 0.5;
+}

@@ -9,3 +9,17 @@
   margin: 0;
   padding-top: 90px;
 }
+
+@media (max-width: 870px) {
+  .techs__text-title {
+    padding-top: 80px;
+  }
+}
+
+@media (max-width: 450px) {
+  .techs__text-title {
+    font-size: 30px;
+    line-height: 36px;
+    padding-top: 60px;
+  }
+}

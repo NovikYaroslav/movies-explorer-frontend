@@ -6,9 +6,9 @@ import Techs from './techs';
 function Main() {
   return (
     <>
-      <Promo />
-      <AboutProject />
-      <Techs />
+      {/* <Promo /> */}
+      {/* <AboutProject /> */}
+      {/* <Techs /> */}
       <AboutMe />
     </>
   );

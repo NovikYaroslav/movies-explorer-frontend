@@ -14,3 +14,10 @@
   font-size: 12px;
   line-height: 16px;
 }
+
+@media (max-width: 460px) {
+  .header__button-registrate {
+    margin: 0 14px 0 0;
+    font-size: 10px;
+  }
+}

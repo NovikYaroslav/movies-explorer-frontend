@@ -5,9 +5,20 @@
   background: #202020;
 }
 
+@media (max-width: 870px) {
+  .about-project {
+    padding: 90px 50px 90px 50px;
+  }
+}
+
+@media (max-width: 450px) {
+  .about-project {
+    padding: 70px 18px 70px 18px;
+  }
+}
+
 @import url(./elements/about-project__text-block.css);
 @import url(./elements/about-project__title.css);
-@import url(./elements/about-project__text-block-element.css);
 @import url(./elements/about-project__schedule.css);
 @import url(./elements/about-project__text-title.css);
 @import url(./elements/about-project__text.css);

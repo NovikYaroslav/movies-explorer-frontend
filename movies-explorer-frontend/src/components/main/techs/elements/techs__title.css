@@ -10,3 +10,12 @@
   letter-spacing: -0.04em;
   color: #ffffff;
 }
+
+@media (max-width: 450px) {
+  .techs__title {
+    font-size: 18px;
+    padding-bottom: 28px;
+    line-height: 22px;
+    border-bottom: 1px solid #000000;
+  }
+}

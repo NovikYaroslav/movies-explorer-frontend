@@ -1,5 +1,5 @@
 .header {
-  min-height: 74px;
+  padding: 18px 70px 18px 70px;
   display: flex;
   justify-content: space-between;
   background-color: #073042;
@@ -10,6 +10,18 @@
   display: flex;
   justify-content: space-between;
   background-color: #202020;
+}
+
+@media (max-width: 800px) {
+  .header {
+    padding: 18px 30px;
+  }
+}
+
+@media (max-width: 460px) {
+  .header {
+    padding: 18px 14px;
+  }
 }
 
 @import url(./elements/header__button.css);

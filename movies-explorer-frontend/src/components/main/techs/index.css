@@ -1,7 +1,21 @@
 .techs {
+  display: flex;
+  flex-direction: column;
   background: #272727;
   color: #ffffff;
   padding: 100px 70px 100px 70px;
+}
+
+@media (max-width: 870px) {
+  .techs {
+    padding: 90px 60px 90px 60px;
+  }
+}
+
+@media (max-width: 450px) {
+  .techs {
+    padding: 70px 18px 70px 18px;
+  }
 }
 
 @import url(./elements/techs__text-block.css);

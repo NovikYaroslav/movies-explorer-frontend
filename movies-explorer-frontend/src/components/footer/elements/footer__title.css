@@ -10,3 +10,10 @@
   line-height: 16px;
   color: #8b8b8b;
 }
+
+@media (max-width: 460px) {
+  .footer__title {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

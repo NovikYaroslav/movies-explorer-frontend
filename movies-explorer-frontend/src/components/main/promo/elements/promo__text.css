@@ -11,3 +11,16 @@
   mix-blend-mode: normal;
   opacity: 0.5;
 }
+
+@media (max-width: 870px) {
+  .promo__text {
+    text-align: center;
+    max-width: 260px;
+  }
+}
+
+@media (max-width: 450px) {
+  .promo__text {
+    padding-top: 24px;
+  }
+}

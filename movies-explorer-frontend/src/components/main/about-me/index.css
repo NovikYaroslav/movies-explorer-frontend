@@ -5,6 +5,12 @@
   padding: 110px 70px 100px 70px;
 }
 
+@media (max-width: 870px) {
+  .about-me {
+    padding: 90px 50px 90px 50px;
+  }
+}
+
 @import url(./elements/about-me__title.css);
 @import url(./elements/about-me__main.css);
 @import url(./elements/about-me__text-block.css);

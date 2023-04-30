@@ -1,0 +1,13 @@
+@media (max-width: 870px) {
+  .promo__logo {
+    width: 310px;
+    height: 304px;
+  }
+}
+
+@media (max-width: 450px) {
+  .promo__logo {
+    width: 210px;
+    height: 206px;
+  }
+}

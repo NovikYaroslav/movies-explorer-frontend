@@ -1,10 +1,10 @@
 .portfolio__link {
   display: flex;
   justify-content: space-between;
-  list-style: none;
+  text-decoration: none;
   margin: 0;
   padding: 20px 0 20px 0;
-  border-bottom: 1px solid #dadada;
+  border-bottom: 1px solid #424242;
   font-family: 'Inter';
   font-style: normal;
   font-weight: 400;

@@ -1,3 +1,4 @@
+import Footer from '../footer';
 import Header from '../header';
 import Main from '../main';
 import Movies from '../movies';
@@ -13,6 +14,7 @@ function App() {
         <Route path='/' element={<Main />} />
         <Route path='/movies' element={<Movies />} />
       </Routes>
+      <Footer />
     </>
   );
 }

@@ -6,18 +6,30 @@ function Portfolio() {
     <div className='portfolio'>
       <h4 className='portfolio__title'>Портфолио</h4>
       <ul className='portfolio__links'>
-        <li className='portfolio__link'>
+        <a
+          className='portfolio__link'
+          href='https://novikyaroslav.github.io/how-to-learn/'
+          target='_blank'
+          rel='noreferrer'>
           Статичный сайт
           <img src={arrow} alt='' />
-        </li>
-        <li className='portfolio__link'>
+        </a>
+        <a
+          className='portfolio__link'
+          href='https://novikyaroslav.github.io/russian-travel/'
+          target='_blank'
+          rel='noreferrer'>
           Адаптивный сайт
           <img src={arrow} alt='' />
-        </li>
-        <li className='portfolio__link'>
+        </a>
+        <a
+          className='portfolio__link'
+          href='https://mesto.novik.nomoredomains.work/'
+          target='_blank'
+          rel='noreferrer'>
           Одностраничное приложение
           <img src={arrow} alt='' />
-        </li>
+        </a>
       </ul>
     </div>
   );

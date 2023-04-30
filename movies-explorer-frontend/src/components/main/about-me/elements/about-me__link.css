@@ -9,3 +9,9 @@
   font-size: 14px;
   line-height: 22px;
 }
+
+@media (max-width: 870px) {
+  .about-me__link {
+    line-height: 17px;
+  }
+}

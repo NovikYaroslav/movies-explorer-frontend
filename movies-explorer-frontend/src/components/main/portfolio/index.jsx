@@ -12,7 +12,7 @@ function Portfolio() {
           target='_blank'
           rel='noreferrer'>
           Статичный сайт
-          <img src={arrow} alt='' />
+          <img className='portfolio__link-arrow' src={arrow} alt='' />
         </a>
         <a
           className='portfolio__link'
@@ -20,7 +20,7 @@ function Portfolio() {
           target='_blank'
           rel='noreferrer'>
           Адаптивный сайт
-          <img src={arrow} alt='' />
+          <img className='portfolio__link-arrow' src={arrow} alt='' />
         </a>
         <a
           className='portfolio__link'
@@ -28,7 +28,7 @@ function Portfolio() {
           target='_blank'
           rel='noreferrer'>
           Одностраничное приложение
-          <img src={arrow} alt='' />
+          <img className='portfolio__link-arrow' src={arrow} alt='' />
         </a>
       </ul>
     </div>

@@ -1,0 +1,6 @@
+@media (max-width: 500px) {
+  .portfolio__link-arrow {
+    width: 14px;
+    height: 20px;
+  }
+}

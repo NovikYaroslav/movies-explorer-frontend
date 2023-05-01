@@ -1,0 +1,9 @@
+.not-found {
+  display: flex;
+  flex-direction: column;
+  background-color: #202020;
+}
+
+@import url(./elements/not-found__title.css);
+@import url(./elements/not-found__subtitle.css);
+@import url(./elements/not-found__button.css);

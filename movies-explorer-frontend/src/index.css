@@ -1,5 +1,6 @@
 body {
   margin: 0;
+  /* background: #202020; */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -12,3 +13,13 @@ code {
 
 @import url(./vendor/normalize.css);
 @import url(./vendor/Inter-font.css);
+@import url(./components/header/index.css);
+@import url(./components/footer/index.css);
+@import url(./components/main/promo/index.css);
+@import url(./components/main/about-project/index.css);
+@import url(./components/main/techs/index.css);
+@import url(./components/main/about-me/index.css);
+@import url(./components/main/portfolio/index.css);
+@import url(./components/login/index.css);
+@import url(./components/form/index.css);
+@import url(./components/input/index.css);

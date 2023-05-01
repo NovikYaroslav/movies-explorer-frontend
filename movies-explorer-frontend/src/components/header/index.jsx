@@ -1,6 +1,20 @@
+import { useState, useEffect } from 'react';
 import logo from '../../images/logo.svg';
 
 function Header({ currentLocation }) {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Условка для отображения кнопки меню
+  console.log(windowWidth < 768 ? '768' : 'большой экран');
+
   return (
     <div className={currentLocation === '/' ? 'header' : 'header_location_main'}>
       <img className='header__logo' src={logo} alt='logo' />

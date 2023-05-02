@@ -1,0 +1,22 @@
+.profile__menu {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto 0 auto;
+  padding: 220px 0 0 0;
+  width: 410px;
+  row-gap: 16px;
+  align-items: center;
+}
+
+@media (max-width: 800px) {
+  .profile__menu {
+    padding: 210px 0 0 0;
+  }
+}
+
+@media (max-width: 400px) {
+  .profile__menu {
+    padding: 379px 0 0 0;
+    width: 260px;
+  }
+}

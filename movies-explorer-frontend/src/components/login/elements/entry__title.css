@@ -9,3 +9,9 @@
   line-height: 29px;
   text-align: start;
 }
+
+@media (max-width: 400px) {
+  .entry__title {
+    padding: 50px 0 80px 0;
+  }
+}

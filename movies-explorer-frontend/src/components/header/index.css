@@ -6,9 +6,7 @@
 }
 
 .header_location_main {
-  min-height: 74px;
-  display: flex;
-  justify-content: space-between;
+  align-items: center;
   background-color: #202020;
 }
 
@@ -34,3 +32,4 @@
 @import url(./elements/header__movies-navigator.css);
 @import url(./elements/header__button-movies/header__button-movies.css);
 @import url(./elements/header__button-movies/header__button-movies_active.css);
+@import url(./elements/header__button-menu.css);

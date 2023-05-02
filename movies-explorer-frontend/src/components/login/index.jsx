@@ -42,7 +42,7 @@ export default function Login({ onAuthoriz }) {
         </Form>
         <p className='entry__question'>
           Ещё не зарегистрированы?
-          <p className='entry__login-button'>Регистрация</p>
+          <button className='entry__login-button'>Регистрация</button>
         </p>
       </div>
     </div>

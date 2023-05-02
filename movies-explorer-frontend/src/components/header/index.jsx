@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import menuPopupButton from '../../images/menu-popup-button.svg';
 import logo from '../../images/logo.svg';
 
 function Header({ currentLocation }) {
@@ -12,17 +13,16 @@ function Header({ currentLocation }) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Условка для отображения кнопки меню
-  console.log(windowWidth < 768 ? '768' : 'большой экран');
-
   return (
-    <div className={currentLocation === '/' ? 'header' : 'header_location_main'}>
+    <div className={`header ${currentLocation === '/' ? '' : 'header_location_main'}`}>
       <img className='header__logo' src={logo} alt='logo' />
       {currentLocation === '/' ? (
         <div className='header__buttons-bar'>
           <button className='header__button-registrate'>Регистрация</button>
           <button className='header__button-login'>Войти</button>
         </div>
+      ) : windowWidth < 800 ? (
+        <img className='header__button-menu' src={menuPopupButton} alt='иконка кнопки меню' />
       ) : (
         <div className='header__buttons-bar'>
           <nav className='header__movies-navigator'>

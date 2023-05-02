@@ -50,7 +50,7 @@ export default function Register({ onAuthoriz }) {
         </Form>
         <p className='entry__question'>
           Уже зарегистрированы?
-          <p className='entry__login-button'>Войти</p>
+          <button className='entry__login-button'>Войти</button>
         </p>
       </div>
     </div>

@@ -22,13 +22,8 @@
   opacity: 0.8;
 }
 
-@media screen and (max-width: 600px) {
+@media (max-width: 400px) {
   .forms__save_entry {
-    width: 238px;
-    height: 46px;
-    margin-top: 45px;
-    margin-bottom: 25px;
-    font-size: 14px;
-    line-height: 17px;
+    margin-top: 247px;
   }
 }

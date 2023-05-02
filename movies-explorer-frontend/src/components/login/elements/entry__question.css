@@ -1,6 +1,6 @@
 .entry__question {
   display: flex;
-  margin: 16px auto 70px auto;
+  margin: 16px auto 0 auto;
   padding: 0;
   font-family: 'Inter';
   font-style: normal;
@@ -9,4 +9,12 @@
   line-height: 17px;
   color: #8b8b8b;
   column-gap: 6px;
+}
+
+@media (max-width: 500px) {
+  .entry__question {
+    margin: 14px auto 0 auto;
+    font-size: 12px;
+    line-height: 15px;
+  }
 }

@@ -1,0 +1,13 @@
+.navigation__menu {
+  width: 520px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 0 0 auto;
+  background: #202020;
+}
+
+@media (max-width: 520px) {
+  .navigation__menu {
+    width: 100%;
+  }
+}

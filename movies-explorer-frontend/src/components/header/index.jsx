@@ -1,8 +1,9 @@
 import { useState, useEffect } from 'react';
 import menuPopupButton from '../../images/menu-popup-button.svg';
 import logo from '../../images/logo.svg';
+import Navigation from '../navigation';
 
-function Header({ currentLocation }) {
+function Header({ currentLocation, onNavButtonClick, onCloseButtonClick, visability }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   useEffect(() => {
@@ -22,7 +23,14 @@ function Header({ currentLocation }) {
           <button className='header__button-login'>Войти</button>
         </div>
       ) : windowWidth < 800 ? (
-        <img className='header__button-menu' src={menuPopupButton} alt='иконка кнопки меню' />
+        <img
+          onClick={() => {
+            onNavButtonClick();
+          }}
+          className='header__button-menu'
+          src={menuPopupButton}
+          alt='иконка кнопки меню'
+        />
       ) : (
         <div className='header__buttons-bar'>
           <nav className='header__movies-navigator'>
@@ -35,6 +43,7 @@ function Header({ currentLocation }) {
           </button>
         </div>
       )}
+      <Navigation opened={visability} onCloseButtonClick={onCloseButtonClick} />
     </div>
   );
 }

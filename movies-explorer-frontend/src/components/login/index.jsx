@@ -42,7 +42,13 @@ export default function Login({ onAuthoriz }) {
         </Form>
         <p className='entry__question'>
           Ещё не зарегистрированы?
-          <button className='entry__login-button'>Регистрация</button>
+          <button
+            onClick={() => {
+              console.log('dsdsdsd');
+            }}
+            className='entry__login-button'>
+            Регистрация
+          </button>
         </p>
       </div>
     </div>

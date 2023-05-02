@@ -11,4 +11,9 @@
   outline: none;
   color: #ffffff;
   background-color: transparent;
+  cursor: pointer;
+}
+
+.header__button-account:hover {
+  opacity: 0.5;
 }

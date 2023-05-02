@@ -25,16 +25,16 @@ function App() {
         onCloseButtonClick={handleNavMenuVisability}
         visability={navigationOpened}
       />
-      {/* <Login /> */}
-      {/* <Register /> */}
+      {/* <Login />
+      <Register /> */}
 
       <Routes>
-        {/* <Route path='/' element={<Main />} />
-        <Route path='/movies' element={<Movies />} />
-        <Route path='/*' element={<NotFound />} /> */}
-        <Route path='/profile' element={<Profile />} />
+        {/* <Route path='/' element={<Main />} /> */}
+        {/* <Route path='/movies' element={<Movies />} /> */}
+        {/* <Route path='/*' element={<NotFound />} /> */}
+        {/* <Route path='/profile' element={<Profile />} /> */}
       </Routes>
-      {/* <Footer /> */}
+      <Footer />
     </>
   );
 }

@@ -10,4 +10,9 @@
   font-size: 13px;
   line-height: 16px;
   display: flex;
+  cursor: pointer;
+}
+
+.profile__button:hover {
+  opacity: 0.5;
 }

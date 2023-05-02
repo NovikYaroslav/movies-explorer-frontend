@@ -14,4 +14,9 @@
   font-size: 14px;
   line-height: 18px;
   text-align: right;
+  cursor: pointer;
+}
+
+.header__button-movies:hover {
+  opacity: 0.5;
 }

@@ -15,7 +15,7 @@
 }
 
 .header__button-login:hover {
-  opacity: 0.6;
+  opacity: 0.5;
 }
 
 @media (max-width: 460px) {

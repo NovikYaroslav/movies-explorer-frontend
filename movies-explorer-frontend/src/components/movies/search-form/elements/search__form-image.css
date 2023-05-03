@@ -1,0 +1,6 @@
+@media (max-width: 800px) {
+  .search__form-image {
+    width: 46px;
+    height: 46px;
+  }
+}

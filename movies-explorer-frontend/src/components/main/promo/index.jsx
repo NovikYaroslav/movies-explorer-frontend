@@ -13,7 +13,9 @@ function Promo() {
         </div>
         <img className='promo__logo' src={landingLogo} alt='Логотип' />
       </div>
-      <button className='promo__button'>Узнать больше</button>
+      <a href='#about-project'>
+        <button className='promo__button'>Узнать больше</button>
+      </a>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import './index.css';
 
 function AboutProject() {
   return (
-    <div className='about-project'>
+    <div className='about-project' id='about-project'>
       <h2 className='about-project__title'>О проекте</h2>
       <div className='about-project__text-block'>
         <div>

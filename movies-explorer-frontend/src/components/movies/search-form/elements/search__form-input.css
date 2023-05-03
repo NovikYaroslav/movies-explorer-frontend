@@ -1,0 +1,20 @@
+.search__form-input {
+  max-width: 50%;
+  border: none;
+  background-color: transparent;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 34px;
+  text-align: center;
+  color: #8b8b8b;
+}
+
+@media (max-width: 550px) {
+  .search__form-input {
+    text-align: start;
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

@@ -8,6 +8,7 @@ import NotFound from '../not-found/not-found';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import Register from '../register';
 import Profile from '../profile';
+import SavedMovies from '../saved-movies';
 
 function App() {
   const location = useLocation();
@@ -19,22 +20,33 @@ function App() {
 
   return (
     <>
-      <Header
-        currentLocation={location.pathname}
-        onNavButtonClick={handleNavMenuVisability}
-        onCloseButtonClick={handleNavMenuVisability}
-        visability={navigationOpened}
-      />
+      {location.pathname === '/' ||
+      location.pathname === '/movies' ||
+      location.pathname === '/saved-movies' ||
+      location.pathname === '/profile' ? (
+        <Header
+          currentLocation={location.pathname}
+          onNavButtonClick={handleNavMenuVisability}
+          onCloseButtonClick={handleNavMenuVisability}
+          visability={navigationOpened}
+        />
+      ) : null}
+
       {/* <Login />
       <Register /> */}
 
       <Routes>
-        {/* <Route path='/' element={<Main />} /> */}
-        {/* <Route path='/movies' element={<Movies />} /> */}
-        {/* <Route path='/*' element={<NotFound />} /> */}
-        {/* <Route path='/profile' element={<Profile />} /> */}
+        <Route path='/' element={<Main />} />
+        <Route path='/movies' element={<Movies currentLocation={location.pathname} />} />
+        <Route path='/saved-movies' element={<SavedMovies currentLocation={location.pathname} />} />
+        <Route path='/*' element={<NotFound />} />
+        <Route path='/profile' element={<Profile />} />
       </Routes>
-      <Footer />
+      {location.pathname === '/' ||
+      location.pathname === '/movies' ||
+      location.pathname === '/saved-movies' ? (
+        <Footer />
+      ) : null}
     </>
   );
 }

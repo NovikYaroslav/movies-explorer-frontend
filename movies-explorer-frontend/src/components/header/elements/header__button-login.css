@@ -1,17 +1,19 @@
 .header__button-login {
-  height: 32px;
   width: 76px;
   margin: 0;
+  padding: 8px 0;
+  text-align: center;
   border: none;
   border-radius: 3px;
   outline: none;
   background-color: #3ddc84;
-  font-family: 'Inter';
+  font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .header__button-login:hover {

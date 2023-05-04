@@ -3,7 +3,7 @@
   margin: 0 auto 26px auto;
   background: none;
   border: none;
-  font-family: 'Inter';
+  font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 18px;
@@ -11,6 +11,7 @@
   text-align: center;
   color: #ffffff;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .navigation__menu-item:hover {

@@ -31,11 +31,9 @@ function App() {
           visability={navigationOpened}
         />
       ) : null}
-
-      {/* <Login />
-      <Register /> */}
-
       <Routes>
+        <Route path='/signin' element={<Login />} />
+        <Route path='/signup' element={<Register />} />
         <Route path='/' element={<Main />} />
         <Route path='/movies' element={<Movies currentLocation={location.pathname} />} />
         <Route path='/saved-movies' element={<SavedMovies currentLocation={location.pathname} />} />

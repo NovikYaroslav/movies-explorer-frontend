@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import './index.css';
 
 function Navigation({ opened, onCloseButtonClick }) {
@@ -9,13 +10,19 @@ function Navigation({ opened, onCloseButtonClick }) {
           alt='кнопка закрытия меню'
           onClick={onCloseButtonClick}></button>
         <div className='navigation__menu-list'>
-          <button className='navigation__menu-item'>Главная</button>
-          <button className='navigation__menu-item navigation__menu-item_active'>Фильмы</button>
-          <button className='navigation__menu-item'>Сохранённые фильмы</button>
-          <button className='navigation__menu-item'>
+          <Link className='navigation__menu-item' to='/'>
+            Главная
+          </Link>
+          <Link to='/movies' className='navigation__menu-item navigation__menu-item_active'>
+            Фильмы
+          </Link>
+          <Link to='/saved-movies' className='navigation__menu-item'>
+            Сохранённые фильмы
+          </Link>
+          <Link to='/profile' className='navigation__menu-item'>
             Аккаунт
             <div className='header__account-logo' alt='account logo'></div>
-          </button>
+          </Link>
         </div>
       </div>
     </div>

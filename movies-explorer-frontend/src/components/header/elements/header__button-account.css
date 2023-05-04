@@ -12,6 +12,12 @@
   color: #ffffff;
   background-color: transparent;
   cursor: pointer;
+  text-decoration: none;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
 }
 
 .header__button-account:hover {

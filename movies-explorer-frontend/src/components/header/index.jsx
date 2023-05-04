@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import menuPopupButton from '../../images/menu-popup-button.svg';
 import logo from '../../images/logo.svg';
 import Navigation from '../navigation';
@@ -16,11 +17,18 @@ function Header({ currentLocation, onNavButtonClick, onCloseButtonClick, visabil
 
   return (
     <div className={`header ${currentLocation === '/' ? '' : 'header_location_main'}`}>
-      <img className='header__logo' src={logo} alt='logo' />
+      <Link className='header__logo' to='/'>
+        <img src={logo} alt='logo' />
+      </Link>
       {currentLocation === '/' ? (
         <div className='header__buttons-bar'>
-          <button className='header__button-registrate'>Регистрация</button>
-          <button className='header__button-login'>Войти</button>
+          <Link className='header__button-registrate' to='/signup'>
+            Регистрация
+          </Link>
+
+          <Link className='header__button-login' to='/signin'>
+            Войти
+          </Link>
         </div>
       ) : windowWidth < 800 ? (
         <img
@@ -34,13 +42,17 @@ function Header({ currentLocation, onNavButtonClick, onCloseButtonClick, visabil
       ) : (
         <div className='header__buttons-bar'>
           <nav className='header__movies-navigator'>
-            <button className='header__button-movies header__button-movies_active'>Фильмы</button>
-            <button className='header__button-movies'>Сохраненые фильмы</button>
+            <Link className='header__button-movies header__button-movies_active' to='/movies'>
+              Фильмы
+            </Link>
+            <Link className='header__button-movies' to='/saved-movies'>
+              Сохраненые фильмы
+            </Link>
           </nav>
-          <button className='header__button-account'>
+          <Link className='header__button-account' to='/profile'>
             Аккаунт
             <div className='header__account-logo' alt='account logo'></div>
-          </button>
+          </Link>
         </div>
       )}
       <Navigation opened={visability} onCloseButtonClick={onCloseButtonClick} />

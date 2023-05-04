@@ -8,12 +8,13 @@
   outline: none;
   color: #ffffff;
   background-color: transparent;
-  font-family: 'Inter';
+  font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .header__button-registrate:hover {

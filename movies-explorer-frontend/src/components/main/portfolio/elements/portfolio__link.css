@@ -4,8 +4,6 @@
   align-items: center;
   text-decoration: none;
   margin: 0;
-  padding: 25px 0 35px 0;
-  border-bottom: 1px solid #424242;
   font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 400;
@@ -13,15 +11,11 @@
   line-height: 50px;
   letter-spacing: -0.04em;
   color: #ffffff;
+  width: 100%;
 }
 
 .portfolio__link:hover {
   opacity: 0.5;
-}
-
-.portfolio__link:last-child {
-  padding-bottom: 0;
-  border-bottom: none;
 }
 
 @media (max-width: 870px) {
@@ -33,7 +27,6 @@
 
 @media (max-width: 500px) {
   .portfolio__link {
-    padding-bottom: 25px;
     font-size: 18px;
     line-height: 28px;
   }

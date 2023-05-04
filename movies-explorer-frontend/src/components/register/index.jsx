@@ -13,7 +13,7 @@ export default function Register({ onAuthoriz }) {
   }
 
   return (
-    <div className='entry'>
+    <section className='entry'>
       <div className='entry__container'>
         <img src={logo} alt='логотип' />
         <h2 className='entry__title'>Добро пожаловать!</h2>
@@ -53,6 +53,6 @@ export default function Register({ onAuthoriz }) {
           <button className='entry__login-button'>Войти</button>
         </p>
       </div>
-    </div>
+    </section>
   );
 }

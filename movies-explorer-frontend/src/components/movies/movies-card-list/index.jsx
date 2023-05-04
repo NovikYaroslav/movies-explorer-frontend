@@ -3,7 +3,7 @@ import MoviesCard from '../movies-card';
 
 function MoviesCardList({ moviesForLayout, currentLocation }) {
   return (
-    <div className='movies-list'>
+    <ul className='movies-list'>
       {moviesForLayout.map((movie) => (
         <MoviesCard
           title={movie.title}
@@ -14,7 +14,7 @@ function MoviesCardList({ moviesForLayout, currentLocation }) {
           key={movie.id}
         />
       ))}
-    </div>
+    </ul>
   );
 }
 

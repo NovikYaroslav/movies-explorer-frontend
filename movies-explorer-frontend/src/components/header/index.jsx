@@ -16,7 +16,7 @@ function Header({ currentLocation, onNavButtonClick, onCloseButtonClick, visabil
   }, []);
 
   return (
-    <div className={`header ${currentLocation === '/' ? '' : 'header_location_main'}`}>
+    <header className={`header ${currentLocation === '/' ? '' : 'header_location_main'}`}>
       <Link className='header__logo' to='/'>
         <img src={logo} alt='logo' />
       </Link>
@@ -56,7 +56,7 @@ function Header({ currentLocation, onNavButtonClick, onCloseButtonClick, visabil
         </div>
       )}
       <Navigation opened={visability} onCloseButtonClick={onCloseButtonClick} />
-    </div>
+    </header>
   );
 }
 

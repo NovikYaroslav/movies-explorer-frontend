@@ -17,5 +17,6 @@
 
 @import url(./elements/portfolio__title.css);
 @import url(./elements/portfolio__links.css);
+@import url(./elements/portfolio__links-element.css);
 @import url(./elements/portfolio__link.css);
 @import url(./elements/porfolio__link-arrow.css);

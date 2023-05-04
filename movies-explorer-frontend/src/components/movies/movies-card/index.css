@@ -9,6 +9,7 @@
 @import url(./elements/card__header-text.css);
 @import url(./elements/card__title.css);
 @import url(./elements/card__duration.css);
+@import url(./elements/card__preview.css);
 @import url(./elements/card__button/card__button.css);
 @import url(./elements/card__button/card__button_active.css);
 @import url(./elements/card__button/card__button_delete.css);

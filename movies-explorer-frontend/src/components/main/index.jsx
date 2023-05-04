@@ -5,12 +5,12 @@ import Techs from './techs';
 
 function Main() {
   return (
-    <>
+    <section className='introduction'>
       <Promo />
       <AboutProject />
       <Techs />
       <AboutMe />
-    </>
+    </section>
   );
 }
 

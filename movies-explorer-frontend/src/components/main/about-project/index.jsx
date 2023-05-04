@@ -24,7 +24,6 @@ function AboutProject() {
         <li className='about-project__schedule-element'>1 неделя</li>
         <li className='about-project__schedule-element'>4 недели</li>
         <li className='about-project__schedule-element'>Back-end</li>
-
         <li className='about-project__schedule-element'>Front-end</li>
       </div>
     </div>

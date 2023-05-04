@@ -5,11 +5,11 @@ import { mockCards } from '../../data/mockCards';
 
 function Movies({ currentLocation }) {
   return (
-    <>
+    <section className='movies'>
       <SearchForm />
       <MoviesCardList moviesForLayout={mockCards} currentLocation={currentLocation} />
       <Preloader />
-    </>
+    </section>
   );
 }
 

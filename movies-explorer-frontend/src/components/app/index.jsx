@@ -31,15 +31,20 @@ function App() {
           visability={navigationOpened}
         />
       ) : null}
-      <Routes>
-        <Route path='/signin' element={<Login />} />
-        <Route path='/signup' element={<Register />} />
-        <Route path='/' element={<Main />} />
-        <Route path='/movies' element={<Movies currentLocation={location.pathname} />} />
-        <Route path='/saved-movies' element={<SavedMovies currentLocation={location.pathname} />} />
-        <Route path='/*' element={<NotFound />} />
-        <Route path='/profile' element={<Profile />} />
-      </Routes>
+      <main className='content'>
+        <Routes>
+          <Route path='/signin' element={<Login />} />
+          <Route path='/signup' element={<Register />} />
+          <Route path='/' element={<Main />} />
+          <Route path='/movies' element={<Movies currentLocation={location.pathname} />} />
+          <Route
+            path='/saved-movies'
+            element={<SavedMovies currentLocation={location.pathname} />}
+          />
+          <Route path='/*' element={<NotFound />} />
+          <Route path='/profile' element={<Profile />} />
+        </Routes>
+      </main>
       {location.pathname === '/' ||
       location.pathname === '/movies' ||
       location.pathname === '/saved-movies' ? (

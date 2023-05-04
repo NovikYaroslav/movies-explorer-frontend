@@ -2,7 +2,7 @@ import './index.css';
 
 function MoviesCard({ title, duration, preview, active, currentLocation }) {
   return (
-    <div className='card'>
+    <li className='card'>
       <div className='card__header'>
         <div className='card__header-text'>
           <h3 className='card__title'>{title}</h3>
@@ -18,7 +18,7 @@ function MoviesCard({ title, duration, preview, active, currentLocation }) {
           }`}></button>
       </div>
       <img className='card__preview' src={preview} alt='превью фильма' />
-    </div>
+    </li>
   );
 }
 

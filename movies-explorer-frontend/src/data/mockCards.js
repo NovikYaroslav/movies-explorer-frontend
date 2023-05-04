@@ -17,72 +17,84 @@ const mockCards = [
     duration: '1ч 47м',
     preview: preview1,
     active: false,
+    id: 1
   },
   {
     title: '33 слова о дизайне',
     duration: '1ч 47м',
     preview: preview2,
     active: false,
+    id: 2
   },
   {
     title: '33 слова о дизайне',
     duration: '1ч 47м',
     preview: preview3,
     active: true,
+    id: 3
   },
   {
     title: '33 слова о дизайне',
     duration: '1ч 47м',
     preview: preview4,
     active: false,
+    id: 4
   },
   {
     title: '33 слова о дизайне',
     duration: '1ч 47м',
     preview: preview5,
     active: true,
+    id: 5
   },
   {
     title: '33 слова о дизайне',
     duration: '1ч 47м',
     preview: preview6,
     active: false,
+    id: 6
   },
   {
     title: '33 слова о дизайне',
     duration: '1ч 47м',
     preview: preview7,
     active: false,
+    id: 7
   },
   {
     title: '33 слова о дизайне',
     duration: '1ч 47м',
     preview: preview8,
     active: false,
+    id: 8
   },
   {
     title: '33 слова о дизайне',
     duration: '1ч 47м',
     preview: preview9,
     active: false,
+    id: 9
   },
   {
     title: '33 слова о дизайне',
     duration: '1ч 47м',
     preview: preview10,
     active: true,
+    id: 10
   },
   {
     title: '33 слова о дизайне',
     duration: '1ч 47м',
     preview: preview11,
     active: false,
+    id: 11
   },
   {
     title: '33 слова о дизайне',
     duration: '1ч 47м',
     preview: preview12,
     active: false,
+    id: 12
   },
 ];
 
@@ -92,18 +104,21 @@ const favoriteMockCards = [
     duration: '1ч 47м',
     preview: preview1,
     active: false,
+    id: 1
   },
   {
     title: '33 слова о дизайне',
     duration: '1ч 47м',
     preview: preview2,
     active: false,
+    id: 2
   },
   {
     title: '33 слова о дизайне',
     duration: '1ч 47м',
     preview: preview3,
     active: true,
+    id: 3
   },
 ];
 

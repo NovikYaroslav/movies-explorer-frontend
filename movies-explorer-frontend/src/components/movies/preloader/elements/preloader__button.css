@@ -11,6 +11,11 @@
   font-size: 12px;
   line-height: 15px;
   color: #ffffff;
+  cursor: pointer;
+}
+
+.preloader__button:hover {
+  opacity: 0.5;
 }
 
 @media (max-width: 400px) {

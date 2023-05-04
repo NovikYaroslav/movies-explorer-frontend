@@ -4,7 +4,7 @@ import './index.css';
 function Portfolio() {
   return (
     <div className='portfolio'>
-      <h4 className='portfolio__title'>Портфолио</h4>
+      <h2 className='portfolio__title'>Портфолио</h2>
       <ul className='portfolio__links'>
         <a
           className='portfolio__link'

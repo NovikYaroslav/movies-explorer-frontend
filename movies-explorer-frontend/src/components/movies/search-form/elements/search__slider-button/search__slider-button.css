@@ -13,4 +13,9 @@
   line-height: 18px;
   text-align: center;
   color: #ffffff;
+  cursor: pointer;
+}
+
+.search__slider-button:hover {
+  opacity: 0.5;
 }

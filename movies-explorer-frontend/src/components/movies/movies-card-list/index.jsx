@@ -11,6 +11,7 @@ function MoviesCardList({ moviesForLayout, currentLocation }) {
           preview={movie.preview}
           active={movie.active}
           currentLocation={currentLocation}
+          key={movie.id}
         />
       ))}
     </div>

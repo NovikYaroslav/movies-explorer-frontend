@@ -1,0 +1,6 @@
+.techs__text-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #ffffff;
+}

@@ -1,0 +1,30 @@
+body {
+  margin: 0 auto;
+  background: #202020;
+  max-width: 1280px;
+  min-width: 320px;
+  font-family: 'Inter', Arial, sans-serif;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts/Inter-font.css);
+@import url(./components/header/index.css);
+@import url(./components/footer/index.css);
+@import url(./components/main/promo/index.css);
+@import url(./components/main/about-project/index.css);
+@import url(./components/main/techs/index.css);
+@import url(./components/main/about-me/index.css);
+@import url(./components/main/portfolio/index.css);
+@import url(./components/login/index.css);
+@import url(./components/form/index.css);
+@import url(./components/input/index.css);

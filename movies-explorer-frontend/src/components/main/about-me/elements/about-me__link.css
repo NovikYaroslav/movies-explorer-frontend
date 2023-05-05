@@ -1,0 +1,22 @@
+.about-me__link {
+  width: 46px;
+  text-decoration: none;
+  color: #ffffff;
+  margin: 0;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+  cursor: pointer;
+}
+
+.about-me__link:hover {
+  opacity: 0.5;
+}
+
+@media (max-width: 870px) {
+  .about-me__link {
+    line-height: 17px;
+  }
+}

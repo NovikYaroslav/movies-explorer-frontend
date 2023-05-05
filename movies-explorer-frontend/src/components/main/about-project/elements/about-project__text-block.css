@@ -1,0 +1,13 @@
+.about-project__text-block {
+  display: flex;
+  padding-top: 70px;
+  color: #ffffff;
+  column-gap: 40px;
+}
+
+@media (max-width: 450px) {
+  .about-project__text-block {
+    padding-top: 60px;
+    flex-direction: column;
+  }
+}

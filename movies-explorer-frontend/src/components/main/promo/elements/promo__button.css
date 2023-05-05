@@ -1,0 +1,27 @@
+.promo__button {
+  margin: 84px 0 75px 0;
+  height: 36px;
+  width: 129px;
+  opacity: 0.6;
+  border: 1px solid #ffffff;
+  border-radius: 3px;
+  outline: none;
+  color: #ffffff;
+  background-color: transparent;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  cursor: pointer;
+}
+
+.promo__button:hover {
+  opacity: 0.5;
+}
+
+@media (max-width: 400px) {
+  .promo__button {
+    margin: 80px 0 30px 0;
+  }
+}

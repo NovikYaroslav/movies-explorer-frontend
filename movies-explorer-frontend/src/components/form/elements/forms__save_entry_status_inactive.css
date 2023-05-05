@@ -1,0 +1,8 @@
+.forms__save_entry_status_inactive {
+  opacity: 0.5;
+}
+
+.forms__save_entry_status_inactive:hover {
+  cursor: default;
+  opacity: 0.5;
+}

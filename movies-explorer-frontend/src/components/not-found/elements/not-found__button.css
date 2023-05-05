@@ -1,0 +1,33 @@
+.not-found__button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  outline: inherit;
+  margin: 0 auto 60px auto;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  color: #4285f4;
+}
+
+.not-found__button:hover {
+  opacity: 0.5;
+}
+
+@media (max-width: 800px) {
+  .not-found__button {
+    margin: 0 auto 222px auto;
+  }
+}
+
+@media (max-width: 400px) {
+  .not-found__button {
+    margin: 0 auto 30px auto;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

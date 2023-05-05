@@ -1,0 +1,33 @@
+.portfolio__link {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  margin: 0;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 30px;
+  line-height: 50px;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+  width: 100%;
+}
+
+.portfolio__link:hover {
+  opacity: 0.5;
+}
+
+@media (max-width: 870px) {
+  .portfolio__link {
+    font-size: 28px;
+    line-height: 50px;
+  }
+}
+
+@media (max-width: 500px) {
+  .portfolio__link {
+    font-size: 18px;
+    line-height: 28px;
+  }
+}

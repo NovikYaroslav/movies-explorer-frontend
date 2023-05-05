@@ -1,0 +1,11 @@
+.portfolio__links {
+  margin: 0;
+  padding: 30px 0 0 0;
+  list-style: none;
+}
+
+@media (max-width: 500px) {
+  .portfolio__links {
+    padding: 15px 0 0 0;
+  }
+}

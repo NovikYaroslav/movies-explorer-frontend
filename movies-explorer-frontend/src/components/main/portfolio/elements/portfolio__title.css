@@ -1,0 +1,15 @@
+.portfolio__title {
+  margin: 0;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 20px;
+  color: #8b8b8b;
+}
+
+@media (max-width: 500px) {
+  .portfolio__title {
+    font-size: 14px;
+  }
+}

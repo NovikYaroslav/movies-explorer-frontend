@@ -1,0 +1,14 @@
+.header__button-menu {
+  cursor: pointer;
+}
+
+@media (max-width: 400px) {
+  .header__button-menu {
+    width: 40px;
+    height: 43px;
+  }
+}
+
+.header__button-menu:hover {
+  opacity: 0.6;
+}

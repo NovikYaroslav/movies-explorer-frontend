@@ -1,0 +1,32 @@
+.footer {
+  margin: 0;
+  padding: 79px 70px 20px 70px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  color: #ffffff;
+  background: #202020;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+}
+
+@media (max-width: 800px) {
+  .footer {
+    padding: 79px 30px 20px 30px;
+  }
+}
+
+@media (max-width: 460px) {
+  .footer {
+    padding: 79px 10px 20px 10px;
+  }
+}
+
+@import url(./elements/footer__title.css);
+@import url(./elements/footer__wrapper.css);
+@import url(./elements/footer__date.css);
+@import url(./elements/footer__links.css);
+@import url(./elements/footer__link.css);

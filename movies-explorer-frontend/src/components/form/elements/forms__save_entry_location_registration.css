@@ -1,0 +1,9 @@
+.forms__save_entry_location_registration {
+  margin-top: 69px;
+}
+
+@media (max-width: 400px) {
+  .forms__save_entry_location_registration {
+    margin-top: 157px;
+  }
+}

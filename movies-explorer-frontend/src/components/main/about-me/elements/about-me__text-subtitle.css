@@ -1,0 +1,23 @@
+.about-me__text-subtitle {
+  margin: 0;
+  padding-bottom: 26;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 20px;
+}
+
+@media (max-width: 870px) {
+  .about-me__text-subtitle {
+    font-size: 12px;
+    line-height: 18px;
+  }
+}
+
+@media (max-width: 500px) {
+  .about-me__text-subtitle {
+    font-size: 11px;
+    line-height: 16px;
+  }
+}

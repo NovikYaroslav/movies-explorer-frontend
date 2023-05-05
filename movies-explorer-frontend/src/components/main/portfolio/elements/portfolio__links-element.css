@@ -1,0 +1,21 @@
+.portfolio__links-element {
+  padding: 20px 0 19px 0;
+  border-bottom: 1px solid #424242;
+}
+
+.portfolio__links-element:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+@media (max-width: 800px) {
+  .portfolio__links-element {
+    padding-bottom: 35px;
+  }
+}
+
+@media (max-width: 500px) {
+  .portfolio__links-element {
+    padding-bottom: 25px;
+  }
+}

@@ -1,0 +1,19 @@
+.search__form-button {
+  width: 58px;
+  height: 34px;
+  background: #4285f4;
+  border: none;
+  border-radius: 48px;
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 18px;
+  text-align: center;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.search__form-button:hover {
+  opacity: 0.5;
+}

@@ -1,0 +1,22 @@
+.profile__data {
+  display: flex;
+  justify-content: space-between;
+  margin: 0;
+  padding: 16px 0 16px 0;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 11px;
+  line-height: 13px;
+  color: #ffffff;
+  border-bottom: 1px solid #424242;
+}
+
+.profile__data:first-child {
+  padding-top: 0;
+}
+
+.profile__data:last-child {
+  padding-bottom: 0;
+  border: none;
+}

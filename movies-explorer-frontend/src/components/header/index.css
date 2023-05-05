@@ -1,0 +1,36 @@
+.header {
+  position: relative;
+  padding: 18px 70px 18px 70px;
+  display: flex;
+  justify-content: space-between;
+  background-color: #073042;
+}
+
+.header_location_main {
+  align-items: center;
+  background-color: #202020;
+}
+
+@media (max-width: 800px) {
+  .header {
+    padding: 18px 30px;
+  }
+}
+
+@media (max-width: 460px) {
+  .header {
+    padding: 18px 14px;
+  }
+}
+
+@import url(./elements/header__button.css);
+@import url(./elements/header__logo.css);
+@import url(./elements/header__buttons-bar.css);
+@import url(./elements/header__button-login.css);
+@import url(./elements/header__button-registrate.css);
+@import url(./elements/header__button-account.css);
+@import url(./elements/header__account-logo.css);
+@import url(./elements/header__movies-navigator.css);
+@import url(./elements/header__button-movies/header__button-movies.css);
+@import url(./elements/header__button-movies/header__button-movies_active.css);
+@import url(./elements/header__button-menu.css);

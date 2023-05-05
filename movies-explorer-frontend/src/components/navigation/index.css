@@ -1,0 +1,20 @@
+.navigation {
+  width: 100%;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  background: rgba(0, 0, 0, 0.3);
+  right: 0;
+  top: 0;
+  visibility: hidden;
+}
+
+.navigation_opened {
+  visibility: visible;
+}
+
+@import url(./elements/navigation__close-button.css);
+@import url(./elements/navigation__menu.css);
+@import url(./elements/navigation__menu-list.css);
+@import url(./elements/navigation__menu-item/navigation__menu-item.css);
+@import url(./elements/navigation__menu-item/navigation__menu-item_active.css);

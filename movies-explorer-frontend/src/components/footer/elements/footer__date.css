@@ -1,0 +1,16 @@
+.footer__date {
+  margin: 0;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 16px;
+  color: #8b8b8b;
+}
+
+@media (max-width: 460px) {
+  .footer__date {
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

@@ -1,0 +1,25 @@
+.header__button-account {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 17px;
+  margin: 0;
+  padding: 0;
+  height: 30px;
+  width: 100px;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  background-color: transparent;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+.header__button-account:hover {
+  opacity: 0.5;
+}

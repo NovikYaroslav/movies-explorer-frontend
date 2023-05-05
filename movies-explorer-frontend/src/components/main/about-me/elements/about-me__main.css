@@ -1,0 +1,20 @@
+.about-me__main {
+  margin: 0;
+  padding: 75px 0 0 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+@media (max-width: 870px) {
+  .about-me__main {
+    padding: 66px 0 0 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .about-me__main {
+    padding: 60px 0 0 0;
+    flex-direction: column-reverse;
+    align-content: center;
+  }
+}

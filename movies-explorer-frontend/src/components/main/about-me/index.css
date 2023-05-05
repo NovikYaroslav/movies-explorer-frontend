@@ -1,0 +1,27 @@
+.about-me {
+  display: flex;
+  flex-direction: column;
+  background: #202020;
+  padding: 110px 70px 100px 70px;
+}
+
+@media (max-width: 870px) {
+  .about-me {
+    padding: 90px 50px 105px 50px;
+  }
+}
+
+@media (max-width: 500px) {
+  .about-me {
+    padding: 70px 14px 70px 14px;
+  }
+}
+
+@import url(./elements/about-me__title.css);
+@import url(./elements/about-me__main.css);
+@import url(./elements/about-me__text-block.css);
+@import url(./elements/about-me__text-title.css);
+@import url(./elements/about-me__text-subtitle.css);
+@import url(./elements/about-me__text.css);
+@import url(./elements/about-me__link.css);
+@import url(./elements/about-me__photo.css);

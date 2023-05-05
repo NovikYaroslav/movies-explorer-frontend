@@ -1,0 +1,5 @@
+.card__header-text {
+  display: flex;
+  flex-direction: column;
+  row-gap: 9px;
+}

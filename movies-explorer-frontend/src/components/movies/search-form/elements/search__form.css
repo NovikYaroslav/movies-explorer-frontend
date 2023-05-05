@@ -1,0 +1,15 @@
+.search__form {
+  margin: 0;
+  padding-bottom: 15px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #424242;
+}
+
+@media (max-width: 400px) {
+  .search__form {
+    padding-bottom: 9px;
+  }
+}

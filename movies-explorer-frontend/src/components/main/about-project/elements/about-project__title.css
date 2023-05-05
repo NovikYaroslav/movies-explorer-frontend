@@ -1,0 +1,12 @@
+.about-project__title {
+  margin: 0;
+  padding-bottom: 28px;
+  border-bottom: 1px solid #dadada;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}

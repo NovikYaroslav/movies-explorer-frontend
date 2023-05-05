@@ -1,0 +1,19 @@
+.about-me__text-block {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  color: #ffffff;
+  column-gap: 40px;
+}
+
+@media (max-width: 870px) {
+  .about-me__text-block {
+    max-width: 364px;
+  }
+}
+
+@media (max-width: 500px) {
+  .about-me__text-block {
+    padding-top: 40px;
+  }
+}

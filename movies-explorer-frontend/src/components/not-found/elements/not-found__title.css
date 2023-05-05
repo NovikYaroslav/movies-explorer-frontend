@@ -1,0 +1,25 @@
+.not-found__title {
+  padding-top: 246px;
+  margin: 0 auto 0 auto;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 140px;
+  line-height: 169px;
+  text-align: center;
+  color: #ffffff;
+}
+
+@media (max-width: 800px) {
+  .not-found__title {
+    padding-top: 408px;
+  }
+}
+
+@media (max-width: 400px) {
+  .not-found__title {
+    padding-top: 329px;
+    font-size: 80px;
+    line-height: 97px;
+  }
+}

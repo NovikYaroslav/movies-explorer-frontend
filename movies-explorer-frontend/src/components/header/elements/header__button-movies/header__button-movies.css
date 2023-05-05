@@ -1,0 +1,23 @@
+.header__button-movies {
+  margin: 0;
+  padding: 0;
+  height: 16px;
+  max-width: 153px;
+  margin: 0;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  background-color: transparent;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: right;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.header__button-movies:hover {
+  opacity: 0.5;
+}

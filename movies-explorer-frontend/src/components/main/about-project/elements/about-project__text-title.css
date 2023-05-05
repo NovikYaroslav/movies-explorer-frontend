@@ -1,0 +1,25 @@
+.about-project__text-title {
+  margin: 0;
+  padding-bottom: 26px;
+  max-width: 550px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+}
+
+@media (max-width: 870px) {
+  .about-project__text-title {
+    padding-bottom: 22px;
+  }
+}
+
+@media (max-width: 450px) {
+  .about-project__text-title {
+    padding-bottom: 16px;
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

@@ -1,0 +1,25 @@
+.forms-fieldset__input {
+  width: 100%;
+  margin: 10px 0 0 0;
+  padding: 15px;
+  height: 46px;
+  box-sizing: border-box;
+  border: 0px solid transparent;
+  background: #2f2f2f;
+  border-radius: 8px;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 16px;
+  color: #ffffff;
+  text-align: start;
+}
+
+.forms-fieldset__input:-webkit-autofill,
+.forms-fieldset__input:-webkit-autofill:hover,
+.forms-fieldset__input:-webkit-autofill:focus,
+.forms-fieldset__input:-webkit-autofill:active {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #ffffff;
+}

@@ -1,0 +1,7 @@
+.header__movies-navigator {
+  display: flex;
+  align-items: center;
+  margin: 0 50px 0 0;
+  max-width: 234px;
+  column-gap: 20px;
+}

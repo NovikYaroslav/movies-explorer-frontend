@@ -1,0 +1,22 @@
+.portfolio {
+  padding: 100px 0 125px 0;
+  color: #ffffff;
+}
+
+@media (max-width: 870px) {
+  .portfolio {
+    padding: 90px 0 0 0;
+  }
+}
+
+@media (max-width: 500px) {
+  .portfolio {
+    padding: 70px 0 0 0;
+  }
+}
+
+@import url(./elements/portfolio__title.css);
+@import url(./elements/portfolio__links.css);
+@import url(./elements/portfolio__links-element.css);
+@import url(./elements/portfolio__link.css);
+@import url(./elements/porfolio__link-arrow.css);

@@ -1,0 +1,20 @@
+.promo {
+  display: flex;
+  flex-direction: column;
+  background-color: #073042;
+  padding: 0 70px 0 70px;
+}
+
+@media (max-width: 870px) {
+  .promo {
+    padding: 0 44px 0 44px;
+    align-items: center;
+  }
+}
+
+@import url(./elements/promo__main.css);
+@import url(./elements/promo__text-block.css);
+@import url(./elements/promo__title.css);
+@import url(./elements/promo__text.css);
+@import url(./elements/promo__logo.css);
+@import url(./elements/promo__button.css);

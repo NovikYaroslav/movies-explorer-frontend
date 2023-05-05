@@ -1,0 +1,8 @@
+.header__logo {
+  height: 38px;
+  width: 38px;
+}
+
+.header__logo:hover {
+  opacity: 0.5;
+}

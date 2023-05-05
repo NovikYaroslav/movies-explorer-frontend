@@ -1,0 +1,25 @@
+.techs__list-element {
+  width: 90px;
+  border: solid 1px transparent;
+  background: #303030;
+  border-radius: 10px;
+  text-align: center;
+  padding: 21px 0 21px 0;
+  margin: 0;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+  text-align: center;
+  letter-spacing: -0.04em;
+  color: #ffffff;
+}
+
+@media (max-width: 870px) {
+  .techs__list-element {
+    width: 84px;
+    font-size: 12px;
+    line-height: 15px;
+  }
+}

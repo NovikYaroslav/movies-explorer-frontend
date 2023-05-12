@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import './index.css';
 import SearchIcon from '../../../images/search-icon.svg';
 
-function SearchForm({ onSearchSubmit }) {
+function SearchForm({ onSearchSubmit, onCheckboxClick }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [searchData, setSearchData] = useState('');
   const [shortSelected, setShortSelected] = useState(false);
@@ -23,6 +23,11 @@ function SearchForm({ onSearchSubmit }) {
     }
     setSearchData(value);
   };
+
+  function handleCheckboxChange() {
+    setShortSelected(!shortSelected);
+    onCheckboxClick();
+  }
 
   const formSubmitHandle = (evt) => {
     evt.preventDefault();
@@ -65,7 +70,7 @@ function SearchForm({ onSearchSubmit }) {
           type='checkbox'
           name='short'
           checked={shortSelected}
-          onChange={() => setShortSelected(!shortSelected)}></input>
+          onChange={handleCheckboxChange}></input>
         <label className='search__slider-title'>Короткометражки</label>
       </div>
     </div>

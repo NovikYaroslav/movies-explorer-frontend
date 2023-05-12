@@ -13,6 +13,14 @@ function Movies({ currentLocation }) {
   const [moviesCount, setMoviesCount] = useState(0);
   const [resultMessage, setResultMessage] = useState('');
   const [moviesToDisplay, setMoviesToDisplay] = useState([]);
+  console.log(filterData);
+
+  function handleCheckboxClick() {
+    console.log('dsadasd');
+    setFilterData((prevFilterData) => {
+      return { ...prevFilterData, short: !prevFilterData.short };
+    });
+  }
 
   useEffect(() => {
     const handleResize = () => {
@@ -95,7 +103,7 @@ function Movies({ currentLocation }) {
 
   return (
     <section className='movies'>
-      <SearchForm onSearchSubmit={handleSearchSubmit} />
+      <SearchForm onSearchSubmit={handleSearchSubmit} onCheckboxClick={handleCheckboxClick} />
 
       {isLoading ? <Preloader /> : null}
 

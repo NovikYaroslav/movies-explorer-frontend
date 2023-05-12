@@ -1,0 +1,9 @@
+.search__form-error {
+  line-height: 29px;
+  height: 30px;
+  color: #ee3465;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+}

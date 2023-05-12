@@ -1,5 +1,5 @@
 .card__button {
-  width: 30px;
+  min-width: 30px;
   height: 30px;
   background-image: url(../../../../../images/like-button.svg);
   background-repeat: no-repeat;

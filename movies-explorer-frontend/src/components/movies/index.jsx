@@ -1,14 +1,120 @@
+import './index.css';
+import { useState, useEffect } from 'react';
 import SearchForm from './search-form';
 import MoviesCardList from './movies-card-list';
-import Preloader from './preloader';
-import { mockCards } from '../../data/mockCards';
+import Preloader from '../preloader';
+import { getMovies } from '../../utils/MoviesApi';
 
 function Movies({ currentLocation }) {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchSuccses, setSearchSuccses] = useState(false);
+  const [filterData, setFilterData] = useState({ params: '', short: false });
+  const [moviesCount, setMoviesCount] = useState(0);
+  const [resultMessage, setResultMessage] = useState('');
+  const [moviesToDisplay, setMoviesToDisplay] = useState([]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', () => setTimeout(handleResize, 3000));
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const storedMoviesToDisplay = localStorage.getItem('moviesToDisplay');
+    const storedFilterData = localStorage.getItem('filterData');
+
+    if (storedMoviesToDisplay && storedFilterData) {
+      setMoviesToDisplay(JSON.parse(storedMoviesToDisplay));
+      setFilterData(JSON.parse(storedFilterData));
+      setSearchSuccses(true);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (searchSuccses && moviesToDisplay.length === 0) {
+      setResultMessage('Ничего не найдено');
+    } else {
+      setResultMessage('');
+    }
+  }, [searchSuccses, moviesToDisplay]);
+
+  useEffect(() => {
+    if (moviesToDisplay.length !== 0 && filterData.params !== '') {
+      localStorage.setItem('moviesToDisplay', JSON.stringify(moviesToDisplay));
+      localStorage.setItem('filterData', JSON.stringify(filterData));
+    }
+  }, [moviesToDisplay, filterData]);
+
+  function handleSearchSubmit(data, short) {
+    setSearchSuccses(false);
+    setIsLoading(true);
+    getMovies(data)
+      .then((movies) => {
+        filterMovies(data, short, movies);
+      })
+      .catch(() => {
+        setResultMessage(
+          'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз',
+        );
+      })
+      .finally(() => {
+        setIsLoading(false);
+      });
+  }
+
+  useEffect(() => {
+    if (windowWidth < 940) {
+      setMoviesCount(8);
+    }
+    if (windowWidth < 520) {
+      setMoviesCount(5);
+    }
+    if (windowWidth > 940) {
+      setMoviesCount(12);
+    }
+  }, [windowWidth]);
+
+  function handleMoviesCount() {
+    if (windowWidth < 940) {
+      setMoviesCount(moviesCount + 2);
+    } else {
+      setMoviesCount(moviesCount + 3);
+    }
+  }
+
+  function filterMovies(data, short, movies) {
+    setFilterData({ params: data, short: short });
+    setMoviesToDisplay(
+      movies.filter((movie) => movie.nameRU.includes(data) && (short ? movie.duration < 40 : true)),
+    );
+    setSearchSuccses(true);
+  }
+
   return (
     <section className='movies'>
-      <SearchForm />
-      <MoviesCardList moviesForLayout={mockCards} currentLocation={currentLocation} />
-      <Preloader />
+      <SearchForm onSearchSubmit={handleSearchSubmit} />
+
+      {isLoading ? <Preloader /> : null}
+
+      {searchSuccses && moviesToDisplay.length !== 0 ? (
+        <MoviesCardList
+          moviesForLayout={moviesToDisplay.slice(0, moviesCount)}
+          currentLocation={currentLocation}
+        />
+      ) : null}
+
+      {resultMessage && <h1 className='movies__message'>{resultMessage}</h1>}
+
+      {searchSuccses && moviesToDisplay.length > moviesCount && (
+        <div className='more'>
+          <button className='more__button' onClick={handleMoviesCount}>
+            Ещё
+          </button>
+        </div>
+      )}
     </section>
   );
 }

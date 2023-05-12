@@ -6,9 +6,9 @@ function MoviesCardList({ moviesForLayout, currentLocation }) {
     <ul className='movies-list'>
       {moviesForLayout.map((movie) => (
         <MoviesCard
-          title={movie.title}
+          title={movie.nameRU}
           duration={movie.duration}
-          preview={movie.preview}
+          preview={`https://api.nomoreparties.co/${movie.image.url}`}
           active={movie.active}
           currentLocation={currentLocation}
           key={movie.id}

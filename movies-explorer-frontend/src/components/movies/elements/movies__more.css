@@ -1,4 +1,4 @@
-.preloader {
+.more {
   padding: 50px 70px 80px 70px;
   display: flex;
   justify-self: center;
@@ -6,7 +6,7 @@
 }
 
 @media (max-width: 800px) {
-  .preloader {
+  .more {
     padding: 50px 30px 80px 30px;
     display: flex;
     justify-self: center;
@@ -15,12 +15,10 @@
 }
 
 @media (max-width: 400px) {
-  .preloader {
+  .more {
     padding: 50px 10px 80px 10px;
     display: flex;
     justify-self: center;
     justify-content: center;
   }
 }
-
-@import url(./elements/preloader__button.css);

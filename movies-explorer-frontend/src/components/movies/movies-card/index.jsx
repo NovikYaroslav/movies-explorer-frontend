@@ -1,6 +1,10 @@
+import { useState } from 'react';
 import './index.css';
+import { addMovie } from '../../../utils/MainApi';
 
-function MoviesCard({ title, duration, preview, active, currentLocation }) {
+function MoviesCard({ movie, currentLocation }) {
+  const [isLiked, setIsLiked] = useState(false);
+
   function formatTime(totalMinutes) {
     const hours = Math.floor(totalMinutes / 60);
     const minutes = totalMinutes % 60;
@@ -8,24 +12,41 @@ function MoviesCard({ title, duration, preview, active, currentLocation }) {
     const paddedMinutes = minutes.toString().padStart(2, '0') + 'м';
     return `${paddedHours}${paddedMinutes}`;
   }
+  // неработающий код
+  function handleMovieLike() {
+    if (isLiked) {
+      setIsLiked(!isLiked);
+      // deleteMovie(movie.id).catch((error) => console.log(error));
+    }
+    setIsLiked(!isLiked);
+    addMovie(movie).catch((error) => console.log(error));
+  }
 
   return (
     <li className='card'>
       <div className='card__header'>
         <div className='card__header-text'>
-          <h3 className='card__title'>{title}</h3>
-          <p className='card__duration'>{formatTime(duration)}</p>
+          <h3 className='card__title'>{movie.nameRU}</h3>
+          <div className='card__link'></div>
+          <p className='card__duration'>{formatTime(movie.duration)}</p>
         </div>
         <button
           className={`card__button ${
             currentLocation === '/saved-movies'
               ? 'card__button_delete'
-              : active
+              : isLiked
               ? 'card__button_active'
               : ''
-          }`}></button>
+          }`}
+          onClick={handleMovieLike}></button>
       </div>
-      <img className='card__preview' src={preview} alt='превью фильма' />
+      <a className='card__link' href={movie.trailerLink} target='_blank' rel='noopener noreferrer'>
+        <img
+          className='card__preview'
+          src={`https://api.nomoreparties.co/${movie.image.url}`}
+          alt='превью фильма'
+        />
+      </a>
     </li>
   );
 }

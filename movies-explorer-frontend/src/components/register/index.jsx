@@ -3,12 +3,16 @@ import Input from '../input';
 import useFormWithValidation from '../../utils/formValidator';
 import logo from '../../images/logo.svg';
 
-export default function Register({ onAuthoriz }) {
+export default function Register({ onRegistration, registrationError }) {
   const formValidator = useFormWithValidation();
 
   function handleSubmit(e) {
     e.preventDefault();
-    onAuthoriz(formValidator.values['Email'], formValidator.values['Password']);
+    onRegistration(
+      formValidator.values['Name'],
+      formValidator.values['Email'],
+      formValidator.values['Password'],
+    );
     formValidator.resetForm();
   }
 
@@ -22,7 +26,8 @@ export default function Register({ onAuthoriz }) {
           onSubmit={handleSubmit}
           isValid={formValidator.isValid}
           buttonText='Зарегистрироваться'
-          registration={true}>
+          registration={true}
+          message={registrationError}>
           <Input
             minLength={'2'}
             maxLength={'50'}
@@ -30,6 +35,7 @@ export default function Register({ onAuthoriz }) {
             name={'Name'}
             placeholder={'Имя'}
             formValidator={formValidator}
+            pattern={'^[A-Za-zА-Яа-яЁё\\s-]*$'}
           />
           <Input
             minLength={'2'}

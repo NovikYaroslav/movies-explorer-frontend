@@ -6,10 +6,11 @@ function MoviesCardList({ moviesForLayout, currentLocation }) {
     <ul className='movies-list'>
       {moviesForLayout.map((movie) => (
         <MoviesCard
-          title={movie.nameRU}
-          duration={movie.duration}
-          preview={`https://api.nomoreparties.co/${movie.image.url}`}
-          active={movie.active}
+          // title={movie.nameRU}
+          // duration={movie.duration}
+          // preview={`https://api.nomoreparties.co/${movie.image.url}`}
+          // trailerLink={movie.trailerLink}
+          movie={movie}
           currentLocation={currentLocation}
           key={movie.id}
         />

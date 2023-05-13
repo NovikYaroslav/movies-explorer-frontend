@@ -26,7 +26,7 @@ function SearchForm({ onSearchSubmit, onCheckboxClick }) {
 
   function handleCheckboxChange() {
     setShortSelected(!shortSelected);
-    onCheckboxClick();
+    onCheckboxClick(!shortSelected);
   }
 
   const formSubmitHandle = (evt) => {

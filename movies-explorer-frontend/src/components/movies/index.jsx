@@ -13,13 +13,15 @@ function Movies({ currentLocation }) {
   const [moviesCount, setMoviesCount] = useState(0);
   const [resultMessage, setResultMessage] = useState('');
   const [moviesToDisplay, setMoviesToDisplay] = useState([]);
-  console.log(filterData);
+  const [initialMovies, setInitialMovies] = useState([]);
 
-  function handleCheckboxClick() {
-    console.log('dsadasd');
+  console.log(moviesToDisplay);
+
+  function handleCheckboxClick(updatedStatus) {
     setFilterData((prevFilterData) => {
-      return { ...prevFilterData, short: !prevFilterData.short };
+      return { ...prevFilterData, short: updatedStatus };
     });
+    filterMovies(initialMovies, filterData.params, updatedStatus);
   }
 
   useEffect(() => {
@@ -42,12 +44,16 @@ function Movies({ currentLocation }) {
   }, []);
 
   useEffect(() => {
-    if (searchSuccses && moviesToDisplay.length === 0) {
+    if (searchSuccses && initialMovies.length === 0 && moviesToDisplay.length === 0) {
+      setResultMessage(
+        'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз',
+      );
+    } else if (searchSuccses && moviesToDisplay.length === 0) {
       setResultMessage('Ничего не найдено');
     } else {
       setResultMessage('');
     }
-  }, [searchSuccses, moviesToDisplay]);
+  }, [searchSuccses, moviesToDisplay, initialMovies]);
 
   useEffect(() => {
     if (moviesToDisplay.length !== 0 && filterData.params !== '') {
@@ -59,14 +65,15 @@ function Movies({ currentLocation }) {
   function handleSearchSubmit(data, short) {
     setSearchSuccses(false);
     setIsLoading(true);
-    getMovies(data)
+    getMovies()
       .then((movies) => {
-        filterMovies(data, short, movies);
+        setInitialMovies(movies);
+        setFilterData({ params: data, short: short });
+        filterMovies(movies, data, short);
       })
-      .catch(() => {
-        setResultMessage(
-          'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз',
-        );
+      .catch((error) => {
+        console.log(error);
+        setSearchSuccses(true);
       })
       .finally(() => {
         setIsLoading(false);
@@ -93,8 +100,7 @@ function Movies({ currentLocation }) {
     }
   }
 
-  function filterMovies(data, short, movies) {
-    setFilterData({ params: data, short: short });
+  function filterMovies(movies, data, short) {
     setMoviesToDisplay(
       movies.filter((movie) => movie.nameRU.includes(data) && (short ? movie.duration < 40 : true)),
     );

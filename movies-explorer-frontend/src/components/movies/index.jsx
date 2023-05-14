@@ -15,8 +15,6 @@ function Movies({ currentLocation }) {
   const [moviesToDisplay, setMoviesToDisplay] = useState([]);
   const [initialMovies, setInitialMovies] = useState([]);
 
-  console.log(moviesToDisplay);
-
   function handleCheckboxClick(updatedStatus) {
     setFilterData((prevFilterData) => {
       return { ...prevFilterData, short: updatedStatus };

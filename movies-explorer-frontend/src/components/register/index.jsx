@@ -1,10 +1,12 @@
+import { Link, useNavigate } from 'react-router-dom';
 import Form from '../form';
 import Input from '../input';
 import useFormWithValidation from '../../utils/formValidator';
 import logo from '../../images/logo.svg';
 
-export default function Register({ onRegistration, registrationError }) {
+export default function Register({ onRegistration, serverError }) {
   const formValidator = useFormWithValidation();
+  const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -19,7 +21,9 @@ export default function Register({ onRegistration, registrationError }) {
   return (
     <section className='entry'>
       <div className='entry__container'>
-        <img src={logo} alt='логотип' />
+        <Link className='header__logo' to='/'>
+          <img src={logo} alt='логотип' />
+        </Link>
         <h2 className='entry__title'>Добро пожаловать!</h2>
         <Form
           name='email'
@@ -27,7 +31,7 @@ export default function Register({ onRegistration, registrationError }) {
           isValid={formValidator.isValid}
           buttonText='Зарегистрироваться'
           registration={true}
-          message={registrationError}>
+          message={serverError}>
           <Input
             minLength={'2'}
             maxLength={'50'}
@@ -56,7 +60,13 @@ export default function Register({ onRegistration, registrationError }) {
         </Form>
         <p className='entry__question'>
           Уже зарегистрированы?
-          <button className='entry__login-button'>Войти</button>
+          <button
+            onClick={() => {
+              navigate('/signin', { replace: true });
+            }}
+            className='entry__login-button'>
+            Войти
+          </button>
         </p>
       </div>
     </section>

@@ -1,9 +1,19 @@
 const BASE_URL = 'http://localhost:3001';
-const BASE_HEADERS = {
-  authorization:
-    'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NDVmODM2MGUwMGM0M2ZmMWIyZDQyNzMiLCJpYXQiOjE2ODM5ODExNTUsImV4cCI6MTY4NDU4NTk1NX0.BebuATjZeRgkJ_mA2wuySZu23KfhYqhJ5u4Vs3pDgiw',
-  'Content-type': 'application/json',
-};
+
+function prepareHeaders() {
+  const jwt = localStorage.getItem('jwt');
+  if (jwt) {
+    return {
+      authorization: `Bearer ${jwt}`,
+      'Content-type': 'application/json',
+    };
+  } else {
+    return {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    };
+  }
+}
 
 function checkServerResponse(response) {
   if (response.ok) {
@@ -26,9 +36,55 @@ export function register(name, email, password) {
   }).then(checkServerResponse);
 }
 
+export function authorize(email, password) {
+  return fetch(`${BASE_URL}/signin`, {
+    method: 'POST',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ email, password }),
+  })
+    .then(checkServerResponse)
+    .then((data) => {
+      if (data.jwt) {
+        localStorage.setItem('jwt', data.jwt);
+      }
+    });
+}
+
+export function getUserInfoFromServer() {
+  return fetch(`${BASE_URL}/users/me`, {
+    headers: prepareHeaders(),
+    method: 'GET',
+  }).then(checkServerResponse);
+}
+
+export function checkToken(jwt) {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'GET',
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${jwt}`,
+    },
+  }).then(checkServerResponse);
+}
+
+export function editUserData(profileData) {
+  return fetch(`${BASE_URL}/users/me`, {
+    method: 'PATCH',
+    headers: prepareHeaders(),
+    body: JSON.stringify({
+      name: `${profileData.name}`,
+      email: `${profileData.email}`,
+    }),
+  }).then(checkServerResponse);
+}
+
 export function addMovie(newMovie) {
   return fetch(`${BASE_URL}/movies`, {
-    headers: BASE_HEADERS,
+    headers: prepareHeaders(),
     method: 'POST',
     body: JSON.stringify({
       country: `${newMovie.country}`,

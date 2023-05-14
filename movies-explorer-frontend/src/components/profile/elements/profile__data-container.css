@@ -1,7 +1,7 @@
 .profile__data-container {
   display: flex;
   flex-direction: column;
-  width: 410px;
+  max-width: 410px;
   margin: 0 auto;
 }
 

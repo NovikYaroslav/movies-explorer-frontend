@@ -1,0 +1,12 @@
+.profile__message {
+  margin: 0;
+  height: 50px;
+  text-align: center;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 25px;
+  text-align: center;
+  color: green;
+}

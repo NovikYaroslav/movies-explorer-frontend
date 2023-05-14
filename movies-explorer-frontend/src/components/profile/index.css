@@ -1,18 +1,18 @@
 .profile {
   margin: 0;
-  padding: 74px 0 70px 0;
+  padding: 74px 70px 70px 70px;
   background: #202020;
 }
 
 @media (max-width: 800px) {
   .profile {
-    padding: 236px 0 269px 0;
+    padding: 236px 30px 269px 30px;
   }
 }
 
 @media (max-width: 400px) {
   .profile {
-    padding: 70px 0 40px 0;
+    padding: 70px 30px 40px 30px;
   }
 }
 
@@ -22,4 +22,8 @@
 @import url(./elements/profile__data-text.css);
 @import url(./elements/profile__menu.css);
 @import url(./elements/profile__button/profile__button.css);
+@import url(./elements/profile__button/profile__button_inactive.css);
 @import url(./elements/profile__button/profile__button_logout.css);
+@import url(./elements/profile__input.css);
+@import url(./elements/profile__input-error.css);
+@import url(./elements/profile__message.css);

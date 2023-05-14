@@ -1,5 +1,4 @@
 function Form({ name, onSubmit, isValid, buttonText, children, registration, message }) {
-  console.log(message);
   return (
     <form className='forms' name={`user-${name}`} onSubmit={onSubmit} noValidate>
       <fieldset className='forms-fieldset'>{children}</fieldset>

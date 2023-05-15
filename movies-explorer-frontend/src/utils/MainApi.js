@@ -102,9 +102,16 @@ export function addMovie(newMovie) {
   }).then(checkServerResponse);
 }
 
-// export function deleteMovie(movieId) {
-//   return fetch(`${base_url}/movies/645f84d8bb44f603e34aefbc`, {
-//     headers: base_headers,
-//     method: 'DELETE',
-//   }).then(checkServerResponse);
-// }
+export function deleteMovie(_id) {
+  return fetch(`${BASE_URL}/movies/${_id}`, {
+    headers: prepareHeaders(),
+    method: 'DELETE',
+  }).then(checkServerResponse);
+}
+
+export function getSavedMovies() {
+  return fetch(`${BASE_URL}/movies`, {
+    headers: prepareHeaders(),
+    method: 'GET',
+  }).then(checkServerResponse);
+}

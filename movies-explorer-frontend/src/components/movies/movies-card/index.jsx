@@ -1,9 +1,8 @@
 import { useState } from 'react';
 import './index.css';
-import { addMovie } from '../../../utils/MainApi';
 
-function MoviesCard({ movie, currentLocation }) {
-  const [isLiked, setIsLiked] = useState(false);
+function MoviesCard({ movie, currentLocation, onCardLike, onCardUnlike, wasSaved }) {
+  const [isLiked, setIsLiked] = useState(wasSaved);
 
   function formatTime(totalMinutes) {
     const hours = Math.floor(totalMinutes / 60);
@@ -12,14 +11,16 @@ function MoviesCard({ movie, currentLocation }) {
     const paddedMinutes = minutes.toString().padStart(2, '0') + 'м';
     return `${paddedHours}${paddedMinutes}`;
   }
-  // неработающий код
+
   function handleMovieLike() {
-    if (isLiked) {
-      setIsLiked(!isLiked);
-      // deleteMovie(movie.id).catch((error) => console.log(error));
+    if (isLiked === false) {
+      setIsLiked(true);
+      onCardLike(movie);
     }
-    setIsLiked(!isLiked);
-    addMovie(movie).catch((error) => console.log(error));
+    if (isLiked === true) {
+      onCardUnlike(movie);
+      setIsLiked(false);
+    }
   }
 
   return (
@@ -30,20 +31,27 @@ function MoviesCard({ movie, currentLocation }) {
           <div className='card__link'></div>
           <p className='card__duration'>{formatTime(movie.duration)}</p>
         </div>
-        <button
-          className={`card__button ${
-            currentLocation === '/saved-movies'
-              ? 'card__button_delete'
-              : isLiked
-              ? 'card__button_active'
-              : ''
-          }`}
-          onClick={handleMovieLike}></button>
+
+        {currentLocation === '/saved-movies' ? (
+          <button
+            className='card__button card__button_delete'
+            onClick={() => {
+              onCardUnlike(movie);
+            }}></button>
+        ) : (
+          <button
+            className={`card__button ${isLiked ? 'card__button_active' : ''}`}
+            onClick={handleMovieLike}></button>
+        )}
       </div>
       <a className='card__link' href={movie.trailerLink} target='_blank' rel='noopener noreferrer'>
         <img
           className='card__preview'
-          src={`https://api.nomoreparties.co/${movie.image.url}`}
+          src={
+            currentLocation === '/saved-movies'
+              ? movie.image
+              : `https://api.nomoreparties.co/${movie.image.url}`
+          }
           alt='превью фильма'
         />
       </a>

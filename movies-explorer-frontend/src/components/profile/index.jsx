@@ -1,13 +1,15 @@
-import { useEffect } from 'react';
+import { useEffect, useContext } from 'react';
 import './index.css';
 import useFormWithValidation from '../../utils/formValidator';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 
-function Profile({ onLogout, userInfo, onProfileSubmit, message }) {
+function Profile({ onLogout, onProfileSubmit, message }) {
+  const currentUser = useContext(CurrentUserContext);
   const formValidator = useFormWithValidation();
 
   function checkDataIsSame() {
-    const sameName = formValidator.values['Name'] === userInfo.name;
-    const sameEmail = formValidator.values['Email'] === userInfo.email;
+    const sameName = formValidator.values['Name'] === currentUser.name;
+    const sameEmail = formValidator.values['Email'] === currentUser.email;
     if (sameName && sameEmail) {
       return true;
     } else {
@@ -24,12 +26,12 @@ function Profile({ onLogout, userInfo, onProfileSubmit, message }) {
   }
 
   useEffect(() => {
-    formValidator.resetForm({ Name: userInfo.name, Email: userInfo.email }, {}, true);
-  }, [userInfo]);
+    formValidator.resetForm({ Name: currentUser.name, Email: currentUser.email }, {}, true);
+  }, [currentUser]);
 
   return (
     <div className='profile'>
-      <h1 className='profile__title'>{`Привет, ${userInfo.name}!`}</h1>
+      <h1 className='profile__title'>{`Привет, ${currentUser.name}!`}</h1>
       <h2 className='profile__message'>{message}</h2>
       <form className='profile__data-container' name='profile' onSubmit={handleSubmit} noValidate>
         <div className='profile__data'>

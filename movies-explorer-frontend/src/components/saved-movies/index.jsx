@@ -1,12 +1,22 @@
 import MoviesCardList from '../movies/movies-card-list';
-import { favoriteMockCards } from '../../data/mockCards';
 import SearchForm from '../movies/search-form';
 
-function SavedMovies({ currentLocation }) {
+function SavedMovies({
+  currentLocation,
+  savedMovies,
+  onSavedSearchSubmit,
+  onSavedCheckcboxClick,
+  onCardUnlike,
+}) {
   return (
     <section className='saved-movies'>
-      <SearchForm />
-      <MoviesCardList moviesForLayout={favoriteMockCards} currentLocation={currentLocation} />
+      <SearchForm onSearchSubmit={onSavedSearchSubmit} onCheckboxClick={onSavedCheckcboxClick} />
+      <MoviesCardList
+        savedMovies={savedMovies}
+        moviesForLayout={savedMovies}
+        currentLocation={currentLocation}
+        onCardUnlike={onCardUnlike}
+      />
     </section>
   );
 }

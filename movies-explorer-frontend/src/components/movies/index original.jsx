@@ -3,22 +3,24 @@ import { useState, useEffect } from 'react';
 import SearchForm from './search-form';
 import MoviesCardList from './movies-card-list';
 import Preloader from '../preloader';
+import { getMovies } from '../../utils/MoviesApi';
 
-function Movies({
-  currentLocation,
-  onSearchSubmit,
-  onCheckcboxClick,
-  isLoading,
-  searchSuccses,
-  moviesToDisplay,
-  savedMovies,
-  initialMovies,
-  onCardLike,
-  onCardUnlike,
-}) {
+function Movies({ currentLocation, onSearchSubmit }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const [isLoading, setIsLoading] = useState(false);
+  const [searchSuccses, setSearchSuccses] = useState(false);
+  const [filterData, setFilterData] = useState({ params: '', short: false });
   const [moviesCount, setMoviesCount] = useState(0);
   const [resultMessage, setResultMessage] = useState('');
+  const [moviesToDisplay, setMoviesToDisplay] = useState([]);
+  const [initialMovies, setInitialMovies] = useState([]);
+
+  function handleCheckboxClick(updatedStatus) {
+    setFilterData((prevFilterData) => {
+      return { ...prevFilterData, short: updatedStatus };
+    });
+    filterMovies(initialMovies, filterData.params, updatedStatus);
+  }
 
   useEffect(() => {
     const handleResize = () => {
@@ -26,6 +28,17 @@ function Movies({
     };
     window.addEventListener('resize', () => setTimeout(handleResize, 3000));
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  useEffect(() => {
+    const storedMoviesToDisplay = localStorage.getItem('moviesToDisplay');
+    const storedFilterData = localStorage.getItem('filterData');
+
+    if (storedMoviesToDisplay && storedFilterData) {
+      setMoviesToDisplay(JSON.parse(storedMoviesToDisplay));
+      setFilterData(JSON.parse(storedFilterData));
+      setSearchSuccses(true);
+    }
   }, []);
 
   useEffect(() => {
@@ -39,6 +52,31 @@ function Movies({
       setResultMessage('');
     }
   }, [searchSuccses, moviesToDisplay, initialMovies]);
+
+  useEffect(() => {
+    if (moviesToDisplay.length !== 0 && filterData.params !== '') {
+      localStorage.setItem('moviesToDisplay', JSON.stringify(moviesToDisplay));
+      localStorage.setItem('filterData', JSON.stringify(filterData));
+    }
+  }, [moviesToDisplay, filterData]);
+
+  // function handleSearchSubmit(data, short) {
+  //   setSearchSuccses(false);
+  //   setIsLoading(true);
+  //   getMovies()
+  //     .then((movies) => {
+  //       setInitialMovies(movies);
+  //       setFilterData({ params: data, short: short });
+  //       filterMovies(movies, data, short);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //       setSearchSuccses(true);
+  //     })
+  //     .finally(() => {
+  //       setIsLoading(false);
+  //     });
+  // }
 
   useEffect(() => {
     if (windowWidth < 940) {
@@ -60,19 +98,23 @@ function Movies({
     }
   }
 
+  function filterMovies(movies, data, short) {
+    setMoviesToDisplay(
+      movies.filter((movie) => movie.nameRU.includes(data) && (short ? movie.duration < 40 : true)),
+    );
+    setSearchSuccses(true);
+  }
+
   return (
     <section className='movies'>
-      <SearchForm onSearchSubmit={onSearchSubmit} onCheckboxClick={onCheckcboxClick} />
+      <SearchForm onSearchSubmit={onSearchSubmit} onCheckboxClick={handleCheckboxClick} />
 
       {isLoading ? <Preloader /> : null}
 
       {searchSuccses && moviesToDisplay.length !== 0 ? (
         <MoviesCardList
           moviesForLayout={moviesToDisplay.slice(0, moviesCount)}
-          savedMovies={savedMovies}
           currentLocation={currentLocation}
-          onCardLike={onCardLike}
-          onCardUnlike={onCardUnlike}
         />
       ) : null}
 

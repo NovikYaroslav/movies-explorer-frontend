@@ -12,8 +12,6 @@ function SavedMovies({
 }) {
   const [resultMessage, setResultMessage] = useState('');
 
-  console.log(searchSuccses);
-
   useEffect(() => {
     if (searchSuccses && savedMovies.length === 0) {
       setResultMessage('Ничего не найдено');

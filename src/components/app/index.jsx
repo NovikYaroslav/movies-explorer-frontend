@@ -41,10 +41,6 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
   const [filterSavedData, setFilterSavedData] = useState({ params: '', short: false });
 
-  console.log(` сохраненные ${savedMovies}`);
-  console.log(` отображаемые ${moviesToDisplay}`);
-  console.log(` искомые ${initialMovies}`);
-
   useEffect(() => {
     setServerMessage('');
     tokenCheck();
@@ -94,7 +90,6 @@ function App() {
   useEffect(() => {
     const storedMoviesToDisplay = localStorage.getItem('moviesToDisplay');
     const storedFilterData = localStorage.getItem('filterData');
-    console.log(` отображаемые в хранилище ${JSON.parse(storedMoviesToDisplay)}`);
     if (storedMoviesToDisplay && storedFilterData) {
       setMoviesToDisplay(JSON.parse(storedMoviesToDisplay));
       setFilterData(JSON.parse(storedFilterData));
@@ -170,7 +165,6 @@ function App() {
   }
 
   function handleSearchSubmit(data, short) {
-    console.log('сработал поиск по форме');
     setSearchSuccses(false);
     setIsLoading(true);
     getMovies()
@@ -190,7 +184,6 @@ function App() {
   }
 
   function handleCheckboxClick(updatedStatus) {
-    console.log('сработал чекбокс');
     setFilterData((prevFilterData) => {
       return { params: prevFilterData.params, short: updatedStatus };
     });
@@ -219,7 +212,6 @@ function App() {
   }
 
   function handleSavedSearchSubmit(data, short) {
-    console.log('сработал чекбокс по сохраненным');
     setSearchSavedSuccses(false);
     setIsLoading(true);
     getSavedMovies()
@@ -238,7 +230,6 @@ function App() {
   }
 
   function handleSavedCheckboxClick(updatedStatus) {
-    console.log('сработал поиск по сохраненным');
     setFilterSavedData((prevFilterData) => {
       return { params: prevFilterData.params, short: updatedStatus };
     });

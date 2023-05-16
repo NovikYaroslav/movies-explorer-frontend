@@ -10,7 +10,6 @@ function SearchForm({ onSearchSubmit, onCheckboxClick, currentLocation }) {
 
   useEffect(() => {
     if (currentLocation === '/saved-movies') {
-      console.log('данные для сохраненных');
       const storedFilterSavedData = localStorage.getItem('filterSavedData');
       if (storedFilterSavedData) {
         console.log(JSON.parse(storedFilterSavedData));

@@ -63,7 +63,11 @@ function Header({ currentLocation, onNavButtonClick, onCloseButtonClick, visabil
           </Link>
         </div>
       )}
-      <Navigation opened={visability} onCloseButtonClick={onCloseButtonClick} />
+      <Navigation
+        opened={visability}
+        onCloseButtonClick={onCloseButtonClick}
+        currentLocation={currentLocation}
+      />
     </header>
   );
 }

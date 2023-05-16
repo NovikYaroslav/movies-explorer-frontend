@@ -9,8 +9,8 @@ function MoviesCardList({
   onCardLike,
   onCardUnlike,
 }) {
-  console.log(savedMovies);
   console.log(moviesForLayout);
+  console.log(savedMovies);
   return (
     <ul className='movies-list'>
       {moviesForLayout.map((movie) => {

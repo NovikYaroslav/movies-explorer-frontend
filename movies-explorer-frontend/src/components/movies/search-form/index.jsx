@@ -2,17 +2,27 @@ import { useState, useEffect } from 'react';
 import './index.css';
 import SearchIcon from '../../../images/search-icon.svg';
 
-function SearchForm({ onSearchSubmit, onCheckboxClick }) {
+function SearchForm({ onSearchSubmit, onCheckboxClick, currentLocation }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [searchData, setSearchData] = useState('');
   const [shortSelected, setShortSelected] = useState(false);
   const [searchError, setSearchError] = useState('');
 
   useEffect(() => {
-    const storedFilterData = localStorage.getItem('filterData');
-    if (storedFilterData) {
-      setSearchData(JSON.parse(storedFilterData).params);
-      setShortSelected(JSON.parse(storedFilterData).short);
+    if (currentLocation === '/saved-movies') {
+      console.log('данные для сохраненных');
+      const storedFilterSavedData = localStorage.getItem('filterSavedData');
+      if (storedFilterSavedData) {
+        console.log(JSON.parse(storedFilterSavedData));
+        setSearchData(JSON.parse(storedFilterSavedData).params);
+        setShortSelected(JSON.parse(storedFilterSavedData).short);
+      }
+    } else {
+      const storedFilterData = localStorage.getItem('filterData');
+      if (storedFilterData) {
+        setSearchData(JSON.parse(storedFilterData).params);
+        setShortSelected(JSON.parse(storedFilterData).short);
+      }
     }
   }, []);
 

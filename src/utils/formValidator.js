@@ -27,7 +27,11 @@ export default function useFormWithValidation() {
     const customError = handleCustomError(value, name);
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: customError || target.validationMessage });
-    setIsValid(target.closest('form').checkValidity());
+    setIsValid(
+      Object.values({ ...errors, [name]: customError || target.validationMessage }).every(
+        (error) => !error,
+      ),
+    );
   };
 
   const resetForm = useCallback(

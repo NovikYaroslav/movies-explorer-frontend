@@ -10,6 +10,9 @@ export default function Register({ onRegistration, serverError }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    if (!formValidator.isValid) {
+      serverError = 'Пожалуйста, укажите корректные данные!';
+    }
     onRegistration(
       formValidator.values['Name'],
       formValidator.values['Email'],
@@ -39,7 +42,6 @@ export default function Register({ onRegistration, serverError }) {
             name={'Name'}
             placeholder={'Имя'}
             formValidator={formValidator}
-            pattern={'^[A-Za-zА-Яа-яЁё\\s-]*$'}
           />
           <Input
             minLength={'2'}

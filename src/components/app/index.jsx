@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Footer from '../footer';
 import Header from '../header';
 import Login from '../login';
@@ -27,6 +27,7 @@ import { filterMovies } from '../../utils/movieFilter';
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
+  const urlParams = useParams();
   const [navigationOpened, setNavigationOpened] = useState(false);
   const [serverMessage, setServerMessage] = useState('');
   const [jwt, setJwt] = useState('');
@@ -46,6 +47,14 @@ function App() {
     tokenCheck();
   }, []);
 
+  function handleNavigation() {
+    if (location.pathname !== '/signin' && location.pathname !== '/signup') {
+      navigate(location.pathname, { replace: true });
+    } else {
+      navigate('/', { replace: true });
+    }
+  }
+
   function tokenCheck() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
@@ -55,6 +64,7 @@ function App() {
           if (res) {
             setLoggedIn(true);
             setUserData({ name: res.name, email: res.email });
+            handleNavigation();
           }
         })
         .catch((error) => {

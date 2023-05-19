@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import './index.css';
+import { ONE_HOUR_IN_MINUTES, LENGTH_OF_MINUTES_TO_DISPLAY } from '../../../utils/const';
 
 function MoviesCard({ movie, currentLocation, onCardLike, onCardUnlike, wasSaved }) {
   const [isLiked, setIsLiked] = useState(wasSaved);
 
   function formatTime(totalMinutes) {
-    const hours = Math.floor(totalMinutes / 60);
-    const minutes = totalMinutes % 60;
+    const hours = Math.floor(totalMinutes / ONE_HOUR_IN_MINUTES);
+    const minutes = totalMinutes % ONE_HOUR_IN_MINUTES;
     const paddedHours = hours > 0 ? `${hours}ч ` : '';
-    const paddedMinutes = minutes.toString().padStart(2, '0') + 'м';
+    const paddedMinutes = minutes.toString().padStart(LENGTH_OF_MINUTES_TO_DISPLAY, '0') + 'м';
     return `${paddedHours}${paddedMinutes}`;
   }
 

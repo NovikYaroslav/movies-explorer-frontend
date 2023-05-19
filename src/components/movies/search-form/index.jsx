@@ -12,7 +12,6 @@ function SearchForm({ onSearchSubmit, onCheckboxClick, currentLocation }) {
     if (currentLocation === '/saved-movies') {
       const storedFilterSavedData = localStorage.getItem('filterSavedData');
       if (storedFilterSavedData) {
-        console.log(JSON.parse(storedFilterSavedData));
         setSearchData(JSON.parse(storedFilterSavedData).params);
         setShortSelected(JSON.parse(storedFilterSavedData).short);
       }

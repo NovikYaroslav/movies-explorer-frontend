@@ -44,7 +44,6 @@ function Profile({ onLogout, onProfileSubmit, message }) {
             maxLength='50'
             type='name'
             name='Name'
-            pattern='^[A-Za-zА-Яа-яЁё\\s-]*$'
             required
           />
         </div>

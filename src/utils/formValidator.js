@@ -25,13 +25,10 @@ export default function useFormWithValidation() {
     const name = target.name;
     const value = target.value;
     const customError = handleCustomError(value, name);
-
-    setValues({ ...values, [name]: value });
-
     const error = customError || target.validationMessage;
     const isFormValid = target.closest('form').checkValidity();
+    setValues({ ...values, [name]: value });
     setIsValid(isFormValid && !error);
-
     setErrors({ ...errors, [name]: error });
   };
 

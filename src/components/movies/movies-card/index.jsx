@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './index.css';
 import { ONE_HOUR_IN_MINUTES, LENGTH_OF_MINUTES_TO_DISPLAY } from '../../../utils/const';
 
-function MoviesCard({ movie, currentLocation, onCardLike, onCardUnlike, wasSaved }) {
-  const [isLiked, setIsLiked] = useState(wasSaved);
+function MoviesCard({ movie, currentLocation, onCardLike, onCardUnlike, wasSaved, savedMovies }) {
+  const [isLiked, setIsLiked] = useState(false);
 
   function formatTime(totalMinutes) {
     const hours = Math.floor(totalMinutes / ONE_HOUR_IN_MINUTES);
@@ -12,6 +12,14 @@ function MoviesCard({ movie, currentLocation, onCardLike, onCardUnlike, wasSaved
     const paddedMinutes = minutes.toString().padStart(LENGTH_OF_MINUTES_TO_DISPLAY, '0') + 'м';
     return `${paddedHours}${paddedMinutes}`;
   }
+
+  useEffect(() => {
+    if (savedMovies.some((savedMovie) => savedMovie.movieId === movie.id)) {
+      setIsLiked(true);
+    } else {
+      setIsLiked(false);
+    }
+  }, [savedMovies, movie.id]);
 
   function handleMovieLike() {
     if (isLiked === false) {

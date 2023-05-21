@@ -27,7 +27,6 @@ import { filterMovies } from '../../utils/movieFilter';
 function App() {
   const location = useLocation();
   const navigate = useNavigate();
-  const urlParams = useParams();
   const [navigationOpened, setNavigationOpened] = useState(false);
   const [serverMessage, setServerMessage] = useState('');
   const [jwt, setJwt] = useState('');
@@ -40,6 +39,7 @@ function App() {
   const [isLoading, setIsLoading] = useState(false);
   const [moviesToDisplay, setMoviesToDisplay] = useState([]);
   const [savedMovies, setSavedMovies] = useState([]);
+  const [savedMoviesToDisplay, setSavedMoviesToDisplay] = useState([]);
   const [filterSavedData, setFilterSavedData] = useState({ params: '', short: false });
 
   useEffect(() => {
@@ -80,6 +80,7 @@ function App() {
           setUserData(userData);
           const userMovies = savedMovies.filter((movie) => movie.owner === userData._id);
           setSavedMovies(userMovies);
+          setSavedMoviesToDisplay(userMovies);
         })
         .catch((error) => {
           console.log(error.message);
@@ -227,7 +228,7 @@ function App() {
     getSavedMovies()
       .then((movies) => {
         setFilterSavedData({ params: data, short: short });
-        setSavedMovies(filterMovies(movies, data, short).filtredMovies);
+        setSavedMoviesToDisplay(filterMovies(movies, data, short).filtredMovies);
         setSearchSavedSuccses(filterMovies(movies, data, short).serchResult);
       })
       .catch((error) => {
@@ -246,7 +247,9 @@ function App() {
     setSearchSavedSuccses(false);
     getSavedMovies()
       .then((movies) => {
-        setSavedMovies(filterMovies(movies, filterData.params, updatedStatus).filtredMovies);
+        setSavedMoviesToDisplay(
+          filterMovies(movies, filterData.params, updatedStatus).filtredMovies,
+        );
         setSearchSavedSuccses(filterMovies(movies, filterData.params, updatedStatus).serchResult);
       })
       .catch((error) => {
@@ -264,6 +267,7 @@ function App() {
         console.log(res);
         getSavedMovies()
           .then((data) => {
+            setSavedMoviesToDisplay(data);
             setSavedMovies(data);
           })
           .catch((error) => {
@@ -278,6 +282,7 @@ function App() {
   function handleCardLike(movie) {
     addMovie(movie)
       .then((savedMovie) => {
+        setSavedMoviesToDisplay((prevSavedMoviesToShow) => [...prevSavedMoviesToShow, savedMovie]);
         setSavedMovies((prevSavedMovies) => [...prevSavedMovies, savedMovie]);
       })
       .catch((error) => console.log(error));
@@ -351,7 +356,7 @@ function App() {
                     <SavedMovies
                       currentLocation={location.pathname}
                       loggedIn={loggedIn}
-                      savedMovies={savedMovies}
+                      savedMovies={savedMoviesToDisplay}
                       onSavedSearchSubmit={handleSavedSearchSubmit}
                       onSavedCheckcboxClick={handleSavedCheckboxClick}
                       onCardUnlike={handleCardUnlike}

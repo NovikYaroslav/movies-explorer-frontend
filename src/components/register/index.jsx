@@ -3,15 +3,17 @@ import Form from '../form';
 import Input from '../input';
 import useFormWithValidation from '../../utils/formValidator';
 import logo from '../../images/logo.svg';
+import { useState } from 'react';
 
 export default function Register({ onRegistration, serverError }) {
   const formValidator = useFormWithValidation();
   const navigate = useNavigate();
+  const [message, setMessage] = useState(serverError);
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!formValidator.isValid) {
-      serverError = 'Пожалуйста, укажите корректные данные!';
+      setMessage('Пожалуйста, укажите корректные данные!');
     }
     onRegistration(
       formValidator.values['Name'],
@@ -34,7 +36,7 @@ export default function Register({ onRegistration, serverError }) {
           isValid={formValidator.isValid}
           buttonText='Зарегистрироваться'
           registration={true}
-          message={serverError}>
+          message={message}>
           <Input
             minLength={'2'}
             maxLength={'50'}

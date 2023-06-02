@@ -4,7 +4,7 @@ import './index.css';
 function Portfolio() {
   return (
     <div className='portfolio'>
-      <h2 className='portfolio__title'>Портфолио</h2>
+      <h2 className='portfolio__title'>Portfolio</h2>
       <ul className='portfolio__links'>
         <li className='portfolio__links-element'>
           <a
@@ -12,7 +12,7 @@ function Portfolio() {
             href='https://novikyaroslav.github.io/how-to-learn/'
             target='_blank'
             rel='noreferrer'>
-            Статичный сайт
+            Statical site
             <img className='portfolio__link-arrow' src={arrow} alt='' />
           </a>
         </li>
@@ -22,7 +22,7 @@ function Portfolio() {
             href='https://novikyaroslav.github.io/russian-travel/'
             target='_blank'
             rel='noreferrer'>
-            Адаптивный сайт
+            Adaptive site
             <img className='portfolio__link-arrow' src={arrow} alt='' />
           </a>
         </li>
@@ -32,7 +32,7 @@ function Portfolio() {
             href='https://mesto.novik.nomoredomains.work/'
             target='_blank'
             rel='noreferrer'>
-            Одностраничное приложение
+            One-page application
             <img className='portfolio__link-arrow' src={arrow} alt='' />
           </a>
         </li>

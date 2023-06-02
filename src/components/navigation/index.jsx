@@ -16,7 +16,7 @@ function Navigation({ opened, onCloseButtonClick, currentLocation }) {
               currentLocation === '/' ? 'navigation__menu-item_active' : ''
             }`}
             to='/'>
-            Главная
+            Main
           </Link>
           <Link
             onClick={onCloseButtonClick}
@@ -24,7 +24,7 @@ function Navigation({ opened, onCloseButtonClick, currentLocation }) {
             className={`navigation__menu-item ${
               currentLocation === '/movies' ? 'navigation__menu-item_active' : ''
             }`}>
-            Фильмы
+            Movies
           </Link>
           <Link
             onClick={onCloseButtonClick}
@@ -32,7 +32,7 @@ function Navigation({ opened, onCloseButtonClick, currentLocation }) {
             className={`navigation__menu-item ${
               currentLocation === '/saved-movies' ? 'navigation__menu-item_active' : ''
             }`}>
-            Сохранённые фильмы
+            Saved movies
           </Link>
           <Link
             onClick={onCloseButtonClick}
@@ -40,7 +40,7 @@ function Navigation({ opened, onCloseButtonClick, currentLocation }) {
             className={`navigation__menu-item ${
               currentLocation === '/profile' ? 'navigation__menu-item_active' : ''
             }`}>
-            Аккаунт
+            Account
             <div className='header__account-logo' alt='account logo'></div>
           </Link>
         </div>

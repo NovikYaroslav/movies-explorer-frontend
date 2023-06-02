@@ -31,11 +31,11 @@ function Profile({ onLogout, onProfileSubmit, message }) {
 
   return (
     <div className='profile'>
-      <h1 className='profile__title'>{`Привет, ${currentUser.name}!`}</h1>
+      <h1 className='profile__title'>{`Hi, ${currentUser.name}!`}</h1>
       <h2 className='profile__message'>{message}</h2>
       <form className='profile__data-container' name='profile' onSubmit={handleSubmit} noValidate>
         <div className='profile__data'>
-          <p className='profile__data-text'>Имя</p>
+          <p className='profile__data-text'>Name</p>
           <input
             className='profile__input'
             onChange={formValidator.handleChange}
@@ -69,10 +69,10 @@ function Profile({ onLogout, onProfileSubmit, message }) {
             className={`profile__button ${
               !formValidator.isValid === !checkDataIsSame() ? 'profile__button_inactive' : ''
             }`}>
-            Редактировать
+            Edit
           </button>
           <button onClick={() => onLogout()} className='profile__button profile__button_logout'>
-            Выйти из аккаунта
+            Leave the account
           </button>
         </div>
       </form>

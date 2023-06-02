@@ -20,12 +20,12 @@ export default function Login({ onLogin, serverError }) {
         <Link className='entry__logo' to='/'>
           <img src={logo} alt='логотип' />
         </Link>
-        <h2 className='entry__title'>Рады видеть!</h2>
+        <h2 className='entry__title'>Glad to see you!</h2>
         <Form
           name='email'
           onSubmit={handleSubmit}
           isValid={formValidator.isValid}
-          buttonText='Войти'
+          buttonText='Login'
           registration={false}
           message={serverError}>
           <Input
@@ -41,18 +41,18 @@ export default function Login({ onLogin, serverError }) {
             maxLength={'200'}
             type={'password'}
             name={'Password'}
-            placeholder={'Пароль'}
+            placeholder={'Password'}
             formValidator={formValidator}
           />
         </Form>
         <p className='entry__question'>
-          Ещё не зарегистрированы?
+          Not yet registered?
           <button
             onClick={() => {
               navigate('/signup', { replace: true });
             }}
             className='entry__login-button'>
-            Регистрация
+            Registration
           </button>
         </p>
       </div>

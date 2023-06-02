@@ -23,11 +23,11 @@ function Header({ currentLocation, onNavButtonClick, onCloseButtonClick, visabil
       {currentLocation === '/' && !loggedIn ? (
         <div className='header__buttons-bar'>
           <Link className='header__button-registrate' to='/signup'>
-            Регистрация
+            Registration
           </Link>
 
           <Link className='header__button-login' to='/signin'>
-            Войти
+            Login
           </Link>
         </div>
       ) : windowWidth < 800 ? (
@@ -47,18 +47,18 @@ function Header({ currentLocation, onNavButtonClick, onCloseButtonClick, visabil
                 currentLocation === '/movies' ? 'header__button-movies_active' : ''
               }`}
               to='/movies'>
-              Фильмы
+              Movies
             </Link>
             <Link
               className={`header__button-movies ${
                 currentLocation === '/saved-movies' ? 'header__button-movies_active' : ''
               }`}
               to='/saved-movies'>
-              Сохраненые фильмы
+              Saved movies
             </Link>
           </nav>
           <Link className='header__button-account' to='/profile'>
-            Аккаунт
+            Account
             <div className='header__account-logo' alt='account logo'></div>
           </Link>
         </div>

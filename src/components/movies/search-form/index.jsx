@@ -40,7 +40,7 @@ function SearchForm({ onSearchSubmit, onCheckboxClick, currentLocation }) {
   const formSubmitHandle = (evt) => {
     evt.preventDefault();
     if (!searchData) {
-      setSearchError('Нужно ввести ключевое слово');
+      setSearchError('You need to enter a keyword');
     } else {
       onSearchSubmit(searchData, shortSelected);
     }
@@ -58,17 +58,17 @@ function SearchForm({ onSearchSubmit, onCheckboxClick, currentLocation }) {
     <div className='search'>
       <form className='search__form' name='search' onSubmit={formSubmitHandle}>
         {windowWidth < 550 ? null : (
-          <img className='search__form-image' src={SearchIcon} alt='иконка поиска' />
+          <img className='search__form-image' src={SearchIcon} alt='search icon' />
         )}
         <input
-          placeholder='Фильм'
+          placeholder='Movie'
           name='search'
           className='search__form-input'
           type='text'
           value={searchData}
           onChange={formFillHandle}></input>
         <button className='search__form-button' type='submit'>
-          Найти
+          Search
         </button>
       </form>
       <span className='search__form-error'>{searchError}</span>
@@ -79,7 +79,7 @@ function SearchForm({ onSearchSubmit, onCheckboxClick, currentLocation }) {
           name='short'
           checked={shortSelected}
           onChange={handleCheckboxChange}></input>
-        <label className='search__slider-title'>Короткометражки</label>
+        <label className='search__slider-title'>Short films</label>
       </div>
     </div>
   );

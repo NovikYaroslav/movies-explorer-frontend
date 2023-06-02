@@ -154,7 +154,7 @@ function App() {
           name: profileInputsData.name,
           email: profileInputsData.email,
         });
-        setServerMessage('Данные успешно обновлены!');
+        setServerMessage('Data successfully updated!');
       })
       .catch((error) => console.log(error.message));
   }

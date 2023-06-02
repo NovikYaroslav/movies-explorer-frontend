@@ -3,11 +3,12 @@ import './index.css';
 function Techs() {
   return (
     <div className='techs'>
-      <h2 className='techs__title'>Технологии</h2>
+      <h2 className='techs__title'>Technologies</h2>
       <div className='techs__text-block'>
-        <h3 className='techs__text-title'>7 технологий</h3>
+        <h3 className='techs__text-title'>7 technologies</h3>
         <p className='techs__text'>
-          На курсе веб-разработки мы освоили технологии, которые применили в дипломном проекте.
+          In the course of web development, we have mastered the technologies that used in the
+          diploma project.
         </p>
       </div>
       <ul className='techs__list'>

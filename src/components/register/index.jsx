@@ -29,12 +29,12 @@ export default function Register({ onRegistration, serverError }) {
         <Link className='header__logo' to='/'>
           <img src={logo} alt='логотип' />
         </Link>
-        <h2 className='entry__title'>Добро пожаловать!</h2>
+        <h2 className='entry__title'>Welcome!</h2>
         <Form
           name='email'
           onSubmit={handleSubmit}
           isValid={formValidator.isValid}
-          buttonText='Зарегистрироваться'
+          buttonText='Register'
           registration={true}
           message={message}>
           <Input
@@ -42,7 +42,7 @@ export default function Register({ onRegistration, serverError }) {
             maxLength={'50'}
             type={'name'}
             name={'Name'}
-            placeholder={'Имя'}
+            placeholder={'Name'}
             formValidator={formValidator}
           />
           <Input
@@ -58,18 +58,18 @@ export default function Register({ onRegistration, serverError }) {
             maxLength={'200'}
             type={'password'}
             name={'Password'}
-            placeholder={'Пароль'}
+            placeholder={'Password'}
             formValidator={formValidator}
           />
         </Form>
         <p className='entry__question'>
-          Уже зарегистрированы?
+          Already registered?
           <button
             onClick={() => {
               navigate('/signin', { replace: true });
             }}
             className='entry__login-button'>
-            Войти
+            Login
           </button>
         </p>
       </div>

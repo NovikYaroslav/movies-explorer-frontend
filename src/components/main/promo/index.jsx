@@ -6,15 +6,17 @@ function Promo() {
     <div className='promo'>
       <div className='promo__main'>
         <div className='promo__text-block'>
-          <h1 className='promo__title'>Учебный проект студента факультета Веб-разработки.</h1>
+          <h1 className='promo__title'>
+            Diploma project of the Yandex Web Development faculty student.
+          </h1>
           <p className='promo__text'>
-            Листайте ниже, чтобы узнать больше про этот проект и его создателя.
+            Listen below to find out more about this project and its creator.
           </p>
         </div>
         <img className='promo__logo' src={landingLogo} alt='Логотип' />
       </div>
       <a href='#about-project'>
-        <button className='promo__button'>Узнать больше</button>
+        <button className='promo__button'>To learn more</button>
       </a>
     </div>
   );

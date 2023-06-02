@@ -39,10 +39,10 @@ function Movies({
   useEffect(() => {
     if (searchSuccses && initialMovies.length === 0 && moviesToDisplay.length === 0) {
       setResultMessage(
-        'Во время запроса произошла ошибка. Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз',
+        'During the request, an error occurred.Perhaps the problem with the connection or the server is not available.Wait a bit and try again',
       );
     } else if (searchSuccses && moviesToDisplay.length === 0) {
-      setResultMessage('Ничего не найдено');
+      setResultMessage('Nothing found');
     } else {
       setResultMessage('');
     }
@@ -89,7 +89,7 @@ function Movies({
       {searchSuccses && moviesToDisplay.length > moviesCount && (
         <div className='more'>
           <button className='more__button' onClick={handleMoviesCount}>
-            Ещё
+            More
           </button>
         </div>
       )}

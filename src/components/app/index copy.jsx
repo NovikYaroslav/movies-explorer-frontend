@@ -2,8 +2,16 @@ import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { moviesSelector, savedMoviesSelector } from '../../store/reducers/movies';
-import { authorizationSelector, userDataSelector } from '../../store/reducers/authorization';
+import {
+  moviesSelector,
+  savedMoviesSelector,
+  cleanMoviesInitialState,
+} from '../../store/reducers/movies';
+import {
+  authorizationSelector,
+  userDataSelector,
+  clearAuthorizationState,
+} from '../../store/reducers/authorization';
 import { fetchMovies, fetchSavedMovies, fetchUserData, checkAuth } from '../../store/api-actions';
 
 import Footer from '../footer';
@@ -48,12 +56,16 @@ function App() {
   const [savedMovies, setSavedMovies] = useState([]);
   const [savedMoviesToDisplay, setSavedMoviesToDisplay] = useState([]);
   const [filterSavedData, setFilterSavedData] = useState({ params: '', short: false });
+  // Фильмы с бит сервера
   const initials = useSelector(moviesSelector);
+  // Сохраненные фильмы
   const saved = useSelector(savedMoviesSelector);
-  const authStatus = useSelector(authorizationSelector);
+  // статус авторизации
+  const authorized = useSelector(authorizationSelector);
+  // данные пользователя
   const user = useSelector(userDataSelector);
 
-  console.log(authStatus);
+  console.log(authorized);
   console.log(user);
 
   useEffect(() => {
@@ -78,12 +90,9 @@ function App() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
       setJwt(jwt);
-      dispatch(fetchUserData());
-      checkToken(jwt)
+      dispatch(checkAuth(jwt))
         .then((res) => {
           if (res) {
-            setLoggedIn(true);
-            setUserData({ name: res.name, email: res.email });
             handleNavigation();
           }
         })
@@ -94,48 +103,42 @@ function App() {
   }
 
   useEffect(() => {
-    if (jwt) {
-      Promise.all([getUserInfoFromServer(), getSavedMovies()])
-        .then(([userData, savedMovies]) => {
-          setUserData(userData);
-          const userMovies = savedMovies.filter((movie) => movie.owner === userData._id);
-          setSavedMovies(userMovies);
-          setSavedMoviesToDisplay(userMovies);
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
+    if (authorized) {
+      dispatch(fetchMovies());
+      dispatch(fetchSavedMovies());
     }
-  }, [jwt]);
+  }, [authorized, dispatch]);
 
-  useEffect(() => {
-    if (savedMovies.length !== 0 && filterSavedData.params !== '') {
-      localStorage.setItem('filterSavedData', JSON.stringify(filterSavedData));
-    }
-    if (moviesToDisplay.length !== 0 && filterData.params !== '') {
-      localStorage.setItem('moviesToDisplay', JSON.stringify(moviesToDisplay));
-      localStorage.setItem('filterData', JSON.stringify(filterData));
-    }
-  }, [moviesToDisplay, filterData, filterSavedData]);
+  // useEffect(() => {
+  //   if (savedMovies.length !== 0 && filterSavedData.params !== '') {
+  //     localStorage.setItem('filterSavedData', JSON.stringify(filterSavedData));
+  //   }
+  //   if (moviesToDisplay.length !== 0 && filterData.params !== '') {
+  //     localStorage.setItem('moviesToDisplay', JSON.stringify(moviesToDisplay));
+  //     localStorage.setItem('filterData', JSON.stringify(filterData));
+  //   }
+  // }, [moviesToDisplay, filterData, filterSavedData]);
 
-  useEffect(() => {
-    const storedMoviesToDisplay = localStorage.getItem('moviesToDisplay');
-    const storedFilterData = localStorage.getItem('filterData');
-    if (storedMoviesToDisplay && storedFilterData) {
-      setMoviesToDisplay(JSON.parse(storedMoviesToDisplay));
-      setFilterData(JSON.parse(storedFilterData));
-      setSearchSuccses(true);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedMoviesToDisplay = localStorage.getItem('moviesToDisplay');
+  //   const storedFilterData = localStorage.getItem('filterData');
+  //   if (storedMoviesToDisplay && storedFilterData) {
+  //     setMoviesToDisplay(JSON.parse(storedMoviesToDisplay));
+  //     setFilterData(JSON.parse(storedFilterData));
+  //     setSearchSuccses(true);
+  //   }
+  // }, []);
 
   function handleNavMenuVisability() {
     setNavigationOpened(!navigationOpened);
   }
+
   function handleAuthorization(email, password) {
     authorize(email, password)
       .then(() => {
         const jwt = localStorage.getItem('jwt');
         if (jwt) {
+          dispatch(fetchUserData());
           getUserInfoFromServer().then((userData) => {
             Promise.resolve(setUserData({ name: userData.name, email: userData.email })).catch(
               (error) => {
@@ -186,12 +189,14 @@ function App() {
       localStorage.removeItem('moviesToDisplay');
       localStorage.removeItem('filterData');
       localStorage.removeItem('filterSavedData');
-      setMoviesToDisplay([]);
+
+      dispatch(clearAuthorizationState());
+      dispatch(cleanMoviesInitialState());
+
       setFilterData({ params: '', short: false });
       setFilterSavedData({ params: '', short: false });
       setSearchSuccses(false);
       setSearchSavedSuccses(false);
-      setLoggedIn(false);
       navigate('/', { replace: true });
     }
   }

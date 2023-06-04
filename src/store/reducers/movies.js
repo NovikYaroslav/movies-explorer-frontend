@@ -1,40 +1,60 @@
 import { createSlice, createDraftSafeSelector } from '@reduxjs/toolkit';
-import { fetchMovies, fetchSavedMovies } from '../api-actions';
-
-// ПОПРОБУЙ СОЗДАТЬ ВТОРОЙ СЛАЙ, такой же, но с сохраненными фильмами.
+import { fetchMovies } from '../api-actions';
+import { filterMovies } from '../../utils/movieFilter';
 
 const moviesInitialState = {
   initialMovies: [],
-  savedMovies: [],
+  initialMoviesSearchParams: {
+    params: '',
+    short: false,
+  },
 };
 
 export const MoviesSlice = createSlice({
   name: 'movies',
   initialState: moviesInitialState,
   reducers: {
-    cleanMoviesInitialState: (state) => {
+    clearMoviesInitialState: (state) => {
       state.initialMovies = [];
-      state.savedMovies = [];
+    },
+    clearInitialMoviesSearchParams: (state) => {
+      state.savedMoviesSearchParams = {
+        params: '',
+        short: false,
+      };
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(fetchMovies.fulfilled, (state, action) => {
-        state.initialMovies = action.payload;
-      })
-      .addCase(fetchSavedMovies.fulfilled, (state, action) => {
-        state.savedMovies = action.payload;
-      });
+    builder.addCase(fetchMovies.fulfilled, (state, action) => {
+      state.initialMovies = action.payload;
+    });
   },
 });
 
 const selectMovies = (state) => state.movies.initialMovies;
-const selectSavedMovies = (state) => state.movies.savedMovies;
+const selectInitialMoviesSearchParams = (state) => state.movies.initialMoviesSearchParams;
+
 const moviesSelector = createDraftSafeSelector(selectMovies, (initialMovies) => initialMovies);
-const savedMoviesSelector = createDraftSafeSelector(
-  selectSavedMovies,
-  (savedMovies) => savedMovies,
+
+const initialMoviesSearchParamsSelector = createDraftSafeSelector(
+  selectInitialMoviesSearchParams,
+  (savedMoviesSearchParams) => savedMoviesSearchParams,
 );
 
-export { moviesSelector, savedMoviesSelector };
-export const { cleanMoviesInitialState } = MoviesSlice.actions;
+const filtredInitialMoviesSelector = createDraftSafeSelector(
+  selectMovies,
+  selectInitialMoviesSearchParams,
+  (initialMovies, initialMoviesSearchParams) => {
+    if (initialMoviesSearchParams.params === '' && initialMoviesSearchParams.short === false) {
+      return initialMovies;
+    }
+    return filterMovies(
+      initialMovies,
+      initialMoviesSearchParams.params,
+      initialMoviesSearchParams.short,
+    );
+  },
+);
+
+export { moviesSelector, initialMoviesSearchParamsSelector, filtredInitialMoviesSelector };
+export const { clearMoviesInitialState, clearInitialMoviesSearchParams } = MoviesSlice.actions;

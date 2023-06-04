@@ -1,6 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { getMovies } from '../utils/MoviesApi';
-import { getSavedMovies, register, checkToken, getUserInfoFromServer } from '../utils/MainApi';
+import {
+  getSavedMovies,
+  register,
+  checkToken,
+  getUserInfoFromServer,
+  editUserData,
+} from '../utils/MainApi';
 
 export const fetchMovies = createAsyncThunk('GET beatfilm-movies/', async () => {
   try {
@@ -11,7 +17,7 @@ export const fetchMovies = createAsyncThunk('GET beatfilm-movies/', async () => 
   }
 });
 
-export const checkAuth = createAsyncThunk('GET /signin', async (jwt) => {
+export const checkAuth = createAsyncThunk('GET /users/me with token', async (jwt) => {
   try {
     const response = await checkToken(jwt);
     console.log(response);
@@ -30,7 +36,7 @@ export const registrate = createAsyncThunk('POST /signup', async (name, email, p
   }
 });
 
-export const fetchUserData = createAsyncThunk('GET /signin', async () => {
+export const fetchUserData = createAsyncThunk('GET /users/me', async () => {
   try {
     const response = await getUserInfoFromServer();
     return response;
@@ -45,5 +51,14 @@ export const fetchSavedMovies = createAsyncThunk('GET /movies', async () => {
     return response;
   } catch (error) {
     throw Error('Failed to fetch savedMovies');
+  }
+});
+
+export const postUserData = createAsyncThunk('POST /users/me', async (updatedUserData) => {
+  try {
+    const response = await editUserData(updatedUserData);
+    return response;
+  } catch (error) {
+    throw Error('Failed to regitrate');
   }
 });

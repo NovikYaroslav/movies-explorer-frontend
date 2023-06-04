@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { moviesSelector, savedMoviesSelector } from '../../store/reducers/movies';
+import { moviesSelector } from '../../store/reducers/movies';
+import { savedMoviesSelector } from '../../store/reducers/saved-movies';
 import { authorizationSelector, userDataSelector } from '../../store/reducers/authorization';
 import { fetchMovies, fetchSavedMovies, fetchUserData, checkAuth } from '../../store/api-actions';
 

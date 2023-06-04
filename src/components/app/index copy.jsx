@@ -2,16 +2,28 @@ import { useState, useEffect } from 'react';
 import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
 
 import { useSelector, useDispatch } from 'react-redux';
+
 import {
   moviesSelector,
-  savedMoviesSelector,
-  cleanMoviesInitialState,
+  clearMoviesInitialState,
+  clearInitialMoviesSearchParams,
+  filtredInitialMoviesSelector,
+  initialMoviesSearchParamsSelector,
 } from '../../store/reducers/movies';
+import {
+  savedMoviesSelector,
+  clearSavedMoviesInitialState,
+  clearSavedMoviesSearchParams,
+  filtredSavedMoviesSelector,
+  savedMoviesSearchParamsSelector,
+} from '../../store/reducers/saved-movies';
+
 import {
   authorizationSelector,
   userDataSelector,
   clearAuthorizationState,
 } from '../../store/reducers/authorization';
+
 import { fetchMovies, fetchSavedMovies, fetchUserData, checkAuth } from '../../store/api-actions';
 
 import Footer from '../footer';
@@ -44,8 +56,8 @@ function App() {
   const navigate = useNavigate();
   const [navigationOpened, setNavigationOpened] = useState(false);
   const [serverMessage, setServerMessage] = useState('');
-  const [jwt, setJwt] = useState('');
-  const [loggedIn, setLoggedIn] = useState(false);
+  // const [jwt, setJwt] = useState('');
+  // const [loggedIn, setLoggedIn] = useState(false);
   const [userData, setUserData] = useState({ name: '', email: '' });
   const [initialMovies, setInitialMovies] = useState([]);
   const [filterData, setFilterData] = useState({ params: '', short: false });
@@ -70,7 +82,6 @@ function App() {
 
   useEffect(() => {
     dispatch(fetchMovies());
-    dispatch(fetchSavedMovies());
   }, [dispatch]);
 
   useEffect(() => {
@@ -89,7 +100,7 @@ function App() {
   function tokenCheck() {
     const jwt = localStorage.getItem('jwt');
     if (jwt) {
-      setJwt(jwt);
+      // setJwt(jwt);
       dispatch(checkAuth(jwt))
         .then((res) => {
           if (res) {
@@ -139,17 +150,9 @@ function App() {
         const jwt = localStorage.getItem('jwt');
         if (jwt) {
           dispatch(fetchUserData());
-          getUserInfoFromServer().then((userData) => {
-            Promise.resolve(setUserData({ name: userData.name, email: userData.email })).catch(
-              (error) => {
-                setServerMessage(error.message);
-              },
-            );
-          });
-          setJwt(jwt);
-          setLoggedIn(true);
-          navigate('/movies', { replace: true });
         }
+        // setJwt(jwt);
+        // setLoggedIn(true);
       })
       .catch((error) => {
         setServerMessage(error.message);
@@ -158,11 +161,10 @@ function App() {
 
   function handleRegistration(name, email, password) {
     register(name, email, password)
-      .then((data) => {
-        console.log(data);
+      .then((res) => {
         setServerMessage('');
-        setUserData({ name: name, email: email });
-        setLoggedIn(true);
+        // setUserData({ name: name, email: email });
+        // setLoggedIn(true);
         handleAuthorization(email, password);
         navigate('/movies', { replace: true });
       })
@@ -184,17 +186,18 @@ function App() {
   }
 
   function handleLogout() {
-    if (loggedIn) {
+    if (authorized) {
       localStorage.removeItem('jwt');
       localStorage.removeItem('moviesToDisplay');
       localStorage.removeItem('filterData');
       localStorage.removeItem('filterSavedData');
 
       dispatch(clearAuthorizationState());
-      dispatch(cleanMoviesInitialState());
+      dispatch(clearMoviesInitialState());
+      dispatch(clearSavedMoviesInitialState());
+      dispatch(clearInitialMoviesSearchParams());
+      dispatch(clearSavedMoviesSearchParams());
 
-      setFilterData({ params: '', short: false });
-      setFilterSavedData({ params: '', short: false });
       setSearchSuccses(false);
       setSearchSavedSuccses(false);
       navigate('/', { replace: true });
@@ -335,7 +338,7 @@ function App() {
             onNavButtonClick={handleNavMenuVisability}
             onCloseButtonClick={handleNavMenuVisability}
             visability={navigationOpened}
-            loggedIn={loggedIn}
+            loggedIn={authorized}
           />
         ) : null}
         <main className='content'>
@@ -369,7 +372,7 @@ function App() {
                       onCardUnlike={handleCardUnlike}
                     />
                   }
-                  loggedIn={loggedIn}
+                  loggedIn={authorized}
                 />
               }
             />
@@ -381,7 +384,7 @@ function App() {
                   element={
                     <SavedMovies
                       currentLocation={location.pathname}
-                      loggedIn={loggedIn}
+                      loggedIn={authorized}
                       savedMovies={savedMoviesToDisplay}
                       onSavedSearchSubmit={handleSavedSearchSubmit}
                       onSavedCheckcboxClick={handleSavedCheckboxClick}
@@ -405,7 +408,7 @@ function App() {
                       message={serverMessage}
                     />
                   }
-                  loggedIn={loggedIn}
+                  loggedIn={authorized}
                 />
               }
             />

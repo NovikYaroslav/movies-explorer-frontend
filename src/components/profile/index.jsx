@@ -1,15 +1,18 @@
-import { useEffect, useContext } from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './index.css';
 import useFormWithValidation from '../../utils/formValidator';
-import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import { userDataSelector } from '../../store/reducers/authorization';
+import { postUserData } from '../../store/api-actions';
 
-function Profile({ onLogout, onProfileSubmit, message }) {
-  const currentUser = useContext(CurrentUserContext);
+function Profile({ onLogout, message }) {
+  const dispatch = useDispatch();
+  const userData = useSelector(userDataSelector);
   const formValidator = useFormWithValidation();
 
   function checkDataIsSame() {
-    const sameName = formValidator.values['Name'] === currentUser.name;
-    const sameEmail = formValidator.values['Email'] === currentUser.email;
+    const sameName = formValidator.values['Name'] === userData.name;
+    const sameEmail = formValidator.values['Email'] === userData.email;
     if (sameName && sameEmail) {
       return true;
     } else {
@@ -19,19 +22,22 @@ function Profile({ onLogout, onProfileSubmit, message }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    onProfileSubmit({
-      name: formValidator.values['Name'],
-      email: formValidator.values['Email'],
-    });
+    dispatch(
+      postUserData({
+        name: formValidator.values['Name'],
+        email: formValidator.values['Email'],
+      }),
+    );
   }
 
   useEffect(() => {
-    formValidator.resetForm({ Name: currentUser.name, Email: currentUser.email }, {}, true);
-  }, [currentUser]);
+    console.log(userData);
+    formValidator.resetForm({ Name: userData.name, Email: userData.email }, {}, true);
+  }, [userData.name, userData.email]);
 
   return (
     <div className='profile'>
-      <h1 className='profile__title'>{`Hi, ${currentUser.name}!`}</h1>
+      <h1 className='profile__title'>{`Hi, ${userData.name}!`}</h1>
       <h2 className='profile__message'>{message}</h2>
       <form className='profile__data-container' name='profile' onSubmit={handleSubmit} noValidate>
         <div className='profile__data'>

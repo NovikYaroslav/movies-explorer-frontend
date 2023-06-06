@@ -24,7 +24,14 @@ import {
   clearAuthorizationState,
 } from '../../store/reducers/authorization';
 
-import { fetchMovies, fetchSavedMovies, fetchUserData, checkAuth } from '../../store/api-actions';
+import {
+  fetchMovies,
+  fetchSavedMovies,
+  fetchUserData,
+  checkAuth,
+  postUserData,
+  postSavedMovie,
+} from '../../store/api-actions';
 
 import Footer from '../footer';
 import Header from '../header';
@@ -79,6 +86,8 @@ function App() {
 
   console.log(authorized);
   console.log(user);
+  console.log(initials);
+  console.log(saved);
 
   useEffect(() => {
     dispatch(fetchMovies());
@@ -153,6 +162,7 @@ function App() {
         }
         // setJwt(jwt);
         // setLoggedIn(true);
+        navigate('/');
       })
       .catch((error) => {
         setServerMessage(error.message);
@@ -171,18 +181,6 @@ function App() {
       .catch((error) => {
         setServerMessage(error.message);
       });
-  }
-
-  function handleUpdateUser(profileInputsData) {
-    editUserData(profileInputsData)
-      .then(() => {
-        setUserData({
-          name: profileInputsData.name,
-          email: profileInputsData.email,
-        });
-        setServerMessage('Data successfully updated!');
-      })
-      .catch((error) => console.log(error.message));
   }
 
   function handleLogout() {
@@ -205,103 +203,104 @@ function App() {
   }
 
   function handleSearchSubmit(data, short) {
-    setSearchSuccses(false);
-    setIsLoading(true);
-    getMovies()
-      .then((movies) => {
-        setInitialMovies(movies);
-        setFilterData({ params: data, short: short });
-        setMoviesToDisplay(filterMovies(movies, data, short).filtredMovies);
-        setSearchSuccses(filterMovies(movies, data, short).serchResult);
-      })
-      .catch((error) => {
-        console.log(error);
-        setSearchSuccses(true);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    console.log('Нажатие на кнопку поиска');
+    console.log(data, short);
+    // setSearchSuccses(false);
+    // setIsLoading(true);
+    // getMovies()
+    //   .then((movies) => {
+    //     setInitialMovies(movies);
+    //     setFilterData({ params: data, short: short });
+    //     setMoviesToDisplay(filterMovies(movies, data, short).filtredMovies);
+    //     setSearchSuccses(filterMovies(movies, data, short).serchResult);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     setSearchSuccses(true);
+    //   })
+    //   .finally(() => {
+    //     setIsLoading(false);
+    //   });
   }
 
   function handleCheckboxClick(updatedStatus) {
-    setFilterData((prevFilterData) => {
-      return { params: prevFilterData.params, short: updatedStatus };
-    });
-    if (initialMovies.length === 0) {
-      setSearchSuccses(false);
-      setIsLoading(true);
-      getMovies()
-        .then((movies) => {
-          setInitialMovies(movies);
-          setMoviesToDisplay(filterMovies(movies, filterData.params, updatedStatus).filtredMovies);
-          setSearchSuccses(filterMovies(movies, filterData.params, updatedStatus).serchResult);
-        })
-        .catch((error) => {
-          console.log(error);
-          setSearchSuccses(true);
-        })
-        .finally(() => {
-          setIsLoading(false);
-        });
-    } else {
-      setMoviesToDisplay(
-        filterMovies(initialMovies, filterData.params, updatedStatus).filtredMovies,
-      );
-      setSearchSuccses(filterMovies(initialMovies, filterData.params, updatedStatus).serchResult);
-    }
+    console.log('Нажатие на чекбокс');
+    console.log(updatedStatus);
+    // setFilterData((prevFilterData) => {
+    //   return { params: prevFilterData.params, short: updatedStatus };
+    // });
+    // if (initialMovies.length === 0) {
+    //   setSearchSuccses(false);
+    //   setIsLoading(true);
+    //   getMovies()
+    //     .then((movies) => {
+    //       setInitialMovies(movies);
+    //       setMoviesToDisplay(filterMovies(movies, filterData.params, updatedStatus).filtredMovies);
+    //       setSearchSuccses(filterMovies(movies, filterData.params, updatedStatus).serchResult);
+    //     })
+    //     .catch((error) => {
+    //       console.log(error);
+    //       setSearchSuccses(true);
+    //     })
+    //     .finally(() => {
+    //       setIsLoading(false);
+    //     });
+    // } else {
+    //   setMoviesToDisplay(
+    //     filterMovies(initialMovies, filterData.params, updatedStatus).filtredMovies,
+    //   );
+    //   setSearchSuccses(filterMovies(initialMovies, filterData.params, updatedStatus).serchResult);
+    // }
   }
 
   function handleSavedSearchSubmit(data, short) {
-    setSearchSavedSuccses(false);
-    setIsLoading(true);
-    getSavedMovies()
-      .then((movies) => {
-        setFilterSavedData({ params: data, short: short });
-        setSavedMoviesToDisplay(filterMovies(movies, data, short).filtredMovies);
-        setSearchSavedSuccses(filterMovies(movies, data, short).serchResult);
-      })
-      .catch((error) => {
-        console.log(error);
-        setSearchSavedSuccses(true);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    console.log('Нажатие на кнопку поиска сохраненных');
+    console.log(data, short);
+    // setSearchSavedSuccses(false);
+    // setIsLoading(true);
+    // getSavedMovies()
+    //   .then((movies) => {
+    //     setFilterSavedData({ params: data, short: short });
+    //     setSavedMoviesToDisplay(filterMovies(movies, data, short).filtredMovies);
+    //     setSearchSavedSuccses(filterMovies(movies, data, short).serchResult);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     setSearchSavedSuccses(true);
+    //   })
+    //   .finally(() => {
+    //     setIsLoading(false);
+    //   });
   }
 
   function handleSavedCheckboxClick(updatedStatus) {
-    setFilterSavedData((prevFilterData) => {
-      return { params: prevFilterData.params, short: updatedStatus };
-    });
-    setSearchSavedSuccses(false);
-    getSavedMovies()
-      .then((movies) => {
-        setSavedMoviesToDisplay(
-          filterMovies(movies, filterData.params, updatedStatus).filtredMovies,
-        );
-        setSearchSavedSuccses(filterMovies(movies, filterData.params, updatedStatus).serchResult);
-      })
-      .catch((error) => {
-        console.log(error);
-        setSearchSavedSuccses(true);
-      })
-      .finally(() => {
-        setIsLoading(false);
-      });
+    console.log('Нажатие на чекбокс сохраненных');
+    console.log(updatedStatus);
+
+    // setFilterSavedData((prevFilterData) => {
+    //   return { params: prevFilterData.params, short: updatedStatus };
+    // });
+    // setSearchSavedSuccses(false);
+    // getSavedMovies()
+    //   .then((movies) => {
+    //     setSavedMoviesToDisplay(
+    //       filterMovies(movies, filterData.params, updatedStatus).filtredMovies,
+    //     );
+    //     setSearchSavedSuccses(filterMovies(movies, filterData.params, updatedStatus).serchResult);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //     setSearchSavedSuccses(true);
+    //   })
+    //   .finally(() => {
+    //     setIsLoading(false);
+    //   });
   }
 
   function movieRemover(_id) {
     deleteMovie(_id)
-      .then((res) => {
-        console.log(res);
-        getSavedMovies()
-          .then((data) => {
-            setSavedMoviesToDisplay(data);
-            setSavedMovies(data);
-          })
-          .catch((error) => {
-            console.log(error.message);
-          });
+      .then(() => {
+        dispatch(fetchSavedMovies());
       })
       .catch((error) => {
         console.log(error.message);
@@ -309,14 +308,10 @@ function App() {
   }
 
   function handleCardLike(movie) {
-    addMovie(movie)
-      .then((savedMovie) => {
-        setSavedMoviesToDisplay((prevSavedMoviesToShow) => [...prevSavedMoviesToShow, savedMovie]);
-        setSavedMovies((prevSavedMovies) => [...prevSavedMovies, savedMovie]);
-      })
-      .catch((error) => console.log(error));
+    dispatch(postSavedMovie(movie));
   }
 
+  // Тут вопросик как это работает?
   function handleCardUnlike(movie) {
     if (movie._id) {
       movieRemover(movie._id);
@@ -401,13 +396,7 @@ function App() {
               path='/profile'
               element={
                 <ProtectedRoute
-                  element={
-                    <Profile
-                      onLogout={handleLogout}
-                      onProfileSubmit={handleUpdateUser}
-                      message={serverMessage}
-                    />
-                  }
+                  element={<Profile onLogout={handleLogout} message={serverMessage} />}
                   loggedIn={authorized}
                 />
               }

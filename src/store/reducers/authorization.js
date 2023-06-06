@@ -26,6 +26,7 @@ export const authorizationSlice = createSlice({
         state.userData = action.payload;
       })
       .addCase(postUserData.fulfilled, (state, action) => {
+        console.log(action.payload);
         state.userData = action.payload;
       });
   },

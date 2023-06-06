@@ -6,6 +6,8 @@ import {
   checkToken,
   getUserInfoFromServer,
   editUserData,
+  deleteMovie,
+  addMovie,
 } from '../utils/MainApi';
 
 export const fetchMovies = createAsyncThunk('GET beatfilm-movies/', async () => {
@@ -54,9 +56,27 @@ export const fetchSavedMovies = createAsyncThunk('GET /movies', async () => {
   }
 });
 
+export const removeSavedMovie = createAsyncThunk('DELETE /movies/_id', async (_id) => {
+  try {
+    const response = await deleteMovie(_id);
+    return response;
+  } catch (error) {
+    throw Error('Failed to fetch savedMovies');
+  }
+});
+
 export const postUserData = createAsyncThunk('POST /users/me', async (updatedUserData) => {
   try {
-    const response = await editUserData(updatedUserData);
+    const { data } = await editUserData(updatedUserData);
+    return data;
+  } catch (error) {
+    throw Error('Failed to regitrate');
+  }
+});
+
+export const postSavedMovie = createAsyncThunk('POST /movies', async (newMovie) => {
+  try {
+    const response = await addMovie(newMovie);
     return response;
   } catch (error) {
     throw Error('Failed to regitrate');

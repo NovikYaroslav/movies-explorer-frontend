@@ -28,6 +28,9 @@ export const SavedMoviesSlice = createSlice({
     setSavedMoviesSearchParams: (state, action) => {
       state.savedMoviesSearchParams = action.payload;
     },
+    addToSavedMovies: (state, action) => {
+      state.savedMovies = state.savedMovies.push(action.payload);
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchSavedMovies.fulfilled, (state, action) => {

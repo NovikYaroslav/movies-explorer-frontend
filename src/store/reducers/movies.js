@@ -8,6 +8,7 @@ const moviesInitialState = {
     params: '',
     short: false,
   },
+  searchSuccses: false,
 };
 
 export const MoviesSlice = createSlice({
@@ -18,10 +19,20 @@ export const MoviesSlice = createSlice({
       state.initialMovies = [];
     },
     clearInitialMoviesSearchParams: (state) => {
-      state.savedMoviesSearchParams = {
+      state.initialMoviesSearchParams = {
         params: '',
         short: false,
       };
+    },
+    clearSearchSuccsesInitialState: (state) => {
+      state.searchSuccses = false;
+    },
+    setSearchParams: (state, action) => {
+      console.log(action.payload);
+      state.initialMoviesSearchParams = action.payload;
+    },
+    setSearchSuccses: (state, action) => {
+      state.searchSuccses = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -33,6 +44,7 @@ export const MoviesSlice = createSlice({
 
 const selectMovies = (state) => state.movies.initialMovies;
 const selectInitialMoviesSearchParams = (state) => state.movies.initialMoviesSearchParams;
+const selectSearchSuccses = (state) => state.movies.searchSuccses;
 
 const moviesSelector = createDraftSafeSelector(selectMovies, (initialMovies) => initialMovies);
 
@@ -46,8 +58,9 @@ const filtredInitialMoviesSelector = createDraftSafeSelector(
   selectInitialMoviesSearchParams,
   (initialMovies, initialMoviesSearchParams) => {
     if (initialMoviesSearchParams.params === '' && initialMoviesSearchParams.short === false) {
-      return initialMovies;
+      return [];
     }
+    console.log('использую функцию фильрации');
     return filterMovies(
       initialMovies,
       initialMoviesSearchParams.params,
@@ -56,5 +69,21 @@ const filtredInitialMoviesSelector = createDraftSafeSelector(
   },
 );
 
-export { moviesSelector, initialMoviesSearchParamsSelector, filtredInitialMoviesSelector };
-export const { clearMoviesInitialState, clearInitialMoviesSearchParams } = MoviesSlice.actions;
+const searchSuccsesSelector = createDraftSafeSelector(
+  selectSearchSuccses,
+  (searchSuccses) => searchSuccses,
+);
+
+export {
+  moviesSelector,
+  initialMoviesSearchParamsSelector,
+  filtredInitialMoviesSelector,
+  searchSuccsesSelector,
+};
+export const {
+  clearMoviesInitialState,
+  clearInitialMoviesSearchParams,
+  clearSearchSuccsesInitialState,
+  setSearchParams,
+  setSearchSuccses,
+} = MoviesSlice.actions;

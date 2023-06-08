@@ -1,11 +1,14 @@
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Form from '../form';
 import Input from '../input';
 import useFormWithValidation from '../../utils/formValidator';
 import logo from '../../images/logo.svg';
-import { useState } from 'react';
+import { registrateAndAuthorize } from '../../store/api-actions';
 
-export default function Register({ onRegistration, serverError }) {
+export default function Register({ serverError }) {
+  const dispatch = useDispatch();
   const formValidator = useFormWithValidation();
   const navigate = useNavigate();
   const [message, setMessage] = useState(serverError);
@@ -14,13 +17,17 @@ export default function Register({ onRegistration, serverError }) {
     e.preventDefault();
     if (!formValidator.isValid) {
       setMessage('Пожалуйста, укажите корректные данные!');
+      return;
     }
-    onRegistration(
-      formValidator.values['Name'],
-      formValidator.values['Email'],
-      formValidator.values['Password'],
+    dispatch(
+      registrateAndAuthorize({
+        name: formValidator.values['Name'],
+        email: formValidator.values['Email'],
+        password: formValidator.values['Password'],
+      }),
     );
     formValidator.resetForm();
+    navigate('/movies', { replace: true });
   }
 
   return (

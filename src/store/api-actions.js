@@ -3,14 +3,17 @@ import { getMovies } from '../utils/MoviesApi';
 import {
   getSavedMovies,
   register,
+  authorize,
   checkToken,
   getUserInfoFromServer,
   editUserData,
   deleteMovie,
   addMovie,
 } from '../utils/MainApi';
+import { getJwt } from '../utils/jwtHandler';
 
 export const fetchMovies = createAsyncThunk('GET beatfilm-movies/', async () => {
+  console.log('getMovies()');
   try {
     const response = await getMovies();
     return response;
@@ -19,17 +22,18 @@ export const fetchMovies = createAsyncThunk('GET beatfilm-movies/', async () => 
   }
 });
 
-export const checkAuth = createAsyncThunk('GET /users/me with token', async (jwt) => {
+export const checkAuth = createAsyncThunk('GET /users/me with token', async () => {
+  const jwt = getJwt();
   try {
     const response = await checkToken(jwt);
-    console.log(response);
     return response;
   } catch (error) {
     throw Error('Failed to login');
   }
 });
 
-export const registrate = createAsyncThunk('POST /signup', async (name, email, password) => {
+export const registrate = createAsyncThunk('POST /signup', async ({ name, email, password }) => {
+  console.log('register(name, email, password');
   try {
     const response = await register(name, email, password);
     return response;
@@ -38,7 +42,31 @@ export const registrate = createAsyncThunk('POST /signup', async (name, email, p
   }
 });
 
+export const authorizate = createAsyncThunk('POST /signin', async ({ email, password }) => {
+  console.log('authorize(email, password)');
+  try {
+    const response = await authorize(email, password);
+    return response;
+  } catch (error) {
+    throw Error('Failed to regitrate');
+  }
+});
+
+export const registrateAndAuthorize =
+  ({ name, email, password }) =>
+  async (dispatch) => {
+    try {
+      const registrationResponse = await dispatch(registrate({ name, email, password }));
+      if (registrationResponse.meta.requestStatus === 'fulfilled') {
+        dispatch(authorizate({ email, password }));
+      }
+    } catch (error) {
+      throw Error('Failed to register and authorize');
+    }
+  };
+
 export const fetchUserData = createAsyncThunk('GET /users/me', async () => {
+  console.log('getUserInfoFromServer()');
   try {
     const response = await getUserInfoFromServer();
     return response;
@@ -48,6 +76,7 @@ export const fetchUserData = createAsyncThunk('GET /users/me', async () => {
 });
 
 export const fetchSavedMovies = createAsyncThunk('GET /movies', async () => {
+  console.log('getSavedMovies()');
   try {
     const response = await getSavedMovies();
     return response;
@@ -78,6 +107,15 @@ export const postSavedMovie = createAsyncThunk('POST /movies', async (newMovie) 
   try {
     const response = await addMovie(newMovie);
     return response;
+  } catch (error) {
+    throw Error('Failed to regitrate');
+  }
+});
+
+export const deleteSavedMovie = createAsyncThunk('DELETE /movies/_id', async (_id) => {
+  try {
+    await deleteMovie(_id);
+    return _id;
   } catch (error) {
     throw Error('Failed to regitrate');
   }

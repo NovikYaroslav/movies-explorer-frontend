@@ -1,6 +1,6 @@
 import './index.css';
 
-function Preloader(loaded) {
+function Preloader() {
   return <div className='spinner' />;
 }
 

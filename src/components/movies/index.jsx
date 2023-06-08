@@ -1,8 +1,9 @@
 import './index.css';
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import SearchForm from './search-form';
 import MoviesCardList from './movies-card-list';
-import Preloader from '../preloader';
+// import Preloader from '../preloader';
 import {
   MOVIES_TO_SHOW_INITIAL,
   MOVIES_TO_SHOW_ON_WIDTH_MORE_THEN_940,
@@ -11,22 +12,29 @@ import {
   AMOUNT_TO_ADD_ON_WIDTH_LESS_THEN_940,
   AMOUNT_TO_ADD_ON_WIDTH_MORE_THEN_940,
 } from '../../utils/const';
+import {
+  filtredInitialMoviesSelector,
+  moviesSelector,
+  searchSuccsesSelector,
+} from '../../store/reducers/movies';
 
 function Movies({
   currentLocation,
   onSearchSubmit,
   onCheckcboxClick,
-  isLoading,
-  searchSuccses,
-  moviesToDisplay,
-  savedMovies,
-  initialMovies,
+  // savedMovies,
   onCardLike,
   onCardUnlike,
 }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [moviesCount, setMoviesCount] = useState(MOVIES_TO_SHOW_INITIAL);
   const [resultMessage, setResultMessage] = useState('');
+  const moviesToShow = useSelector(filtredInitialMoviesSelector);
+  const initialMovies = useSelector(moviesSelector);
+  const searchSuccses = useSelector(searchSuccsesSelector);
+
+  console.log(moviesToShow);
+  console.log(resultMessage);
 
   useEffect(() => {
     const handleResize = () => {
@@ -37,16 +45,16 @@ function Movies({
   }, []);
 
   useEffect(() => {
-    if (searchSuccses && initialMovies.length === 0 && moviesToDisplay.length === 0) {
+    if (initialMovies.length === 0 && moviesToShow.length === 0) {
       setResultMessage(
-        'During the request, an error occurred.Perhaps the problem with the connection or the server is not available.Wait a bit and try again',
+        'During the request, an error occurred. Perhaps the problem with the connection or the server is not available. Wait a bit and try again',
       );
-    } else if (searchSuccses && moviesToDisplay.length === 0) {
+    } else if (searchSuccses && moviesToShow.length === 0) {
       setResultMessage('Nothing found');
     } else {
       setResultMessage('');
     }
-  }, [searchSuccses, moviesToDisplay, initialMovies]);
+  }, [searchSuccses, moviesToShow, initialMovies]);
 
   useEffect(() => {
     if (windowWidth < 940) {
@@ -70,14 +78,18 @@ function Movies({
 
   return (
     <section className='movies'>
-      <SearchForm onSearchSubmit={onSearchSubmit} onCheckboxClick={onCheckcboxClick} />
+      <SearchForm
+        onSearchSubmit={onSearchSubmit}
+        onCheckboxClick={onCheckcboxClick}
+        currentLocation={currentLocation}
+      />
 
-      {isLoading ? <Preloader /> : null}
+      {/* {isLoading ? <Preloader /> : null} */}
 
-      {searchSuccses && moviesToDisplay.length !== 0 ? (
+      {searchSuccses && moviesToShow.length !== 0 ? (
         <MoviesCardList
-          moviesForLayout={moviesToDisplay.slice(0, moviesCount)}
-          savedMovies={savedMovies}
+          moviesForLayout={moviesToShow.slice(0, moviesCount)}
+          // savedMovies={savedMovies}
           currentLocation={currentLocation}
           onCardLike={onCardLike}
           onCardUnlike={onCardUnlike}
@@ -86,7 +98,7 @@ function Movies({
 
       {resultMessage && <h1 className='movies__message'>{resultMessage}</h1>}
 
-      {searchSuccses && moviesToDisplay.length > moviesCount && (
+      {moviesToShow.length > moviesCount && (
         <div className='more'>
           <button className='more__button' onClick={handleMoviesCount}>
             More

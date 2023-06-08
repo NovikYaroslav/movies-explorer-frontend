@@ -5,24 +5,18 @@ import { useSelector, useDispatch } from 'react-redux';
 
 import {
   moviesSelector,
-  clearMoviesInitialState,
-  clearInitialMoviesSearchParams,
   filtredInitialMoviesSelector,
   initialMoviesSearchParamsSelector,
+  searchSuccsesSelector,
 } from '../../store/reducers/movies';
 import {
   savedMoviesSelector,
-  clearSavedMoviesInitialState,
-  clearSavedMoviesSearchParams,
   filtredSavedMoviesSelector,
   savedMoviesSearchParamsSelector,
+  searchSavedSuccsesSelector,
 } from '../../store/reducers/saved-movies';
 
-import {
-  authorizationSelector,
-  userDataSelector,
-  clearAuthorizationState,
-} from '../../store/reducers/authorization';
+import { authorizationSelector, userDataSelector } from '../../store/reducers/authorization';
 
 import {
   fetchMovies,
@@ -31,7 +25,10 @@ import {
   checkAuth,
   postUserData,
   postSavedMovie,
+  deleteSavedMovie,
 } from '../../store/api-actions';
+
+import { localStorageCleaner } from '../../utils/localStorageCleaner';
 
 import Footer from '../footer';
 import Header from '../header';
@@ -68,7 +65,6 @@ function App() {
   const [userData, setUserData] = useState({ name: '', email: '' });
   const [initialMovies, setInitialMovies] = useState([]);
   const [filterData, setFilterData] = useState({ params: '', short: false });
-  const [searchSuccses, setSearchSuccses] = useState(false);
   const [searchSavedSuccses, setSearchSavedSuccses] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [moviesToDisplay, setMoviesToDisplay] = useState([]);
@@ -83,19 +79,14 @@ function App() {
   const authorized = useSelector(authorizationSelector);
   // данные пользователя
   const user = useSelector(userDataSelector);
-
-  console.log(authorized);
-  console.log(user);
-  console.log(initials);
-  console.log(saved);
-
-  useEffect(() => {
-    dispatch(fetchMovies());
-  }, [dispatch]);
+  const savedSearchSuccsesSTATE = useSelector(searchSavedSuccsesSelector);
+  const searchSuccsesSTATE = useSelector(searchSuccsesSelector);
+  const filtredMovies = useSelector(filtredInitialMoviesSelector);
+  const moviesSearchParams = useSelector(initialMoviesSearchParamsSelector);
 
   useEffect(() => {
     setServerMessage('');
-    tokenCheck();
+    dispatch(checkAuth());
   }, []);
 
   function handleNavigation() {
@@ -106,26 +97,26 @@ function App() {
     }
   }
 
-  function tokenCheck() {
-    const jwt = localStorage.getItem('jwt');
-    if (jwt) {
-      // setJwt(jwt);
-      dispatch(checkAuth(jwt))
-        .then((res) => {
-          if (res) {
-            handleNavigation();
-          }
-        })
-        .catch((error) => {
-          console.log(error.message);
-        });
-    }
-  }
+  // function tokenCheck() {
+  //   const jwt = localStorage.getItem('jwt');
+  //   if (jwt) {
+
+  //       .then((res) => {
+  //         if (res) {
+  //           handleNavigation();
+  //         }
+  //       })
+  //       .catch((error) => {
+  //         console.log(error.message);
+  //       });
+  //   }
+  // }
 
   useEffect(() => {
     if (authorized) {
       dispatch(fetchMovies());
       dispatch(fetchSavedMovies());
+      dispatch(fetchUserData());
     }
   }, [authorized, dispatch]);
 
@@ -153,58 +144,41 @@ function App() {
     setNavigationOpened(!navigationOpened);
   }
 
-  function handleAuthorization(email, password) {
-    authorize(email, password)
-      .then(() => {
-        const jwt = localStorage.getItem('jwt');
-        if (jwt) {
-          dispatch(fetchUserData());
-        }
-        // setJwt(jwt);
-        // setLoggedIn(true);
-        navigate('/');
-      })
-      .catch((error) => {
-        setServerMessage(error.message);
-      });
-  }
+  // function handleAuthorization(email, password) {
+  //   authorize(email, password)
+  //     .then(() => {
+  //       const jwt = localStorage.getItem('jwt');
+  //       if (jwt) {
+  //         dispatch(fetchUserData());
+  //       }
+  //       // setJwt(jwt);
+  //       // setLoggedIn(true);
+  //       navigate('/');
+  //     })
+  //     .catch((error) => {
+  //       console.log(error.message);
+  //     });
+  // }
 
-  function handleRegistration(name, email, password) {
-    register(name, email, password)
-      .then((res) => {
-        setServerMessage('');
-        // setUserData({ name: name, email: email });
-        // setLoggedIn(true);
-        handleAuthorization(email, password);
-        navigate('/movies', { replace: true });
-      })
-      .catch((error) => {
-        setServerMessage(error.message);
-      });
-  }
-
-  function handleLogout() {
-    if (authorized) {
-      localStorage.removeItem('jwt');
-      localStorage.removeItem('moviesToDisplay');
-      localStorage.removeItem('filterData');
-      localStorage.removeItem('filterSavedData');
-
-      dispatch(clearAuthorizationState());
-      dispatch(clearMoviesInitialState());
-      dispatch(clearSavedMoviesInitialState());
-      dispatch(clearInitialMoviesSearchParams());
-      dispatch(clearSavedMoviesSearchParams());
-
-      setSearchSuccses(false);
-      setSearchSavedSuccses(false);
-      navigate('/', { replace: true });
-    }
-  }
+  // function handleRegistration(name, email, password) {
+  //   register(name, email, password)
+  //     .then((res) => {
+  //       setServerMessage('');
+  //       // setUserData({ name: name, email: email });
+  //       // setLoggedIn(true);
+  //       handleAuthorization(email, password);
+  //       navigate('/movies', { replace: true });
+  //     })
+  //     .catch((error) => {
+  //       setServerMessage(error.message);
+  //     });
+  // }
 
   function handleSearchSubmit(data, short) {
     console.log('Нажатие на кнопку поиска');
-    console.log(data, short);
+    console.log(filtredMovies);
+    console.log(moviesSearchParams);
+
     // setSearchSuccses(false);
     // setIsLoading(true);
     // getMovies()
@@ -298,13 +272,14 @@ function App() {
   }
 
   function movieRemover(_id) {
-    deleteMovie(_id)
-      .then(() => {
-        dispatch(fetchSavedMovies());
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
+    dispatch(deleteSavedMovie(_id));
+    // deleteMovie(_id)
+    //   .then(() => {
+    //     dispatch(fetchSavedMovies());
+    //   })
+    //   .catch((error) => {
+    //     console.log(error.message);
+    //   });
   }
 
   function handleCardLike(movie) {
@@ -338,14 +313,8 @@ function App() {
         ) : null}
         <main className='content'>
           <Routes>
-            <Route
-              path='/signin'
-              element={<Login onLogin={handleAuthorization} serverError={serverMessage} />}
-            />
-            <Route
-              path='/signup'
-              element={<Register onRegistration={handleRegistration} serverError={serverMessage} />}
-            />
+            <Route path='/signin' element={<Login serverError={serverMessage} />} />
+            <Route path='/signup' element={<Register serverError={serverMessage} />} />
             <Route path='/' element={<Main />} />
             <Route path='/*' element={<NotFound />} />
             <Route
@@ -358,7 +327,7 @@ function App() {
                       onSearchSubmit={handleSearchSubmit}
                       onCheckcboxClick={handleCheckboxClick}
                       isLoading={isLoading}
-                      searchSuccses={searchSuccses}
+                      searchSuccses={searchSuccsesSTATE}
                       filterData={filterData}
                       moviesToDisplay={moviesToDisplay}
                       savedMovies={savedMovies}
@@ -367,7 +336,6 @@ function App() {
                       onCardUnlike={handleCardUnlike}
                     />
                   }
-                  loggedIn={authorized}
                 />
               }
             />
@@ -396,7 +364,7 @@ function App() {
               path='/profile'
               element={
                 <ProtectedRoute
-                  element={<Profile onLogout={handleLogout} message={serverMessage} />}
+                  element={<Profile message={serverMessage} />}
                   loggedIn={authorized}
                 />
               }

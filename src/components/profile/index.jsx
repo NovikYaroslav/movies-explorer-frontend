@@ -1,13 +1,31 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import './index.css';
 import useFormWithValidation from '../../utils/formValidator';
-import { userDataSelector } from '../../store/reducers/authorization';
+import {
+  userDataSelector,
+  authorizationSelector,
+  clearAuthorizationState,
+} from '../../store/reducers/authorization';
+import {
+  clearMoviesInitialState,
+  clearInitialMoviesSearchParams,
+  clearSearchSuccsesInitialState,
+} from '../../store/reducers/movies';
+import {
+  clearSavedMoviesInitialState,
+  clearSavedMoviesSearchParams,
+  clearSavedSearchSuccsesInitialState,
+} from '../../store/reducers/saved-movies';
 import { postUserData } from '../../store/api-actions';
+import { localStorageCleaner } from '../../utils/localStorageCleaner';
 
-function Profile({ onLogout, message }) {
+function Profile({ message }) {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const userData = useSelector(userDataSelector);
+  const authorized = useSelector(authorizationSelector);
   const formValidator = useFormWithValidation();
 
   function checkDataIsSame() {
@@ -30,8 +48,21 @@ function Profile({ onLogout, message }) {
     );
   }
 
+  function handleLogout() {
+    if (authorized) {
+      localStorageCleaner();
+      dispatch(clearAuthorizationState());
+      dispatch(clearMoviesInitialState());
+      dispatch(clearSavedMoviesInitialState());
+      dispatch(clearInitialMoviesSearchParams());
+      dispatch(clearSavedMoviesSearchParams());
+      dispatch(clearSearchSuccsesInitialState());
+      dispatch(clearSavedSearchSuccsesInitialState());
+      navigate('/', { replace: true });
+    }
+  }
+
   useEffect(() => {
-    console.log(userData);
     formValidator.resetForm({ Name: userData.name, Email: userData.email }, {}, true);
   }, [userData.name, userData.email]);
 
@@ -77,7 +108,7 @@ function Profile({ onLogout, message }) {
             }`}>
             Edit
           </button>
-          <button onClick={() => onLogout()} className='profile__button profile__button_logout'>
+          <button onClick={handleLogout} className='profile__button profile__button_logout'>
             Leave the account
           </button>
         </div>

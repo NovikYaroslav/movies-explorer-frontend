@@ -1,5 +1,5 @@
 import { createSlice, createDraftSafeSelector } from '@reduxjs/toolkit';
-import { checkAuth, fetchUserData, postUserData } from '../api-actions';
+import { authorizate, checkAuth, fetchUserData, postUserData, registrate } from '../api-actions';
 
 const initialAuthorizationStateState = {
   authorized: false,
@@ -18,7 +18,6 @@ export const authorizationSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserData.fulfilled, (state, action) => {
-        state.authorized = true;
         state.userData = action.payload;
       })
       .addCase(checkAuth.fulfilled, (state, action) => {
@@ -26,8 +25,13 @@ export const authorizationSlice = createSlice({
         state.userData = action.payload;
       })
       .addCase(postUserData.fulfilled, (state, action) => {
-        console.log(action.payload);
         state.userData = action.payload;
+      })
+      .addCase(registrate.fulfilled, (state, action) => {
+        state.userData = action.payload;
+      })
+      .addCase(authorizate.fulfilled, (state) => {
+        state.authorized = true;
       });
   },
 });

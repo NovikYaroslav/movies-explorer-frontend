@@ -5,12 +5,12 @@ const handleCustomError = (value, name) => {
   const nameRegex = /^[A-Za-zА-Яа-яЁё\\s-]*$/;
   if (name === 'Email') {
     if (!emailRegex.test(value)) {
-      return 'Email должен быть корретным, например "example@example.com"';
+      return 'Email must be valid, e.g. "example@example.com"';
     }
   }
   if (name === 'Name') {
     if (!nameRegex.test(value)) {
-      return 'Поле должно содержать только латиницу, кириллицу, пробел или дефис';
+      return 'The field must contain only Latin, Cyrillic, space or hyphen';
     }
   }
   return null;

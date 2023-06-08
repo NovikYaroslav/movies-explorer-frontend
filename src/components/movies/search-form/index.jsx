@@ -1,28 +1,45 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import './index.css';
 import SearchIcon from '../../../images/search-icon.svg';
+import {
+  initialMoviesSearchParamsSelector,
+  filtredInitialMoviesSelector,
+  setSearchParams,
+  setSearchSuccses,
+} from '../../../store/reducers/movies';
+
+import {
+  setSavedMoviesSearchParams,
+  setSavedSearchSuccses,
+} from '../../../store/reducers/saved-movies';
 
 function SearchForm({ onSearchSubmit, onCheckboxClick, currentLocation }) {
+  const dispatch = useDispatch();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [searchData, setSearchData] = useState('');
   const [shortSelected, setShortSelected] = useState(false);
   const [searchError, setSearchError] = useState('');
 
-  useEffect(() => {
-    if (currentLocation === '/saved-movies') {
-      const storedFilterSavedData = localStorage.getItem('filterSavedData');
-      if (storedFilterSavedData) {
-        setSearchData(JSON.parse(storedFilterSavedData).params);
-        setShortSelected(JSON.parse(storedFilterSavedData).short);
-      }
-    } else {
-      const storedFilterData = localStorage.getItem('filterData');
-      if (storedFilterData) {
-        setSearchData(JSON.parse(storedFilterData).params);
-        setShortSelected(JSON.parse(storedFilterData).short);
-      }
-    }
-  }, []);
+  console.log(currentLocation);
+
+  const searchParams = useSelector(initialMoviesSearchParamsSelector);
+
+  // useEffect(() => {
+  //   if (currentLocation === '/saved-movies') {
+  //     const storedFilterSavedData = localStorage.getItem('filterSavedData');
+  //     if (storedFilterSavedData) {
+  //       setSearchData(JSON.parse(storedFilterSavedData).params);
+  //       setShortSelected(JSON.parse(storedFilterSavedData).short);
+  //     }
+  //   } else {
+  //     const storedFilterData = localStorage.getItem('filterData');
+  //     if (storedFilterData) {
+  //       setSearchData(JSON.parse(storedFilterData).params);
+  //       setShortSelected(JSON.parse(storedFilterData).short);
+  //     }
+  //   }
+  // }, []);
 
   const formFillHandle = (event) => {
     const value = event.target.value;
@@ -39,10 +56,24 @@ function SearchForm({ onSearchSubmit, onCheckboxClick, currentLocation }) {
 
   const formSubmitHandle = (evt) => {
     evt.preventDefault();
-    if (!searchData) {
-      setSearchError('You need to enter a keyword');
+    if (currentLocation === '/movies') {
+      if (!searchData) {
+        setSearchError('You need to enter a keyword');
+      } else {
+        dispatch(setSearchParams({ params: searchData, short: shortSelected }));
+        dispatch(setSearchSuccses(true));
+      }
     } else {
-      onSearchSubmit(searchData, shortSelected);
+      if (!searchData) {
+        dispatch(setSearchParams({ params: '', short: false }));
+        dispatch(setSearchSuccses(true));
+      } else {
+        dispatch(setSearchParams({ params: searchData, short: shortSelected }));
+        dispatch(setSearchSuccses(true));
+      }
+      console.log('меняю параметры поиска сохраненных');
+      dispatch(setSavedMoviesSearchParams({ params: searchData, short: shortSelected }));
+      dispatch(setSavedSearchSuccses(true));
     }
   };
 

@@ -1,17 +1,26 @@
 import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import Form from '../form';
 import Input from '../input';
-import useFormWithValidation from '../../utils/formValidator';
 import logo from '../../images/logo.svg';
+import { authorizate } from '../../store/api-actions';
+import useFormWithValidation from '../../utils/formValidator';
 
-export default function Login({ onLogin, serverError }) {
+export default function Login({ serverError }) {
+  const dispatch = useDispatch();
   const formValidator = useFormWithValidation();
   const navigate = useNavigate();
 
   function handleSubmit(e) {
     e.preventDefault();
-    onLogin(formValidator.values['Email'], formValidator.values['Password']);
+    dispatch(
+      authorizate({
+        email: formValidator.values['Email'],
+        password: formValidator.values['Password'],
+      }),
+    );
     formValidator.resetForm();
+    navigate('/movies', { replace: true });
   }
 
   return (

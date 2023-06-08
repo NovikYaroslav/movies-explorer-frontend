@@ -1,8 +1,10 @@
+import { saveJwt, getJwt } from './jwtHandler';
+
 // const BASE_URL = 'https://api.movies.novik.nomoredomains.monster';
 const BASE_URL = 'http://localhost:3001';
 
 function prepareHeaders() {
-  const jwt = localStorage.getItem('jwt');
+  const jwt = getJwt();
   if (jwt) {
     return {
       authorization: `Bearer ${jwt}`,
@@ -49,7 +51,7 @@ export function authorize(email, password) {
     .then(checkServerResponse)
     .then((data) => {
       if (data.jwt) {
-        localStorage.setItem('jwt', data.jwt);
+        saveJwt(data.jwt);
       }
     });
 }

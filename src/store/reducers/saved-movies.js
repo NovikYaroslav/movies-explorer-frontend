@@ -1,5 +1,5 @@
 import { createSlice, createDraftSafeSelector } from '@reduxjs/toolkit';
-import { fetchSavedMovies } from '../api-actions';
+import { fetchSavedMovies, postSavedMovie, deleteSavedMovie } from '../api-actions';
 import { filterMovies } from '../../utils/movieFilter';
 
 // ПОПРОБУЙ СОЗДАТЬ ВТОРОЙ СЛАЙ, такой же, но с сохраненными фильмами.
@@ -10,6 +10,7 @@ const savedMoviesInitialState = {
     params: '',
     short: false,
   },
+  savedSearchSuccses: false,
 };
 
 export const SavedMoviesSlice = createSlice({
@@ -25,22 +26,36 @@ export const SavedMoviesSlice = createSlice({
         short: false,
       };
     },
+    clearSavedSearchSuccsesInitialState: (state) => {
+      state.savedSearchSuccses = false;
+    },
     setSavedMoviesSearchParams: (state, action) => {
       state.savedMoviesSearchParams = action.payload;
     },
-    addToSavedMovies: (state, action) => {
-      state.savedMovies = state.savedMovies.push(action.payload);
+    setSavedSearchSuccses: (state, action) => {
+      state.savedSearchSuccses = action.payload;
     },
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchSavedMovies.fulfilled, (state, action) => {
-      state.savedMovies = action.payload;
-    });
+    builder
+      .addCase(fetchSavedMovies.fulfilled, (state, action) => {
+        state.savedMovies = action.payload;
+      })
+      .addCase(postSavedMovie.fulfilled, (state, action) => {
+        console.log(action.payload);
+        state.savedMovies.push(action.payload);
+      })
+      .addCase(deleteSavedMovie.fulfilled, (state, action) => {
+        state.savedMovies = state.savedMovies.filter(
+          (savedMovie) => savedMovie._id !== action.payload,
+        );
+      });
   },
 });
 
 const selectSavedMovies = (state) => state.savedMovies.savedMovies;
 const selectSavedMoviesSearchParams = (state) => state.savedMovies.savedMoviesSearchParams;
+const selectSavedSearchSuccses = (state) => state.movies.searchSuccses;
 
 const savedMoviesSelector = createDraftSafeSelector(
   selectSavedMovies,
@@ -63,6 +78,21 @@ const filtredSavedMoviesSelector = createDraftSafeSelector(
   },
 );
 
-export { savedMoviesSelector, savedMoviesSearchParamsSelector, filtredSavedMoviesSelector };
-export const { clearSavedMoviesInitialState, clearSavedMoviesSearchParams } =
-  SavedMoviesSlice.actions;
+const searchSavedSuccsesSelector = createDraftSafeSelector(
+  selectSavedSearchSuccses,
+  (savedSearchSuccses) => savedSearchSuccses,
+);
+
+export {
+  savedMoviesSelector,
+  savedMoviesSearchParamsSelector,
+  filtredSavedMoviesSelector,
+  searchSavedSuccsesSelector,
+};
+export const {
+  clearSavedMoviesInitialState,
+  clearSavedMoviesSearchParams,
+  clearSavedSearchSuccsesInitialState,
+  setSavedMoviesSearchParams,
+  setSavedSearchSuccses,
+} = SavedMoviesSlice.actions;

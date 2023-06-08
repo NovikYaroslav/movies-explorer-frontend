@@ -1,16 +1,26 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import MoviesCardList from '../movies/movies-card-list';
 import SearchForm from '../movies/search-form';
+import {
+  savedMoviesSelector,
+  filtredSavedMoviesSelector,
+  savedMoviesSearchParamsSelector,
+  searchSavedSuccsesSelector,
+} from '../../store/reducers/saved-movies';
 
 function SavedMovies({
   currentLocation,
-  savedMovies,
-  searchSuccses,
+  // savedMovies,
+  // searchSuccses,
   onSavedSearchSubmit,
   onSavedCheckcboxClick,
   onCardUnlike,
 }) {
   const [resultMessage, setResultMessage] = useState('');
+  const savedMovies = useSelector(filtredSavedMoviesSelector);
+  const searchSuccses = useSelector(searchSavedSuccsesSelector);
+  console.log(savedMovies);
 
   useEffect(() => {
     if (searchSuccses && savedMovies.length === 0) {

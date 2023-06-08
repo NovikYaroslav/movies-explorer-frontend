@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import './index.css';
 import { ONE_HOUR_IN_MINUTES, LENGTH_OF_MINUTES_TO_DISPLAY } from '../../../utils/const';
+import { savedMoviesSelector } from '../../../store/reducers/saved-movies';
 
-function MoviesCard({ movie, currentLocation, onCardLike, onCardUnlike, wasSaved, savedMovies }) {
+function MoviesCard({ movie, currentLocation, onCardLike, onCardUnlike, wasSaved }) {
+  const savedMovies = useSelector(savedMoviesSelector);
   const [isLiked, setIsLiked] = useState(false);
 
   function formatTime(totalMinutes) {

@@ -3,28 +3,18 @@ import { useSelector } from 'react-redux';
 import MoviesCardList from '../movies/movies-card-list';
 import SearchForm from '../movies/search-form';
 import {
-  savedMoviesSelector,
   filtredSavedMoviesSelector,
-  savedMoviesSearchParamsSelector,
   searchSavedSuccsesSelector,
 } from '../../store/reducers/saved-movies';
 
-function SavedMovies({
-  currentLocation,
-  // savedMovies,
-  // searchSuccses,
-  onSavedSearchSubmit,
-  onSavedCheckcboxClick,
-  onCardUnlike,
-}) {
+function SavedMovies({ currentLocation }) {
   const [resultMessage, setResultMessage] = useState('');
   const savedMovies = useSelector(filtredSavedMoviesSelector);
   const searchSuccses = useSelector(searchSavedSuccsesSelector);
-  console.log(savedMovies);
 
   useEffect(() => {
-    if (searchSuccses && savedMovies.length === 0) {
-      setResultMessage('Ничего не найдено');
+    if (savedMovies.length === 0) {
+      setResultMessage('No movies found');
     } else {
       setResultMessage('');
     }
@@ -32,18 +22,9 @@ function SavedMovies({
 
   return (
     <section className='saved-movies'>
-      <SearchForm
-        onSearchSubmit={onSavedSearchSubmit}
-        onCheckboxClick={onSavedCheckcboxClick}
-        currentLocation={currentLocation}
-      />
+      <SearchForm currentLocation={currentLocation} />
       {savedMovies.length !== 0 ? (
-        <MoviesCardList
-          savedMovies={savedMovies}
-          moviesForLayout={savedMovies}
-          currentLocation={currentLocation}
-          onCardUnlike={onCardUnlike}
-        />
+        <MoviesCardList moviesForLayout={savedMovies} currentLocation={currentLocation} />
       ) : null}
       {resultMessage && <h1 className='movies__message'>{resultMessage}</h1>}
     </section>

@@ -1,4 +1,4 @@
-import { saveJwt, getJwt } from './jwtHandler';
+import { saveJwt, getJwt } from './localStorageHandler';
 
 // const BASE_URL = 'https://api.movies.novik.nomoredomains.monster';
 const BASE_URL = 'http://localhost:3001';

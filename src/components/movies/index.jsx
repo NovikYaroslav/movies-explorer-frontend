@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import SearchForm from './search-form';
 import MoviesCardList from './movies-card-list';
-// import Preloader from '../preloader';
 import {
   MOVIES_TO_SHOW_INITIAL,
   MOVIES_TO_SHOW_ON_WIDTH_MORE_THEN_940,
@@ -18,23 +17,13 @@ import {
   searchSuccsesSelector,
 } from '../../store/reducers/movies';
 
-function Movies({
-  currentLocation,
-  onSearchSubmit,
-  onCheckcboxClick,
-  // savedMovies,
-  onCardLike,
-  onCardUnlike,
-}) {
+function Movies({ currentLocation }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [moviesCount, setMoviesCount] = useState(MOVIES_TO_SHOW_INITIAL);
   const [resultMessage, setResultMessage] = useState('');
   const moviesToShow = useSelector(filtredInitialMoviesSelector);
   const initialMovies = useSelector(moviesSelector);
   const searchSuccses = useSelector(searchSuccsesSelector);
-
-  console.log(moviesToShow);
-  console.log(resultMessage);
 
   useEffect(() => {
     const handleResize = () => {
@@ -45,7 +34,7 @@ function Movies({
   }, []);
 
   useEffect(() => {
-    if (initialMovies.length === 0 && moviesToShow.length === 0) {
+    if (initialMovies.length === 0) {
       setResultMessage(
         'During the request, an error occurred. Perhaps the problem with the connection or the server is not available. Wait a bit and try again',
       );
@@ -78,26 +67,14 @@ function Movies({
 
   return (
     <section className='movies'>
-      <SearchForm
-        onSearchSubmit={onSearchSubmit}
-        onCheckboxClick={onCheckcboxClick}
-        currentLocation={currentLocation}
-      />
-
-      {/* {isLoading ? <Preloader /> : null} */}
-
+      <SearchForm currentLocation={currentLocation} />
       {searchSuccses && moviesToShow.length !== 0 ? (
         <MoviesCardList
           moviesForLayout={moviesToShow.slice(0, moviesCount)}
-          // savedMovies={savedMovies}
           currentLocation={currentLocation}
-          onCardLike={onCardLike}
-          onCardUnlike={onCardUnlike}
         />
       ) : null}
-
       {resultMessage && <h1 className='movies__message'>{resultMessage}</h1>}
-
       {moviesToShow.length > moviesCount && (
         <div className='more'>
           <button className='more__button' onClick={handleMoviesCount}>

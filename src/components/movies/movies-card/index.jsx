@@ -1,20 +1,14 @@
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import './index.css';
 import { ONE_HOUR_IN_MINUTES, LENGTH_OF_MINUTES_TO_DISPLAY } from '../../../utils/const';
 import { savedMoviesSelector } from '../../../store/reducers/saved-movies';
+import { deleteSavedMovie, postSavedMovie } from '../../../store/api-actions';
 
-function MoviesCard({ movie, currentLocation, onCardLike, onCardUnlike, wasSaved }) {
+function MoviesCard({ movie, currentLocation }) {
+  const dispatch = useDispatch();
   const savedMovies = useSelector(savedMoviesSelector);
   const [isLiked, setIsLiked] = useState(false);
-
-  function formatTime(totalMinutes) {
-    const hours = Math.floor(totalMinutes / ONE_HOUR_IN_MINUTES);
-    const minutes = totalMinutes % ONE_HOUR_IN_MINUTES;
-    const paddedHours = hours > 0 ? `${hours}ч ` : '';
-    const paddedMinutes = minutes.toString().padStart(LENGTH_OF_MINUTES_TO_DISPLAY, '0') + 'м';
-    return `${paddedHours}${paddedMinutes}`;
-  }
 
   useEffect(() => {
     if (savedMovies.some((savedMovie) => savedMovie.movieId === movie.id)) {
@@ -24,13 +18,30 @@ function MoviesCard({ movie, currentLocation, onCardLike, onCardUnlike, wasSaved
     }
   }, [savedMovies, movie.id]);
 
+  function formatTime(totalMinutes) {
+    const hours = Math.floor(totalMinutes / ONE_HOUR_IN_MINUTES);
+    const minutes = totalMinutes % ONE_HOUR_IN_MINUTES;
+    const paddedHours = hours > 0 ? `${hours}ч ` : '';
+    const paddedMinutes = minutes.toString().padStart(LENGTH_OF_MINUTES_TO_DISPLAY, '0') + 'м';
+    return `${paddedHours}${paddedMinutes}`;
+  }
+
+  function handleCardUnlike(movie) {
+    if (movie._id) {
+      dispatch(deleteSavedMovie(movie._id));
+    } else {
+      const movieToDelete = savedMovies.find((savedMovie) => savedMovie.movieId === movie.id);
+      dispatch(deleteSavedMovie(movieToDelete._id));
+    }
+  }
+
   function handleMovieLike() {
     if (isLiked === false) {
       setIsLiked(true);
-      onCardLike(movie);
+      dispatch(postSavedMovie(movie));
     }
     if (isLiked === true) {
-      onCardUnlike(movie);
+      handleCardUnlike(movie);
       setIsLiked(false);
     }
   }
@@ -48,7 +59,7 @@ function MoviesCard({ movie, currentLocation, onCardLike, onCardUnlike, wasSaved
           <button
             className='card__button card__button_delete'
             onClick={() => {
-              onCardUnlike(movie);
+              handleCardUnlike(movie);
             }}></button>
         ) : (
           <button
@@ -64,7 +75,7 @@ function MoviesCard({ movie, currentLocation, onCardLike, onCardUnlike, wasSaved
               ? movie.image
               : `https://api.nomoreparties.co/${movie.image.url}`
           }
-          alt='превью фильма'
+          alt='movie preview'
         />
       </a>
     </li>

@@ -2,8 +2,6 @@ import { createSlice, createDraftSafeSelector } from '@reduxjs/toolkit';
 import { fetchSavedMovies, postSavedMovie, deleteSavedMovie } from '../api-actions';
 import { filterMovies } from '../../utils/movieFilter';
 
-// ПОПРОБУЙ СОЗДАТЬ ВТОРОЙ СЛАЙ, такой же, но с сохраненными фильмами.
-
 const savedMoviesInitialState = {
   savedMovies: [],
   savedMoviesSearchParams: {
@@ -34,6 +32,17 @@ export const SavedMoviesSlice = createSlice({
     },
     setSavedSearchSuccses: (state, action) => {
       state.savedSearchSuccses = action.payload;
+    },
+    setSavedShortState: (state, action) => {
+      state.savedSearchSuccses = true;
+      state.savedMoviesSearchParams = {
+        params: state.savedMoviesSearchParams.params,
+        short: action.payload,
+      };
+    },
+    setSavedStateFromStorage: (state, action) => {
+      state.savedSearchSuccses = true;
+      state.savedMoviesSearchParams = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -95,4 +104,6 @@ export const {
   clearSavedSearchSuccsesInitialState,
   setSavedMoviesSearchParams,
   setSavedSearchSuccses,
+  setSavedShortState,
+  setSavedStateFromStorage,
 } = SavedMoviesSlice.actions;

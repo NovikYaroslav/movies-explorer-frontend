@@ -1,45 +1,59 @@
 import { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './index.css';
 import SearchIcon from '../../../images/search-icon.svg';
 import {
   initialMoviesSearchParamsSelector,
-  filtredInitialMoviesSelector,
   setSearchParams,
   setSearchSuccses,
+  setShortState,
 } from '../../../store/reducers/movies';
 
 import {
+  savedMoviesSearchParamsSelector,
   setSavedMoviesSearchParams,
   setSavedSearchSuccses,
+  setSavedShortState,
 } from '../../../store/reducers/saved-movies';
 
-function SearchForm({ onSearchSubmit, onCheckboxClick, currentLocation }) {
+function SearchForm({ currentLocation }) {
   const dispatch = useDispatch();
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
   const [searchData, setSearchData] = useState('');
   const [shortSelected, setShortSelected] = useState(false);
   const [searchError, setSearchError] = useState('');
+  const moviesSearchParams = useSelector(initialMoviesSearchParamsSelector);
+  const savedMoviesSearchParams = useSelector(savedMoviesSearchParamsSelector);
 
-  console.log(currentLocation);
+  useEffect(() => {
+    const handleResize = () => {
+      setWindowWidth(window.innerWidth);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-  const searchParams = useSelector(initialMoviesSearchParamsSelector);
+  useEffect(() => {
+    if (currentLocation === '/saved-movies') {
+      setSearchData(savedMoviesSearchParams.params);
+      setShortSelected(savedMoviesSearchParams.short);
+    } else {
+      setSearchData(moviesSearchParams.params);
+      setShortSelected(moviesSearchParams.short);
+    }
+  }, []);
 
-  // useEffect(() => {
-  //   if (currentLocation === '/saved-movies') {
-  //     const storedFilterSavedData = localStorage.getItem('filterSavedData');
-  //     if (storedFilterSavedData) {
-  //       setSearchData(JSON.parse(storedFilterSavedData).params);
-  //       setShortSelected(JSON.parse(storedFilterSavedData).short);
-  //     }
-  //   } else {
-  //     const storedFilterData = localStorage.getItem('filterData');
-  //     if (storedFilterData) {
-  //       setSearchData(JSON.parse(storedFilterData).params);
-  //       setShortSelected(JSON.parse(storedFilterData).short);
-  //     }
-  //   }
-  // }, []);
+  function searchButtonRenderHandler() {
+    if (currentLocation === '/saved-movies') {
+      if (searchData === '' && !shortSelected) {
+        return 'Search all';
+      } else {
+        return 'Search';
+      }
+    } else {
+      return 'Search';
+    }
+  }
 
   const formFillHandle = (event) => {
     const value = event.target.value;
@@ -51,7 +65,11 @@ function SearchForm({ onSearchSubmit, onCheckboxClick, currentLocation }) {
 
   function handleCheckboxChange() {
     setShortSelected(!shortSelected);
-    onCheckboxClick(!shortSelected);
+    if (currentLocation === '/movies') {
+      dispatch(setShortState(!shortSelected));
+    } else {
+      dispatch(setSavedShortState(!shortSelected));
+    }
   }
 
   const formSubmitHandle = (evt) => {
@@ -65,25 +83,16 @@ function SearchForm({ onSearchSubmit, onCheckboxClick, currentLocation }) {
       }
     } else {
       if (!searchData) {
-        dispatch(setSearchParams({ params: '', short: false }));
-        dispatch(setSearchSuccses(true));
+        dispatch(setSavedMoviesSearchParams({ params: searchData, short: shortSelected }));
+        dispatch(setSavedSearchSuccses(true));
       } else {
-        dispatch(setSearchParams({ params: searchData, short: shortSelected }));
-        dispatch(setSearchSuccses(true));
+        dispatch(setSavedMoviesSearchParams({ params: searchData, short: shortSelected }));
+        dispatch(setSavedSearchSuccses(true));
       }
-      console.log('меняю параметры поиска сохраненных');
       dispatch(setSavedMoviesSearchParams({ params: searchData, short: shortSelected }));
       dispatch(setSavedSearchSuccses(true));
     }
   };
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWindowWidth(window.innerWidth);
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   return (
     <div className='search'>
@@ -99,7 +108,7 @@ function SearchForm({ onSearchSubmit, onCheckboxClick, currentLocation }) {
           value={searchData}
           onChange={formFillHandle}></input>
         <button className='search__form-button' type='submit'>
-          Search
+          {searchButtonRenderHandler()}
         </button>
       </form>
       <span className='search__form-error'>{searchError}</span>

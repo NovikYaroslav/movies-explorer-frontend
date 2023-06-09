@@ -16,7 +16,7 @@ export default function Register({ serverError }) {
   function handleSubmit(e) {
     e.preventDefault();
     if (!formValidator.isValid) {
-      setMessage('Пожалуйста, укажите корректные данные!');
+      setMessage('Please enter valid data!');
       return;
     }
     dispatch(
@@ -34,7 +34,7 @@ export default function Register({ serverError }) {
     <section className='entry'>
       <div className='entry__container'>
         <Link className='header__logo' to='/'>
-          <img src={logo} alt='логотип' />
+          <img src={logo} alt='logo' />
         </Link>
         <h2 className='entry__title'>Welcome!</h2>
         <Form

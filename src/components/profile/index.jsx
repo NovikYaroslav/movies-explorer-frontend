@@ -19,7 +19,8 @@ import {
   clearSavedSearchSuccsesInitialState,
 } from '../../store/reducers/saved-movies';
 import { postUserData } from '../../store/api-actions';
-import { localStorageCleaner } from '../../utils/localStorageCleaner';
+import { localStorageCleaner } from '../../utils/localStorageHandler';
+import { removeJwt } from '../../utils/localStorageHandler';
 
 function Profile({ message }) {
   const dispatch = useDispatch();
@@ -50,6 +51,7 @@ function Profile({ message }) {
 
   function handleLogout() {
     if (authorized) {
+      removeJwt();
       localStorageCleaner();
       dispatch(clearAuthorizationState());
       dispatch(clearMoviesInitialState());
@@ -58,6 +60,7 @@ function Profile({ message }) {
       dispatch(clearSavedMoviesSearchParams());
       dispatch(clearSearchSuccsesInitialState());
       dispatch(clearSavedSearchSuccsesInitialState());
+
       navigate('/', { replace: true });
     }
   }

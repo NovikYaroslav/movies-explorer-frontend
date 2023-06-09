@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { getMovies } from '../utils/MoviesApi';
+import { getMovies } from '../utils/moviesApi';
 import {
   getSavedMovies,
   register,
@@ -9,8 +9,8 @@ import {
   editUserData,
   deleteMovie,
   addMovie,
-} from '../utils/MainApi';
-import { getJwt } from '../utils/jwtHandler';
+} from '../utils/mainApi';
+import { getJwt } from '../utils/localStorageHandler';
 
 export const fetchMovies = createAsyncThunk('GET beatfilm-movies/', async () => {
   console.log('getMovies()');

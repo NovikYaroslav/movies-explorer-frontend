@@ -1,11 +1,15 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import Navigation from '../navigation';
 import menuPopupButton from '../../images/menu-popup-button.svg';
 import logo from '../../images/logo.svg';
-import Navigation from '../navigation';
+import { authorizationSelector } from '../../store/reducers/authorization';
 
-function Header({ currentLocation, onNavButtonClick, onCloseButtonClick, visability, loggedIn }) {
+function Header({ currentLocation }) {
+  const [navigationOpened, setNavigationOpened] = useState(false);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const authorized = useSelector(authorizationSelector);
 
   useEffect(() => {
     const handleResize = () => {
@@ -15,12 +19,16 @@ function Header({ currentLocation, onNavButtonClick, onCloseButtonClick, visabil
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  function handleNavMenuVisability() {
+    setNavigationOpened(!navigationOpened);
+  }
+
   return (
     <header className={`header ${currentLocation === '/' ? '' : 'header_location_main'}`}>
       <Link className='header__logo' to='/'>
         <img src={logo} alt='logo' />
       </Link>
-      {currentLocation === '/' && !loggedIn ? (
+      {currentLocation === '/' && !authorized ? (
         <div className='header__buttons-bar'>
           <Link className='header__button-registrate' to='/signup'>
             Registration
@@ -32,9 +40,7 @@ function Header({ currentLocation, onNavButtonClick, onCloseButtonClick, visabil
         </div>
       ) : windowWidth < 800 ? (
         <img
-          onClick={() => {
-            onNavButtonClick();
-          }}
+          onClick={handleNavMenuVisability}
           className='header__button-menu'
           src={menuPopupButton}
           alt='иконка кнопки меню'
@@ -64,8 +70,8 @@ function Header({ currentLocation, onNavButtonClick, onCloseButtonClick, visabil
         </div>
       )}
       <Navigation
-        opened={visability}
-        onCloseButtonClick={onCloseButtonClick}
+        opened={navigationOpened}
+        onCloseButtonClick={handleNavMenuVisability}
         currentLocation={currentLocation}
       />
     </header>

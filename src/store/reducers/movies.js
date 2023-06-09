@@ -28,11 +28,20 @@ export const MoviesSlice = createSlice({
       state.searchSuccses = false;
     },
     setSearchParams: (state, action) => {
-      console.log(action.payload);
       state.initialMoviesSearchParams = action.payload;
     },
     setSearchSuccses: (state, action) => {
       state.searchSuccses = action.payload;
+    },
+    setShortState: (state, action) => {
+      state.initialMoviesSearchParams = {
+        params: state.initialMoviesSearchParams.params,
+        short: action.payload,
+      };
+    },
+    setStateFromStorage: (state, action) => {
+      state.searchSuccses = true;
+      state.initialMoviesSearchParams = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -86,4 +95,6 @@ export const {
   clearSearchSuccsesInitialState,
   setSearchParams,
   setSearchSuccses,
+  setShortState,
+  setStateFromStorage,
 } = MoviesSlice.actions;

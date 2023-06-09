@@ -26,6 +26,11 @@ import Profile from '../profile';
 import SavedMovies from '../saved-movies';
 import ProtectedRoute from '../protected-route';
 
+// Настроить навигацию корректно.
+// Обработать ошибки с сервера.
+// Перепроверить функционал.
+// Оптимизировать
+
 function App() {
   const dispatch = useDispatch();
   const location = useLocation();

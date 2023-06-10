@@ -25,9 +25,10 @@ export default function Register({ serverError }) {
         email: formValidator.values['Email'],
         password: formValidator.values['Password'],
       }),
-    );
+    ).then(() => {
+      navigate('/movies', { replace: true });
+    });
     formValidator.resetForm();
-    navigate('/movies', { replace: true });
   }
 
   return (

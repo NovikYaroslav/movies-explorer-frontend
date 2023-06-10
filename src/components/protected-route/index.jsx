@@ -4,6 +4,8 @@ import { authorizationSelector } from '../../store/reducers/authorization';
 
 function ProtectedRoute({ element }) {
   const loggedIn = useSelector(authorizationSelector);
+  console.log(loggedIn);
+
   if (loggedIn) {
     return element;
   }

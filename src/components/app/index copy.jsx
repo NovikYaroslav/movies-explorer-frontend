@@ -51,9 +51,12 @@ function App() {
   }, []);
 
   function handleNavigation() {
+    console.log(location.pathname);
+    console.log('навигирую');
     if (location.pathname !== '/signin' && location.pathname !== '/signup') {
       navigate(location.pathname, { replace: true });
     } else {
+      console.log('навигирую на главную');
       navigate('/', { replace: true });
     }
   }
@@ -83,12 +86,9 @@ function App() {
 
   useEffect(() => {
     if (savedMovies.length !== 0) {
-      console.log('сохраняю в стор по сохраненным');
       saveSavedSearchParams(savedSearchParams);
     }
     if (filtredMovies.length !== 0) {
-      console.log('сохраняю в стор по обычным');
-      console.log(moviesSearchParams);
       saveSearchParams(moviesSearchParams);
     }
   }, [filtredMovies, savedMovies, moviesSearchParams, savedSearchParams]);

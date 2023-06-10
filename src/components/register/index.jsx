@@ -1,17 +1,25 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Form from '../form';
 import Input from '../input';
 import useFormWithValidation from '../../utils/formValidator';
 import logo from '../../images/logo.svg';
 import { registrateAndAuthorize } from '../../store/api-actions';
+import { authorizationSelector } from '../../store/reducers/authorization';
 
 export default function Register({ serverError }) {
   const dispatch = useDispatch();
   const formValidator = useFormWithValidation();
   const navigate = useNavigate();
   const [message, setMessage] = useState(serverError);
+  const authorized = useSelector(authorizationSelector);
+
+  useEffect(() => {
+    if (authorized) {
+      navigate('/movies', { replace: true });
+    }
+  }, [authorized, navigate]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -25,9 +33,7 @@ export default function Register({ serverError }) {
         email: formValidator.values['Email'],
         password: formValidator.values['Password'],
       }),
-    ).then(() => {
-      navigate('/movies', { replace: true });
-    });
+    );
     formValidator.resetForm();
   }
 

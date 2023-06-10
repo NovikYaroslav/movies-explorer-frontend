@@ -9,6 +9,7 @@ const moviesInitialState = {
     short: false,
   },
   searchSuccses: false,
+  loading: false,
 };
 
 export const MoviesSlice = createSlice({
@@ -47,6 +48,7 @@ export const MoviesSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchMovies.fulfilled, (state, action) => {
       state.initialMovies = action.payload;
+      state.loading = true;
     });
   },
 });
@@ -54,6 +56,7 @@ export const MoviesSlice = createSlice({
 const selectMovies = (state) => state.movies.initialMovies;
 const selectInitialMoviesSearchParams = (state) => state.movies.initialMoviesSearchParams;
 const selectSearchSuccses = (state) => state.movies.searchSuccses;
+const selectLoading = (state) => state.movies.loading;
 
 const moviesSelector = createDraftSafeSelector(selectMovies, (initialMovies) => initialMovies);
 
@@ -83,11 +86,14 @@ const searchSuccsesSelector = createDraftSafeSelector(
   (searchSuccses) => searchSuccses,
 );
 
+const loadingSelector = createDraftSafeSelector(selectLoading, (loading) => loading);
+
 export {
   moviesSelector,
   initialMoviesSearchParamsSelector,
   filtredInitialMoviesSelector,
   searchSuccsesSelector,
+  loadingSelector,
 };
 export const {
   clearMoviesInitialState,

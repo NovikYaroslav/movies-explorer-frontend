@@ -1,6 +1,7 @@
 import './index.css';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import Preloader from '../preloader';
 import SearchForm from './search-form';
 import MoviesCardList from './movies-card-list';
 import {
@@ -15,6 +16,7 @@ import {
   filtredInitialMoviesSelector,
   moviesSelector,
   searchSuccsesSelector,
+  loadingSelector,
 } from '../../store/reducers/movies';
 
 function Movies({ currentLocation }) {
@@ -24,6 +26,8 @@ function Movies({ currentLocation }) {
   const moviesToShow = useSelector(filtredInitialMoviesSelector);
   const initialMovies = useSelector(moviesSelector);
   const searchSuccses = useSelector(searchSuccsesSelector);
+  const loaded = useSelector(loadingSelector);
+  console.log(loaded);
 
   useEffect(() => {
     const handleResize = () => {
@@ -34,7 +38,7 @@ function Movies({ currentLocation }) {
   }, []);
 
   useEffect(() => {
-    if (initialMovies.length === 0) {
+    if (loaded && initialMovies.length === 0) {
       setResultMessage(
         'During the request, an error occurred. Perhaps the problem with the connection or the server is not available. Wait a bit and try again',
       );
@@ -74,6 +78,7 @@ function Movies({ currentLocation }) {
           currentLocation={currentLocation}
         />
       ) : null}
+      {loaded ? null : <Preloader />}
       {resultMessage && <h1 className='movies__message'>{resultMessage}</h1>}
       {moviesToShow.length > moviesCount && (
         <div className='more'>

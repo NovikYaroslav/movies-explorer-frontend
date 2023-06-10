@@ -27,8 +27,8 @@ import {
   addMovie,
   deleteMovie,
   getSavedMovies,
-} from '../../utils/MainApi';
-import { getMovies } from '../../utils/MoviesApi';
+} from '../../utils/mainApi';
+import { getMovies } from '../../utils/moviesApi';
 import { filterMovies } from '../../utils/movieFilter';
 
 function App() {

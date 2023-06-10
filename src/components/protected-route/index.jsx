@@ -3,10 +3,9 @@ import { useSelector } from 'react-redux';
 import { authorizationSelector } from '../../store/reducers/authorization';
 
 function ProtectedRoute({ element }) {
-  const loggedIn = useSelector(authorizationSelector);
-  console.log(loggedIn);
-
-  if (loggedIn) {
+  const authorized = useSelector(authorizationSelector);
+  console.log(authorized);
+  if (authorized) {
     return element;
   }
   return <Navigate to='/' replace />;

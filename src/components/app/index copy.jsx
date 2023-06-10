@@ -36,51 +36,23 @@ function App() {
   const location = useLocation();
   const navigate = useNavigate();
   const [serverMessage, setServerMessage] = useState('');
-  // Сохраненные фильмы
   const savedMovies = useSelector(savedMoviesSelector);
-  // статус авторизации
   const authorized = useSelector(authorizationSelector);
-  // данные пользователя
   const filtredMovies = useSelector(filtredInitialMoviesSelector);
   const moviesSearchParams = useSelector(initialMoviesSearchParamsSelector);
   const savedSearchParams = useSelector(savedMoviesSearchParamsSelector);
 
   useEffect(() => {
-    setServerMessage('');
     dispatch(checkAuth());
   }, []);
 
-  function handleNavigation() {
-    console.log(location.pathname);
-    console.log('навигирую');
-    if (location.pathname !== '/signin' && location.pathname !== '/signup') {
-      navigate(location.pathname, { replace: true });
-    } else {
-      console.log('навигирую на главную');
-      navigate('/', { replace: true });
-    }
-  }
-
-  // function tokenCheck() {
-  //   const jwt = localStorage.getItem('jwt');
-  //   if (jwt) {
-
-  //       .then((res) => {
-  //         if (res) {
-  //           handleNavigation();
-  //         }
-  //       })
-  //       .catch((error) => {
-  //         console.log(error.message);
-  //       });
-  //   }
-  // }
-
   useEffect(() => {
+    dispatch(checkAuth());
     if (authorized) {
       dispatch(fetchMovies());
       dispatch(fetchSavedMovies());
       dispatch(fetchUserData());
+      handleNavigation();
     }
   }, [authorized, dispatch]);
 
@@ -104,6 +76,19 @@ function App() {
     }
   }, [dispatch]);
 
+  function handleNavigation() {
+    console.log(location.pathname);
+    if (location.pathname !== '/signin' && location.pathname !== '/signup') {
+      console.log('куда попросили');
+      navigate(location.pathname, { replace: true });
+    } else {
+      console.log('на главную');
+      navigate('/', { replace: true });
+    }
+  }
+
+  console.log(authorized);
+
   return (
     <>
       {location.pathname === '/' ||
@@ -125,10 +110,7 @@ function App() {
           <Route
             path='/saved-movies'
             element={
-              <ProtectedRoute
-                element={<SavedMovies currentLocation={location.pathname} />}
-                loggedIn={authorized}
-              />
+              <ProtectedRoute element={<SavedMovies currentLocation={location.pathname} />} />
             }
           />
           <Route

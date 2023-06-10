@@ -23,6 +23,7 @@ function checkServerResponse(response) {
     return response.json();
   } else {
     return response.json().then((error) => {
+      console.log(error);
       throw new Error(error.message || `${response.status} ${response.statusText}`);
     });
   }

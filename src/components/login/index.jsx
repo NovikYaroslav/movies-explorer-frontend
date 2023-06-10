@@ -1,15 +1,24 @@
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import Form from '../form';
 import Input from '../input';
 import logo from '../../images/logo.svg';
 import { authorizate } from '../../store/api-actions';
+import { authorizationSelector } from '../../store/reducers/authorization';
 import useFormWithValidation from '../../utils/formValidator';
 
 export default function Login({ serverError }) {
   const dispatch = useDispatch();
   const formValidator = useFormWithValidation();
   const navigate = useNavigate();
+  const authorized = useSelector(authorizationSelector);
+
+  useEffect(() => {
+    if (authorized) {
+      navigate('/movies', { replace: true });
+    }
+  }, [authorized, navigate]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -18,9 +27,7 @@ export default function Login({ serverError }) {
         email: formValidator.values['Email'],
         password: formValidator.values['Password'],
       }),
-    ).then(() => {
-      navigate('/movies', { replace: true });
-    });
+    );
     formValidator.resetForm();
   }
 

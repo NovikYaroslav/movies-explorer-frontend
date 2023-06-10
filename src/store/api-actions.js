@@ -48,7 +48,9 @@ export const authorizate = createAsyncThunk('POST /signin', async ({ email, pass
     const response = await authorize(email, password);
     return response;
   } catch (error) {
-    throw Error('Failed to regitrate');
+    console.log(error);
+    // throw Error('Failed to authorizate');
+    return Promise.reject('Failed to authorizate');
   }
 });
 

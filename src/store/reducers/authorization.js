@@ -2,7 +2,7 @@ import { createSlice, createDraftSafeSelector } from '@reduxjs/toolkit';
 import { authorizate, checkAuth, fetchUserData, postUserData, registrate } from '../api-actions';
 
 const initialAuthorizationStateState = {
-  authorized: false,
+  authorized: undefined,
   userData: undefined,
 };
 
@@ -23,6 +23,9 @@ export const authorizationSlice = createSlice({
       .addCase(checkAuth.fulfilled, (state, action) => {
         state.authorized = true;
         state.userData = action.payload;
+      })
+      .addCase(checkAuth.rejected, (state) => {
+        state.authorized = false;
       })
       .addCase(postUserData.fulfilled, (state, action) => {
         state.userData = action.payload;

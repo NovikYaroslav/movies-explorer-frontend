@@ -69,6 +69,10 @@ function Movies({ currentLocation }) {
     }
   }
 
+  if (!loaded) {
+    return <Preloader />;
+  }
+
   return (
     <section className='movies'>
       <SearchForm currentLocation={currentLocation} />
@@ -78,7 +82,7 @@ function Movies({ currentLocation }) {
           currentLocation={currentLocation}
         />
       ) : null}
-      {loaded ? null : <Preloader />}
+
       {resultMessage && <h1 className='movies__message'>{resultMessage}</h1>}
       {moviesToShow.length > moviesCount && (
         <div className='more'>

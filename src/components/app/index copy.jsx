@@ -44,15 +44,14 @@ function App() {
 
   useEffect(() => {
     dispatch(checkAuth());
+    handleNavigation();
   }, []);
 
   useEffect(() => {
-    dispatch(checkAuth());
     if (authorized) {
       dispatch(fetchMovies());
       dispatch(fetchSavedMovies());
       dispatch(fetchUserData());
-      handleNavigation();
     }
   }, [authorized, dispatch]);
 
@@ -77,17 +76,12 @@ function App() {
   }, [dispatch]);
 
   function handleNavigation() {
-    console.log(location.pathname);
     if (location.pathname !== '/signin' && location.pathname !== '/signup') {
-      console.log('куда попросили');
       navigate(location.pathname, { replace: true });
     } else {
-      console.log('на главную');
       navigate('/', { replace: true });
     }
   }
-
-  console.log(authorized);
 
   return (
     <>

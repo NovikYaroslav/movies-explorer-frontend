@@ -9,7 +9,7 @@ const moviesInitialState = {
     short: false,
   },
   searchSuccses: false,
-  loading: false,
+  loaded: false,
 };
 
 export const MoviesSlice = createSlice({
@@ -18,6 +18,7 @@ export const MoviesSlice = createSlice({
   reducers: {
     clearMoviesInitialState: (state) => {
       state.initialMovies = [];
+      state.loaded = false;
     },
     clearInitialMoviesSearchParams: (state) => {
       state.initialMoviesSearchParams = {
@@ -48,7 +49,7 @@ export const MoviesSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchMovies.fulfilled, (state, action) => {
       state.initialMovies = action.payload;
-      state.loading = true;
+      state.loaded = true;
     });
   },
 });
@@ -56,7 +57,7 @@ export const MoviesSlice = createSlice({
 const selectMovies = (state) => state.movies.initialMovies;
 const selectInitialMoviesSearchParams = (state) => state.movies.initialMoviesSearchParams;
 const selectSearchSuccses = (state) => state.movies.searchSuccses;
-const selectLoading = (state) => state.movies.loading;
+const selectLoaded = (state) => state.movies.loaded;
 
 const moviesSelector = createDraftSafeSelector(selectMovies, (initialMovies) => initialMovies);
 
@@ -72,7 +73,6 @@ const filtredInitialMoviesSelector = createDraftSafeSelector(
     if (initialMoviesSearchParams.params === '' && initialMoviesSearchParams.short === false) {
       return [];
     }
-    console.log('использую функцию фильрации');
     return filterMovies(
       initialMovies,
       initialMoviesSearchParams.params,
@@ -86,7 +86,7 @@ const searchSuccsesSelector = createDraftSafeSelector(
   (searchSuccses) => searchSuccses,
 );
 
-const loadingSelector = createDraftSafeSelector(selectLoading, (loading) => loading);
+const loadingSelector = createDraftSafeSelector(selectLoaded, (loaded) => loaded);
 
 export {
   moviesSelector,

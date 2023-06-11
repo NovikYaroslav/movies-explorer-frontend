@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import './index.css';
 import MoviesCardList from '../movies/movies-card-list';
 import SearchForm from '../movies/search-form';
 import {
@@ -14,7 +15,7 @@ function SavedMovies({ currentLocation }) {
 
   useEffect(() => {
     if (savedMovies.length === 0) {
-      setResultMessage('No movies found');
+      setResultMessage('No saved movies found');
     } else {
       setResultMessage('');
     }

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Form from '../form';
@@ -6,14 +6,31 @@ import Input from '../input';
 import useFormWithValidation from '../../utils/formValidator';
 import logo from '../../images/logo.svg';
 import { registrateAndAuthorize } from '../../store/api-actions';
-import { authorizationSelector } from '../../store/reducers/authorization';
+import {
+  authorizationSelector,
+  waitingSeletor,
+  clearMessageState,
+  setMessageState,
+  setWaitingState,
+} from '../../store/reducers/authorization';
 
-export default function Register({ serverError }) {
+export default function Register() {
   const dispatch = useDispatch();
   const formValidator = useFormWithValidation();
   const navigate = useNavigate();
-  const [message, setMessage] = useState(serverError);
   const authorized = useSelector(authorizationSelector);
+  const waitingForResponse = useSelector(waitingSeletor);
+
+  useEffect(() => {
+    formValidator.resetForm();
+    return () => {
+      formValidator.resetForm();
+    };
+  }, []);
+
+  useEffect(() => {
+    dispatch(clearMessageState());
+  }, [dispatch]);
 
   useEffect(() => {
     if (authorized) {
@@ -23,8 +40,9 @@ export default function Register({ serverError }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    dispatch(setWaitingState());
     if (!formValidator.isValid) {
-      setMessage('Please enter valid data!');
+      dispatch(setMessageState('Please, enter valid data!'));
       return;
     }
     dispatch(
@@ -34,7 +52,6 @@ export default function Register({ serverError }) {
         password: formValidator.values['Password'],
       }),
     );
-    formValidator.resetForm();
   }
 
   return (
@@ -50,7 +67,7 @@ export default function Register({ serverError }) {
           isValid={formValidator.isValid}
           buttonText='Register'
           registration={true}
-          message={message}>
+          disabled={waitingForResponse}>
           <Input
             minLength={'2'}
             maxLength={'50'}

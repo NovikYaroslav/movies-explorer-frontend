@@ -27,7 +27,6 @@ function Movies({ currentLocation }) {
   const initialMovies = useSelector(moviesSelector);
   const searchSuccses = useSelector(searchSuccsesSelector);
   const loaded = useSelector(loadingSelector);
-  console.log(loaded);
 
   useEffect(() => {
     const handleResize = () => {

@@ -13,12 +13,11 @@ import {
 import { getJwt } from '../utils/localStorageHandler';
 
 export const fetchMovies = createAsyncThunk('GET beatfilm-movies/', async () => {
-  console.log('getMovies()');
   try {
     const response = await getMovies();
     return response;
   } catch (error) {
-    throw Error('Failed to fetch movies');
+    return Promise.reject(error.message || 'Failed to fetch movies');
   }
 });
 
@@ -28,29 +27,25 @@ export const checkAuth = createAsyncThunk('GET /users/me with token', async () =
     const response = await checkToken(jwt);
     return response;
   } catch (error) {
-    throw Error('Failed to login');
+    return Promise.reject(error.message || 'Failed to login');
   }
 });
 
 export const registrate = createAsyncThunk('POST /signup', async ({ name, email, password }) => {
-  console.log('register(name, email, password');
   try {
     const response = await register(name, email, password);
     return response;
   } catch (error) {
-    throw Error('Failed to regitrate');
+    return Promise.reject(error.message || 'Failed to registrate');
   }
 });
 
 export const authorizate = createAsyncThunk('POST /signin', async ({ email, password }) => {
-  console.log('authorize(email, password)');
   try {
     const response = await authorize(email, password);
     return response;
   } catch (error) {
-    console.log(error);
-    // throw Error('Failed to authorizate');
-    return Promise.reject('Failed to authorizate');
+    return Promise.reject(error.message || 'Failed to authorize');
   }
 });
 
@@ -63,27 +58,25 @@ export const registrateAndAuthorize =
         dispatch(authorizate({ email, password }));
       }
     } catch (error) {
-      throw Error('Failed to register and authorize');
+      return Promise.reject(error.message || 'Failed to registrate');
     }
   };
 
 export const fetchUserData = createAsyncThunk('GET /users/me', async () => {
-  console.log('getUserInfoFromServer()');
   try {
     const response = await getUserInfoFromServer();
     return response;
   } catch (error) {
-    throw Error('Failed to regitrate');
+    return Promise.reject(error.message || 'Failed to fetch User Data');
   }
 });
 
 export const fetchSavedMovies = createAsyncThunk('GET /movies', async () => {
-  console.log('getSavedMovies()');
   try {
     const response = await getSavedMovies();
     return response;
   } catch (error) {
-    throw Error('Failed to fetch savedMovies');
+    return Promise.reject(error.message || 'Failed to fetch saved movies');
   }
 });
 
@@ -92,16 +85,16 @@ export const removeSavedMovie = createAsyncThunk('DELETE /movies/_id', async (_i
     const response = await deleteMovie(_id);
     return response;
   } catch (error) {
-    throw Error('Failed to fetch savedMovies');
+    return Promise.reject(error.message || 'Failed to delete movie');
   }
 });
 
-export const postUserData = createAsyncThunk('POST /users/me', async (updatedUserData) => {
+export const postUserData = createAsyncThunk('PATCH /users/me', async (updatedUserData) => {
   try {
     const { data } = await editUserData(updatedUserData);
     return data;
   } catch (error) {
-    throw Error('Failed to regitrate');
+    return Promise.reject(error.message || 'Failed to update user data');
   }
 });
 
@@ -110,7 +103,7 @@ export const postSavedMovie = createAsyncThunk('POST /movies', async (newMovie) 
     const response = await addMovie(newMovie);
     return response;
   } catch (error) {
-    throw Error('Failed to regitrate');
+    return Promise.reject(error.message || 'Failed to post movie');
   }
 });
 
@@ -119,6 +112,6 @@ export const deleteSavedMovie = createAsyncThunk('DELETE /movies/_id', async (_i
     await deleteMovie(_id);
     return _id;
   } catch (error) {
-    throw Error('Failed to regitrate');
+    return Promise.reject(error.message || 'Failed to delete movie');
   }
 });

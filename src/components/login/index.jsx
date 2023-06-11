@@ -5,14 +5,31 @@ import Form from '../form';
 import Input from '../input';
 import logo from '../../images/logo.svg';
 import { authorizate } from '../../store/api-actions';
-import { authorizationSelector } from '../../store/reducers/authorization';
+import {
+  authorizationSelector,
+  clearMessageState,
+  setWaitingState,
+  waitingSeletor,
+} from '../../store/reducers/authorization';
 import useFormWithValidation from '../../utils/formValidator';
 
-export default function Login({ serverError }) {
+export default function Login() {
   const dispatch = useDispatch();
   const formValidator = useFormWithValidation();
   const navigate = useNavigate();
   const authorized = useSelector(authorizationSelector);
+  const waitingForResponse = useSelector(waitingSeletor);
+
+  useEffect(() => {
+    formValidator.resetForm();
+    return () => {
+      formValidator.resetForm();
+    };
+  }, []);
+
+  useEffect(() => {
+    dispatch(clearMessageState());
+  }, [dispatch]);
 
   useEffect(() => {
     if (authorized) {
@@ -22,13 +39,13 @@ export default function Login({ serverError }) {
 
   function handleSubmit(e) {
     e.preventDefault();
+    dispatch(setWaitingState());
     dispatch(
       authorizate({
         email: formValidator.values['Email'],
         password: formValidator.values['Password'],
       }),
     );
-    formValidator.resetForm();
   }
 
   return (
@@ -44,7 +61,7 @@ export default function Login({ serverError }) {
           isValid={formValidator.isValid}
           buttonText='Login'
           registration={false}
-          message={serverError}>
+          disabled={waitingForResponse}>
           <Input
             minLength={'2'}
             maxLength={'50'}

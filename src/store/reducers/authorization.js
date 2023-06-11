@@ -4,6 +4,8 @@ import { authorizate, checkAuth, fetchUserData, postUserData, registrate } from 
 const initialAuthorizationStateState = {
   authorized: undefined,
   userData: undefined,
+  message: undefined,
+  waiting: false,
 };
 
 export const authorizationSlice = createSlice({
@@ -13,6 +15,18 @@ export const authorizationSlice = createSlice({
     clearAuthorizationState: (state) => {
       state.authorized = false;
       state.userData = undefined;
+    },
+    clearMessageState: (state) => {
+      state.message = undefined;
+    },
+    clearWaitingState: (state) => {
+      state.waiting = false;
+    },
+    setMessageState: (state, action) => {
+      state.message = action.payload;
+    },
+    setWaitingState: (state) => {
+      state.waiting = true;
     },
   },
   extraReducers: (builder) => {
@@ -28,19 +42,35 @@ export const authorizationSlice = createSlice({
         state.authorized = false;
       })
       .addCase(postUserData.fulfilled, (state, action) => {
+        state.message = 'Your data succsesfully updated!';
         state.userData = action.payload;
+      })
+      .addCase(postUserData.rejected, (state, action) => {
+        state.message = action.error.message;
       })
       .addCase(registrate.fulfilled, (state, action) => {
+        state.waiting = false;
         state.userData = action.payload;
       })
+      .addCase(registrate.rejected, (state, action) => {
+        state.waiting = false;
+        state.message = action.error.message;
+      })
       .addCase(authorizate.fulfilled, (state) => {
+        state.waiting = false;
         state.authorized = true;
+      })
+      .addCase(authorizate.rejected, (state, action) => {
+        state.waiting = false;
+        state.message = action.error.message;
       });
   },
 });
 
 const selectAuthorization = (state) => state.authorization.authorized;
 const selectUserData = (state) => state.authorization.userData;
+const selectMessage = (state) => state.authorization.message;
+const selectWaiting = (state) => state.authorization.waiting;
 
 const authorizationSelector = createDraftSafeSelector(
   selectAuthorization,
@@ -49,5 +79,10 @@ const authorizationSelector = createDraftSafeSelector(
 
 const userDataSelector = createDraftSafeSelector(selectUserData, (userData) => userData);
 
-export { authorizationSelector, userDataSelector };
-export const { clearAuthorizationState } = authorizationSlice.actions;
+const authorizationMessageSelector = createDraftSafeSelector(selectMessage, (message) => message);
+
+const waitingSeletor = createDraftSafeSelector(selectWaiting, (waiting) => waiting);
+
+export { authorizationSelector, userDataSelector, authorizationMessageSelector, waitingSeletor };
+export const { clearAuthorizationState, clearMessageState, setMessageState, setWaitingState } =
+  authorizationSlice.actions;

@@ -12,7 +12,7 @@ function Portfolio() {
             href='https://novikyaroslav.github.io/how-to-learn/'
             target='_blank'
             rel='noreferrer'>
-            Statical site
+            Static site
             <img className='portfolio__link-arrow' src={arrow} alt='' />
           </a>
         </li>

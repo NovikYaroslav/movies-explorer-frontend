@@ -1,25 +1,21 @@
-@import url(./elements/movies__more.css);
-@import url(./elements/movies__more-button.css);
-@import url(./elements/movies__message.css);
-
-.movies {
+.saved-movies {
   min-height: 80vh;
 }
 
 @media (max-height: 1145px) {
-  .movies {
+  .saved-movies {
     min-height: 70vh;
   }
 }
 
 @media (max-height: 775px) {
-  .movies {
+  .saved-movies {
     min-height: 60vh;
   }
 }
 
 @media (max-height: 585px) {
-  .movies {
+  .saved-movies {
     min-height: 50vh;
   }
 }

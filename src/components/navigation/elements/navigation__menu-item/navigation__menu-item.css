@@ -28,6 +28,37 @@
   column-gap: 17px;
 }
 
+/* fast solution, not to change flexbox layout */
+@media (max-height: 910px) {
+  .navigation__menu-item:last-child {
+    margin-top: 450px;
+  }
+}
+
+@media (max-height: 800px) {
+  .navigation__menu-item:last-child {
+    margin-top: 350px;
+  }
+}
+
+@media (max-height: 700px) {
+  .navigation__menu-item:last-child {
+    margin-top: 250px;
+  }
+}
+
+@media (max-height: 550px) {
+  .navigation__menu-item:last-child {
+    margin-top: 150px;
+  }
+}
+
+@media (max-height: 450px) {
+  .navigation__menu-item:last-child {
+    margin-top: 50px;
+  }
+}
+
 @media (max-width: 400px) {
   .navigation__menu-item:last-child {
     font-size: 14px;

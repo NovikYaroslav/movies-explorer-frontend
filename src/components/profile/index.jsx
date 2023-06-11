@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import './index.css';
@@ -6,7 +6,9 @@ import useFormWithValidation from '../../utils/formValidator';
 import {
   userDataSelector,
   authorizationSelector,
+  authorizationMessageSelector,
   clearAuthorizationState,
+  clearMessageState,
 } from '../../store/reducers/authorization';
 import {
   clearMoviesInitialState,
@@ -22,12 +24,18 @@ import { postUserData } from '../../store/api-actions';
 import { localStorageCleaner } from '../../utils/localStorageHandler';
 import { removeJwt } from '../../utils/localStorageHandler';
 
-function Profile({ message }) {
+function Profile() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userData = useSelector(userDataSelector);
   const authorized = useSelector(authorizationSelector);
   const formValidator = useFormWithValidation();
+  const message = useSelector(authorizationMessageSelector);
+  console.log(message);
+
+  useEffect(() => {
+    dispatch(clearMessageState());
+  }, []);
 
   function checkDataIsSame() {
     const sameName = formValidator.values['Name'] === userData.name;
@@ -60,7 +68,6 @@ function Profile({ message }) {
       dispatch(clearSavedMoviesSearchParams());
       dispatch(clearSearchSuccsesInitialState());
       dispatch(clearSavedSearchSuccsesInitialState());
-
       navigate('/', { replace: true });
     }
   }
@@ -72,7 +79,13 @@ function Profile({ message }) {
   return (
     <div className='profile'>
       <h1 className='profile__title'>{`Hi, ${userData.name}!`}</h1>
-      <h2 className='profile__message'>{message}</h2>
+      {message === 'Your data succsesfully updated!' ? (
+        <h2 className='profile__message'>{message}</h2>
+      ) : (
+        <h2 className='profile__message' style={{ color: 'red' }}>
+          {message}
+        </h2>
+      )}
       <form className='profile__data-container' name='profile' onSubmit={handleSubmit} noValidate>
         <div className='profile__data'>
           <p className='profile__data-text'>Name</p>

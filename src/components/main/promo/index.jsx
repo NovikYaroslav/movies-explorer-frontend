@@ -15,7 +15,7 @@ function Promo() {
         </div>
         <img className='promo__logo' src={landingLogo} alt='Логотип' />
       </div>
-      <a href='#about-project'>
+      <a className='promo__link' href='#about-project'>
         <button className='promo__button'>To learn more</button>
       </a>
     </div>

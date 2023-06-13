@@ -9,7 +9,7 @@ function AboutMe() {
       <div className='about-me__main'>
         <div className='about-me__text-block'>
           <h2 className='about-me__text-title'>Yaroslav</h2>
-          <h3 className='about-me__text-subtitle'>Fronted-developer, 33 years old</h3>
+          <h3 className='about-me__text-subtitle'>Frontend-developer, 33 years old</h3>
           <p className='about-me__text'>
             I was born in St-Peterburg, Russia, graduated from the Russian customs academy. Worked
             in many international companies.My last position was as a manager at Electrolux. For the

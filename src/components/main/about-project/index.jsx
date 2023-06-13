@@ -26,6 +26,23 @@ function AboutProject() {
         <li className='about-project__schedule-element'>Back-end</li>
         <li className='about-project__schedule-element'>Front-end</li>
       </div>
+      <div className='about-project__text-block'>
+        <div>
+          <h3 className='about-project__text-title'>What is the functionality?</h3>
+          <p className='about-project__text'>
+            You can register and you will have the opportunity to get acquainted with the database
+            of BeatFilm. By clicking on a movie preview, you can watch its trailer, save your
+            favorite movie or delete them if you change your mind. You can also edit your profile.
+          </p>
+        </div>
+        <div>
+          <h3 className='about-project__text-title'>Why like this?</h3>
+          <p className='about-project__text'>
+            Functionality is determined by the requirements of the Yandex Practicum technical task.
+            I allowed myself to make only a few UI changes that seemed critical to me.
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

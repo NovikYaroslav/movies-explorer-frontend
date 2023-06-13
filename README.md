@@ -1,3 +1,5 @@
+Location: https://movies.novik.nomoredo.nomoredomains.monster
+
 # "Movies explorer. Yandex Practicum Diploma"
 
 Repository for applications of the `Movies explorer` project, includes the front-end part of application.

@@ -19,7 +19,15 @@ function Techs() {
         <li className='techs__list-element'>Git</li>
         <li className='techs__list-element'>Express.js</li>
         <li className='techs__list-element'>mongoDB</li>
+        <li className='techs__list-element' style={{ color: '#3cdc84' }}>
+          Redux(RTK)
+        </li>
       </ul>
+      <div className='techs__text-block'>
+        <p className='techs__text' style={{ color: '#3cdc84' }}>
+          * Additionally implemented, after graduated
+        </p>
+      </div>
     </div>
   );
 }

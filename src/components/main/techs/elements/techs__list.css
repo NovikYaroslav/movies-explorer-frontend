@@ -14,7 +14,7 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 770px) {
   .techs__list {
     display: grid;
     grid-template-columns: 86px 86px 86px 86px;

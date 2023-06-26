@@ -2,6 +2,7 @@ import { saveJwt, getJwt } from './localStorageHandler';
 
 const BASE_URL = 'https://api.movies.novik.nomoredomains.monster';
 // URL for local testing 'http://localhost:3001'
+// Main API on 62.84.125.69
 
 function prepareHeaders() {
   const jwt = getJwt();

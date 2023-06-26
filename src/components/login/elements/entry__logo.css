@@ -1,0 +1,8 @@
+.entry__logo {
+  height: 38px;
+  width: 38px;
+}
+
+.entry__logo:hover {
+  opacity: 0.5;
+}

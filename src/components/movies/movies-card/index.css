@@ -1,0 +1,16 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background: #222222;
+  box-shadow: 0px 4px 30px rgba(0, 0, 0, 0.08);
+}
+
+@import url(./elements/card__header.css);
+@import url(./elements/card__header-text.css);
+@import url(./elements/card__title.css);
+@import url(./elements/card__duration.css);
+@import url(./elements/card__preview.css);
+@import url(./elements/card__button/card__button.css);
+@import url(./elements/card__button/card__button_active.css);
+@import url(./elements/card__button/card__button_delete.css);
+@import url(./elements/card__link.css);

@@ -1,0 +1,28 @@
+.entry {
+  margin: 0;
+  padding-top: 70px;
+  padding-bottom: 70px;
+  display: flex;
+  justify-content: center;
+  background-color: #202020;
+}
+
+@media (max-width: 800px) {
+  .entry {
+    padding-top: 232px;
+    padding-bottom: 232px;
+  }
+}
+
+@media (max-width: 500px) {
+  .entry {
+    padding-top: 56px;
+    padding-bottom: 30px;
+  }
+}
+
+@import url(./elements/entry__title.css);
+@import url(./elements/entry__container.css);
+@import url(./elements/entry__login-button.css);
+@import url(./elements/entry__question.css);
+@import url(./elements/entry__logo.css);

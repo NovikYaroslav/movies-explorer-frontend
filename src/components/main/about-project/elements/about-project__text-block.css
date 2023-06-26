@@ -1,0 +1,18 @@
+.about-project__text-block {
+  display: flex;
+  padding-top: 70px;
+  color: #ffffff;
+  column-gap: 40px;
+}
+
+.about-project__text-block:nth-child(3) .about-project__text,
+.about-project__text-block:nth-child(4) .about-project__text {
+  padding-bottom: 0;
+}
+
+@media (max-width: 450px) {
+  .about-project__text-block {
+    padding-top: 60px;
+    flex-direction: column;
+  }
+}

@@ -1,0 +1,10 @@
+.search__slider {
+  display: flex;
+  column-gap: 12px;
+}
+
+@media (max-width: 400px) {
+  .search__slider {
+    padding-top: 13px;
+  }
+}

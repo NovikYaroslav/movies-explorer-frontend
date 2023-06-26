@@ -1,0 +1,29 @@
+.search {
+  margin: 0;
+  padding: 70px 70px 49px 70px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+@media (max-width: 800px) {
+  .search {
+    padding: 86px 30px 62px 30px;
+  }
+}
+
+@media (max-width: 400px) {
+  .search {
+    padding: 92px 14px 51px 14px;
+  }
+}
+
+@import url(./elements/search__form.css);
+@import url(./elements/search__form-image.css);
+@import url(./elements/search__form-input.css);
+@import url(./elements/search__form-button.css);
+@import url(./elements/search__slider.css);
+@import url(./elements/search__slider-title.css);
+@import url(./elements/search__slider-button/search__slider-button.css);
+@import url(./elements/search__slider-button/search__slider-button_active.css);
+@import url(./elements/search__form-error.css);

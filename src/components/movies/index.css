@@ -1,0 +1,25 @@
+@import url(./elements/movies__more.css);
+@import url(./elements/movies__more-button.css);
+@import url(./elements/movies__message.css);
+
+.movies {
+  min-height: 80vh;
+}
+
+@media (max-height: 1145px) {
+  .movies {
+    min-height: 70vh;
+  }
+}
+
+@media (max-height: 775px) {
+  .movies {
+    min-height: 60vh;
+  }
+}
+
+@media (max-height: 585px) {
+  .movies {
+    min-height: 50vh;
+  }
+}

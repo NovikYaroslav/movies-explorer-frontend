@@ -1,0 +1,69 @@
+.navigation__menu-item {
+  padding: 0 0 4px 0;
+  margin: 0 auto 26px auto;
+  background: none;
+  border: none;
+  font-family: 'Inter', 'Arial', sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #ffffff;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.navigation__menu-item:hover {
+  opacity: 0.5;
+}
+
+.navigation__menu-item:last-child {
+  font-size: 14px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 612px 0 0 0;
+  column-gap: 17px;
+}
+
+/* fast solution, not to change flexbox layout */
+@media (max-height: 910px) {
+  .navigation__menu-item:last-child {
+    margin-top: 450px;
+  }
+}
+
+@media (max-height: 800px) {
+  .navigation__menu-item:last-child {
+    margin-top: 350px;
+  }
+}
+
+@media (max-height: 700px) {
+  .navigation__menu-item:last-child {
+    margin-top: 250px;
+  }
+}
+
+@media (max-height: 550px) {
+  .navigation__menu-item:last-child {
+    margin-top: 150px;
+  }
+}
+
+@media (max-height: 450px) {
+  .navigation__menu-item:last-child {
+    margin-top: 50px;
+  }
+}
+
+@media (max-width: 400px) {
+  .navigation__menu-item:last-child {
+    font-size: 14px;
+    line-height: 16px;
+    margin: 444px 0 0 0;
+    column-gap: 17px;
+  }
+}

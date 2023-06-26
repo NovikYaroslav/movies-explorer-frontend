@@ -1,0 +1,19 @@
+.forms {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  border: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+@media screen and (max-width: 600px) {
+  .popup__form {
+    width: 238px;
+  }
+}
+
+@import url(./elements/forms__save_entry.css);
+@import url(./elements/forms__save_entry_status_inactive.css);
+@import url(./elements/forms__save_entry_location_registration.css);
+@import url(./elements/form__message.css);

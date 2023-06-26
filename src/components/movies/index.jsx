@@ -43,6 +43,8 @@ function Movies({ currentLocation }) {
       );
     } else if (searchSuccses && moviesToShow.length === 0) {
       setResultMessage('Nothing found');
+    } else if (searchSuccses && moviesToShow.length !== 0) {
+      setResultMessage('');
     } else {
       setResultMessage(
         'Just enter a letter or word in the search box to find a movie from the BeatFilm database.',

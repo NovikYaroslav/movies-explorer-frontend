@@ -1,4 +1,4 @@
-import me from '../../../images/me.jpg';
+import me from '../../../images/student.jpg';
 import Portfolio from '../portfolio';
 import './index.css';
 
